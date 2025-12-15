@@ -1,0 +1,19 @@
+[tasks.typecheck]
+description = "Type-check jiri.ts"
+run = [
+  "bun x oxlint jiri.ts",
+  "bun x tsc -p tsconfig.json"
+]
+
+[tasks.build-bundle]
+description = "Bundle CLI to dist/jiri.js for bun runtime"
+run = [
+  "mkdir -p dist",
+  "bun build jiri.ts --target bun --outfile dist/jiri.js"
+]
+
+[tasks.build-native]
+description = "Compile CLI to native binary"
+run = [
+  "bun build jiri.ts --compile --outfile dist/jiri"
+]
