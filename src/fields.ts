@@ -17,7 +17,7 @@ export function suggestFields(input: string, lookup: FieldLookup, limit = 3, max
 }
 
 export function formatFieldValues(issue: any, field: string): string {
-  if (field === "key") return issue.key ?? "";
+  if (field === "key" || field === "issuekey") return issue.key ?? "";
   const val = issue.fields?.[field];
   if (val == null) return "";
   if (typeof val === "string" || typeof val === "number" || typeof val === "boolean")
@@ -26,6 +26,16 @@ export function formatFieldValues(issue: any, field: string): string {
   if (val.name) return val.name;
   if (val.value) return val.value;
   return JSON.stringify(val);
+}
+
+export function sortFieldsForDisplay(fieldIds: string[], lookup: FieldLookup): string[] {
+  const friendly = (id: string) => lookup.idToName[id] ?? id;
+  const isCustom = (id: string) => id.startsWith("customfield_");
+  return [...fieldIds].sort((a, b) => {
+    const customDiff = Number(isCustom(a)) - Number(isCustom(b));
+    if (customDiff !== 0) return customDiff; // system first, then custom
+    return friendly(a).localeCompare(friendly(b), undefined, { sensitivity: "base" });
+  });
 }
 
 function levenshtein(a: string, b: string): number {

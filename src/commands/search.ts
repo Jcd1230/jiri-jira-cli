@@ -1,6 +1,6 @@
 import { jira, FieldLookup } from "../jira";
 import { TablePrinter } from "../formatter";
-import { suggestFields, formatFieldValues } from "../fields";
+import { suggestFields, formatFieldValues, sortFieldsForDisplay } from "../fields";
 import { CommandNode } from "../types";
 import { color } from "../colors";
 declare const process: any;
@@ -32,7 +32,7 @@ export function search(_: any, printer: TablePrinter): CommandNode {
 
       if (opts["get-fields"]) {
         const fieldNames = issues.length ? Object.keys(issues[0].fields ?? {}) : [];
-        const rows = fieldNames.map((f) => {
+        const rows = sortFieldsForDisplay(fieldNames, lookup).map((f) => {
           const friendly = lookup.idToName[f];
           return friendly ? `"${friendly}" (${f})` : f;
         });
