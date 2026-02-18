@@ -33,9 +33,29 @@ class JiraClient {
     return this.request("/rest/api/3/project/search");
   }
 
-  search(jql: string, fields: string[]) {
-    const body = JSON.stringify({ jql, fields, maxResults: 50 });
+  search(jql: string, fields: string[], maxResults = 100, nextPageToken?: string) {
+    const body = JSON.stringify({ jql, fields, maxResults, nextPageToken });
     return this.request("/rest/api/3/search/jql", { method: "POST", body });
+  }
+
+  async searchAll(jql: string, fields: string[], limit = 1000) {
+    const pageSize = 100; // Jira caps pages; cursor-based pagination ignores startAt
+    const clampedLimit = Math.max(1, limit);
+    let token: string | undefined;
+    const issues: any[] = [];
+    let moreAvailable = false;
+
+    while (issues.length < clampedLimit) {
+      const remaining = clampedLimit - issues.length;
+      const page = await this.search(jql, fields, Math.min(pageSize, remaining), token);
+      const pageIssues = page.issues ?? [];
+      issues.push(...pageIssues);
+      token = page.nextPageToken;
+      moreAvailable = Boolean(token);
+      if (!token || pageIssues.length === 0) break;
+    }
+
+    return { issues, moreAvailable };
   }
 
   async fieldLookup(): Promise<FieldLookup> {

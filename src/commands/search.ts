@@ -13,6 +13,7 @@ export function search(_: any, printer: TablePrinter): CommandNode {
     flags: [
       { flag: "--fields|-f", description: "Comma-separated fields to display (default: key,summary)." },
       { flag: "--get-fields", description: "Show available fields on the first returned issue." },
+      { flag: "--limit", description: "Maximum number of issues to fetch (default: 1000)." },
     ],
     run: async (args, opts) => {
       printer.setDefaults(opts);
@@ -27,7 +28,13 @@ export function search(_: any, printer: TablePrinter): CommandNode {
       }
       const lookup = await jira.fieldLookup();
       const resolved = resolveFields(fields, lookup);
-      const data = await jira.search(jql, opts["get-fields"] ? ["*all"] : resolved.queryFields);
+      const rawLimit = opts.limit;
+      const parsedLimit =
+        rawLimit === undefined || rawLimit === true ? 1000 : Number.isFinite(Number(rawLimit)) ? Number(rawLimit) : 1000;
+      const limit = parsedLimit;
+      const data = opts["get-fields"]
+        ? await jira.search(jql, ["*all"])
+        : await jira.searchAll(jql, resolved.queryFields, limit);
       const issues = data.issues ?? [];
 
       if (opts["get-fields"]) {
@@ -47,6 +54,14 @@ export function search(_: any, printer: TablePrinter): CommandNode {
         rows.push(row);
       }
       console.log(printer.render(rows));
+
+      if (!opts["get-fields"] && data.moreAvailable && issues.length >= Math.max(1, limit)) {
+        console.log(
+          color.yellow(
+            `Warning: displayed ${issues.length} issues (limit ${Math.max(1, limit)}). More results are available; rerun with a higher --limit to see more.`
+          )
+        );
+      }
     },
   };
 }

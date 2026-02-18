@@ -19,12 +19,30 @@ export function suggestFields(input: string, lookup: FieldLookup, limit = 3, max
 export function formatFieldValues(issue: any, field: string): string {
   if (field === "key" || field === "issuekey") return issue.key ?? "";
   const val = issue.fields?.[field];
+  return normalizeValue(val);
+}
+
+function normalizeValue(val: any): string {
   if (val == null) return "";
-  if (typeof val === "string" || typeof val === "number" || typeof val === "boolean")
-    return String(val);
+  if (typeof val === "string" || typeof val === "number" || typeof val === "boolean") return String(val);
+
+  if (Array.isArray(val)) {
+    const parts = val.map((v) => normalizeValue(v)).filter((v) => v !== "");
+    return parts.join(", ");
+  }
+
+  // Common Jira entity shapes
   if (val.displayName) return val.displayName;
   if (val.name) return val.name;
   if (val.value) return val.value;
+  if (val.title) return val.title;
+  if (val.label) return val.label;
+  if (val.key) return val.key;
+
+  // Nested option (e.g., {child, parent})
+  if (val.child) return normalizeValue(val.child);
+  if (val.parent) return normalizeValue(val.parent);
+
   return JSON.stringify(val);
 }
 
