@@ -114,14 +114,23 @@ fn resolve_fields(requested: &Vec<String>, lookup: &crate::client::FieldLookup) 
 }
 
 fn format_field_value(issue: &Value, key: &str) -> String {
+    let key_lower = key.to_lowercase();
     // Special case for top-level fields like key
-    if key == "key" {
-        return issue["key"].as_str().unwrap_or_default().to_string();
+    if key_lower == "key" || key_lower == "issuekey" {
+        return issue["key"]
+            .as_str()
+            .or_else(|| issue["fields"]["key"].as_str())
+            .unwrap_or_default()
+            .to_string();
     }
 
     let fields = &issue["fields"];
     let val = &fields[key];
 
+    normalize_value(val)
+}
+
+fn normalize_value(val: &Value) -> String {
     if val.is_null() {
         return String::new();
     }
@@ -138,37 +147,41 @@ fn format_field_value(issue: &Value, key: &str) -> String {
         return b.to_string();
     }
 
+    if let Some(arr) = val.as_array() {
+        return arr
+            .iter()
+            .map(|v| normalize_value(v))
+            .filter(|s| !s.is_empty())
+            .collect::<Vec<_>>()
+            .join(", ");
+    }
+
     if let Some(obj) = val.as_object() {
+        if let Some(display_name) = obj.get("displayName").and_then(|v| v.as_str()) {
+            return display_name.to_string();
+        }
         if let Some(name) = obj.get("name").and_then(|v| v.as_str()) {
             return name.to_string();
         }
         if let Some(value) = obj.get("value").and_then(|v| v.as_str()) {
             return value.to_string();
         }
-        if let Some(display_name) = obj.get("displayName").and_then(|v| v.as_str()) {
-            return display_name.to_string();
+        if let Some(title) = obj.get("title").and_then(|v| v.as_str()) {
+            return title.to_string();
         }
-    }
-
-    if let Some(arr) = val.as_array() {
-        return arr
-            .iter()
-            .map(|v| {
-                if let Some(s) = v.as_str() {
-                    s.to_string()
-                } else if let Some(obj) = v.as_object() {
-                    obj.get("name")
-                        .and_then(|v| v.as_str())
-                        .or_else(|| obj.get("value").and_then(|v| v.as_str()))
-                        .unwrap_or_default()
-                        .to_string()
-                } else {
-                    v.to_string()
-                }
-            })
-            .filter(|s| !s.is_empty())
-            .collect::<Vec<_>>()
-            .join(", ");
+        if let Some(label) = obj.get("label").and_then(|v| v.as_str()) {
+            return label.to_string();
+        }
+        if let Some(key) = obj.get("key").and_then(|v| v.as_str()) {
+            return key.to_string();
+        }
+        // Nested option (e.g., {child, parent})
+        if let Some(child) = obj.get("child") {
+            return normalize_value(child);
+        }
+        if let Some(parent) = obj.get("parent") {
+            return normalize_value(parent);
+        }
     }
 
     val.to_string()
