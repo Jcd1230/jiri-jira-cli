@@ -45,7 +45,7 @@ pub async fn run(
     let (issues, more_available) = client.search_all(&jql, resolved.query_fields, limit).await?;
 
     let mut rows = vec![resolved.headers];
-    for issue in issues {
+    for issue in &issues {
         let mut row = Vec::new();
         for key in &resolved.keys {
             let val = format_field_value(&issue, key);
@@ -79,7 +79,7 @@ fn resolve_fields(requested: &Vec<String>, lookup: &crate::client::FieldLookup) 
     let mut keys = Vec::new();
 
     for name in requested {
-        let lower = name.toLowerCase();
+        let lower = name.to_lowercase();
         
         if lookup.id_to_name.contains_key(name) {
             headers.push(lookup.id_to_name.get(name).cloned().unwrap_or_else(|| name.clone()).to_uppercase());
