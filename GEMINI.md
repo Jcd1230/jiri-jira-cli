@@ -59,3 +59,6 @@ The binary is located in `target/release/jiri-jira-cli`.
 - **Field Discovery**: Use `--get-fields` with the search command to see available field IDs for the returned issues, aiding in JQL construction.
 - **Smart Formatting**: Automatically handles complex Jira field types (arrays, objects) to display human-readable values.
 - **TLS**: Uses `rustls` to avoid dependency on system OpenSSL libraries.
+
+## Development Workflow
+This project uses [Jujutsu (jj)](https://github.com/martinvonz/jj) for version control. It is recommended to commit frequently using `jj commit` to track changes granularly.
