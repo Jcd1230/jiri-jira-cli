@@ -1,6 +1,7 @@
 use crate::client::JiraClient;
 use crate::formatter::Formatter;
 
+/// Execute the projects command to list projects.
 pub async fn run(client: &JiraClient, formatter: &Formatter) -> Result<(), String> {
     let data = client.projects().await?;
     let projects = data["values"].as_array().ok_or("No projects found in response")?;

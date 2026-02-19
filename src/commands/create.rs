@@ -1,5 +1,6 @@
 use crate::client::JiraClient;
 
+/// Execute the create command to create a new issue.
 pub async fn run(
     client: &JiraClient,
     project: String,

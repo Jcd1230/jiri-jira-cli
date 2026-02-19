@@ -1,21 +1,28 @@
 use comfy_table::Table;
 
+/// Supported output formats for the CLI.
 pub enum OutputFormat {
+    /// Pretty-printed table with borders.
     Table,
+    /// Comma-separated values.
     CSV,
+    /// Space-padded columns without borders.
     Plain,
 }
 
+/// Helper for rendering data in various formats.
 pub struct Formatter {
     pub format: OutputFormat,
     pub no_header: bool,
 }
 
 impl Formatter {
+    /// Create a new Formatter with the specified format and header preference.
     pub fn new(format: OutputFormat, no_header: bool) -> Self {
         Self { format, no_header }
     }
 
+    /// Render a grid of rows into a formatted string.
     pub fn render(&self, rows: Vec<Vec<String>>) -> String {
         match self.format {
             OutputFormat::Table => self.render_table(rows),
@@ -51,6 +58,7 @@ impl Formatter {
             .map(|row| {
                 row.iter()
                     .map(|cell| {
+                        // Simple CSV quoting logic
                         if cell.contains(',') || cell.contains('"') || cell.contains('\n') {
                             format!("\"{}\"", cell.replace('"', "\"\""))
                         } else {

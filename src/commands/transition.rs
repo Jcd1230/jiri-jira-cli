@@ -1,5 +1,6 @@
 use crate::client::JiraClient;
 
+/// Execute the transition command.
 pub async fn run(client: &JiraClient, key: String, status: Option<String>) -> Result<(), String> {
     match status {
         None => list_transitions(client, &key).await,
@@ -7,6 +8,7 @@ pub async fn run(client: &JiraClient, key: String, status: Option<String>) -> Re
     }
 }
 
+/// List available transitions for an issue.
 async fn list_transitions(client: &JiraClient, key: &str) -> Result<(), String> {
     let data = client.get_transitions(key).await?;
     let transitions = data["transitions"]
@@ -22,6 +24,7 @@ async fn list_transitions(client: &JiraClient, key: &str) -> Result<(), String> 
     Ok(())
 }
 
+/// Perform a transition on an issue.
 async fn do_transition(client: &JiraClient, key: &str, target: &str) -> Result<(), String> {
     let data = client.get_transitions(key).await?;
     let transitions = data["transitions"]

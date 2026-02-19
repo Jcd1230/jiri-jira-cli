@@ -1,3 +1,4 @@
+use crate::adf;
 use crate::config::Config;
 use base64::{engine::general_purpose, Engine as _};
 use reqwest::header::{HeaderMap, HeaderValue, ACCEPT, AUTHORIZATION, CONTENT_TYPE};
@@ -5,19 +6,24 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
 
+/// Client for interacting with the Jira Cloud REST API.
 pub struct JiraClient {
     client: reqwest::Client,
     pub config: Config,
     field_cache: std::sync::Mutex<Option<FieldLookup>>,
 }
 
+/// Metadata lookup table for Jira fields.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FieldLookup {
+    /// Map of Jira internal field ID to human-readable name.
     pub id_to_name: HashMap<String, String>,
+    /// Map of lowercase human-readable name to Jira internal field ID.
     pub name_to_id: HashMap<String, String>,
 }
 
 impl JiraClient {
+    /// Create a new JiraClient with the provided configuration.
     pub fn new(config: Config) -> Self {
         Self {
             client: reqwest::Client::new(),
@@ -30,6 +36,7 @@ impl JiraClient {
         &self.config
     }
 
+    /// Perform a generic authenticated request to the Jira API.
     async fn request(&self, method: reqwest::Method, path: &str, body: Option<Value>) -> Result<Value, String> {
         let url = format!("{}{}", self.config.site, path);
         let mut headers = HeaderMap::new();
@@ -53,17 +60,19 @@ impl JiraClient {
 
         if !response.status().is_success() {
             let status = response.status();
-            let text = response.text().await.unwrap_or_default();
-            return Err(format!("Jira request failed {}: {}", status, text));
+            let text = response.text().await.unwrap_or_else(|_| "Unknown error".to_string());
+            return Err(format!("Jira request failed ({}): {}", status, text));
         }
 
         response.json().await.map_err(|e| e.to_string())
     }
 
+    /// List all projects visible to the user.
     pub async fn projects(&self) -> Result<Value, String> {
         self.request(reqwest::Method::GET, "/rest/api/3/project/search", None).await
     }
 
+    /// Perform a JQL search.
     pub async fn search(&self, jql: &str, fields: Vec<String>, max_results: i64, next_page_token: Option<String>) -> Result<Value, String> {
         let mut body = serde_json::json!({
             "jql": jql,
@@ -78,6 +87,7 @@ impl JiraClient {
         self.request(reqwest::Method::POST, "/rest/api/3/search/jql", Some(body)).await
     }
 
+    /// Search for all issues matching JQL up to a limit, handling pagination automatically.
     pub async fn search_all(&self, jql: &str, fields: Vec<String>, limit: i64) -> Result<(Vec<Value>, bool), String> {
         let page_size = 100;
         let mut issues = Vec::new();
@@ -102,6 +112,7 @@ impl JiraClient {
         Ok((issues, more_available))
     }
 
+    /// Fetch field definitions and build a lookup table. Caches the result.
     pub async fn field_lookup(&self) -> Result<FieldLookup, String> {
         {
             let cache = self.field_cache.lock().unwrap();
@@ -131,16 +142,19 @@ impl JiraClient {
         Ok(lookup)
     }
 
+    /// Get a single issue by key.
     pub async fn get_issue(&self, key: &str) -> Result<Value, String> {
         let path = format!("/rest/api/3/issue/{}", key);
         self.request(reqwest::Method::GET, &path, None).await
     }
 
+    /// List available transitions for an issue.
     pub async fn get_transitions(&self, key: &str) -> Result<Value, String> {
         let path = format!("/rest/api/3/issue/{}/transitions", key);
         self.request(reqwest::Method::GET, &path, None).await
     }
 
+    /// Perform a transition on an issue.
     pub async fn do_transition(&self, key: &str, transition_id: &str) -> Result<Value, String> {
         let path = format!("/rest/api/3/issue/{}/transitions", key);
         let body = serde_json::json!({
@@ -149,24 +163,16 @@ impl JiraClient {
         self.request(reqwest::Method::POST, &path, Some(body)).await
     }
 
+    /// Add a comment to an issue.
     pub async fn add_comment(&self, key: &str, body_text: &str) -> Result<Value, String> {
         let path = format!("/rest/api/3/issue/{}/comment", key);
         let body = serde_json::json!({
-            "body": {
-                "type": "doc",
-                "version": 1,
-                "content": [{
-                    "type": "paragraph",
-                    "content": [{
-                        "type": "text",
-                        "text": body_text
-                    }]
-                }]
-            }
+            "body": adf::from_plain_text(body_text)
         });
         self.request(reqwest::Method::POST, &path, Some(body)).await
     }
 
+    /// Create a new issue in the specified project.
     pub async fn create_issue(
         &self,
         project_key: &str,
@@ -183,17 +189,7 @@ impl JiraClient {
         if let Some(desc) = description {
             fields.as_object_mut().unwrap().insert(
                 "description".to_string(),
-                serde_json::json!({
-                    "type": "doc",
-                    "version": 1,
-                    "content": [{
-                        "type": "paragraph",
-                        "content": [{
-                            "type": "text",
-                            "text": desc
-                        }]
-                    }]
-                }),
+                adf::from_plain_text(desc),
             );
         }
 

@@ -2,6 +2,8 @@ mod client;
 mod config;
 mod formatter;
 mod commands;
+mod adf;
+mod fields;
 
 use clap::{Parser, Subcommand};
 use clap_complete::Shell;
@@ -9,9 +11,10 @@ use client::JiraClient;
 use config::Config;
 use formatter::{Formatter, OutputFormat};
 
+/// Command-line interface for Jiri (Jira CLI).
 #[derive(Parser)]
 #[command(name = "jiri")]
-#[command(about = "Minimal Jira CLI", long_about = None)]
+#[command(about = "Minimal, fast, and modular Jira CLI client", long_about = None)]
 pub struct Cli {
     #[command(subcommand)]
     command: Commands,
@@ -89,6 +92,7 @@ enum Commands {
 }
 
 #[tokio::main]
+/// Entry point for the jiri CLI.
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 

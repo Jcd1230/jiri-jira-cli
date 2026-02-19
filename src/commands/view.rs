@@ -1,6 +1,8 @@
+use crate::adf;
 use crate::client::JiraClient;
 use textwrap::wrap;
 
+/// Execute the view command to show issue details.
 pub async fn run(client: &JiraClient, key: String) -> Result<(), String> {
     let issue = client.get_issue(&key).await?;
 
@@ -25,7 +27,7 @@ pub async fn run(client: &JiraClient, key: String) -> Result<(), String> {
     println!("  Updated:    {}", updated);
 
     // Description
-    let desc = extract_text(&issue["fields"]["description"]);
+    let desc = adf::to_plain_text(&issue["fields"]["description"]);
     if !desc.is_empty() {
         println!();
         println!("  Description:");
@@ -46,7 +48,7 @@ pub async fn run(client: &JiraClient, key: String) -> Result<(), String> {
         for c in recent.iter().rev() {
             let author = c["author"]["displayName"].as_str().unwrap_or("?");
             let created = c["created"].as_str().unwrap_or("?");
-            let body = extract_text(&c["body"]);
+            let body = adf::to_plain_text(&c["body"]);
             println!();
             println!("    {} ({})", author, created);
             for line in wrap(&body, 72) {
@@ -56,28 +58,4 @@ pub async fn run(client: &JiraClient, key: String) -> Result<(), String> {
     }
 
     Ok(())
-}
-
-/// Extract plain text from Atlassian Document Format (ADF) JSON.
-fn extract_text(node: &serde_json::Value) -> String {
-    if node.is_null() {
-        return String::new();
-    }
-
-    if let Some(text) = node.get("text").and_then(|t| t.as_str()) {
-        return text.to_string();
-    }
-
-    if let Some(content) = node.get("content").and_then(|c| c.as_array()) {
-        let parts: Vec<String> = content.iter().map(|child| extract_text(child)).collect();
-        let node_type = node.get("type").and_then(|t| t.as_str()).unwrap_or("");
-        return match node_type {
-            "paragraph" | "heading" => format!("{}\n", parts.join("")),
-            "bulletList" | "orderedList" => parts.join(""),
-            "listItem" => format!("• {}\n", parts.join("").trim()),
-            _ => parts.join(""),
-        };
-    }
-
-    String::new()
 }
