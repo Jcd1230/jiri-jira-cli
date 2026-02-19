@@ -1,5 +1,4 @@
 use comfy_table::Table;
-use serde_json::Value;
 
 pub enum OutputFormat {
     Table,

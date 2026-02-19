@@ -126,4 +126,74 @@ impl JiraClient {
         *cache = Some(lookup.clone());
         Ok(lookup)
     }
+
+    pub async fn get_issue(&self, key: &str) -> Result<Value, String> {
+        let path = format!("/rest/api/3/issue/{}", key);
+        self.request(reqwest::Method::GET, &path, None).await
+    }
+
+    pub async fn get_transitions(&self, key: &str) -> Result<Value, String> {
+        let path = format!("/rest/api/3/issue/{}/transitions", key);
+        self.request(reqwest::Method::GET, &path, None).await
+    }
+
+    pub async fn do_transition(&self, key: &str, transition_id: &str) -> Result<Value, String> {
+        let path = format!("/rest/api/3/issue/{}/transitions", key);
+        let body = serde_json::json!({
+            "transition": { "id": transition_id }
+        });
+        self.request(reqwest::Method::POST, &path, Some(body)).await
+    }
+
+    pub async fn add_comment(&self, key: &str, body_text: &str) -> Result<Value, String> {
+        let path = format!("/rest/api/3/issue/{}/comment", key);
+        let body = serde_json::json!({
+            "body": {
+                "type": "doc",
+                "version": 1,
+                "content": [{
+                    "type": "paragraph",
+                    "content": [{
+                        "type": "text",
+                        "text": body_text
+                    }]
+                }]
+            }
+        });
+        self.request(reqwest::Method::POST, &path, Some(body)).await
+    }
+
+    pub async fn create_issue(
+        &self,
+        project_key: &str,
+        summary: &str,
+        issue_type: &str,
+        description: Option<&str>,
+    ) -> Result<Value, String> {
+        let mut fields = serde_json::json!({
+            "project": { "key": project_key },
+            "summary": summary,
+            "issuetype": { "name": issue_type },
+        });
+
+        if let Some(desc) = description {
+            fields.as_object_mut().unwrap().insert(
+                "description".to_string(),
+                serde_json::json!({
+                    "type": "doc",
+                    "version": 1,
+                    "content": [{
+                        "type": "paragraph",
+                        "content": [{
+                            "type": "text",
+                            "text": desc
+                        }]
+                    }]
+                }),
+            );
+        }
+
+        let body = serde_json::json!({ "fields": fields });
+        self.request(reqwest::Method::POST, "/rest/api/3/issue", Some(body)).await
+    }
 }
