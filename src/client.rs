@@ -7,7 +7,7 @@ use std::collections::HashMap;
 
 pub struct JiraClient {
     client: reqwest::Client,
-    config: Config,
+    pub config: Config,
     field_cache: std::sync::Mutex<Option<FieldLookup>>,
 }
 
@@ -24,6 +24,10 @@ impl JiraClient {
             config,
             field_cache: std::sync::Mutex::new(None),
         }
+    }
+
+    pub fn config(&self) -> &Config {
+        &self.config
     }
 
     async fn request(&self, method: reqwest::Method, path: &str, body: Option<Value>) -> Result<Value, String> {

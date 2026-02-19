@@ -63,7 +63,7 @@ enum Commands {
     Create {
         /// Project key (e.g. PROJ)
         #[arg(short, long)]
-        project: String,
+        project: Option<String>,
         /// Issue summary
         #[arg(short, long)]
         summary: String,
@@ -135,7 +135,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             issue_type,
             description,
         } => {
-            commands::create::run(&client, project, summary, issue_type, description).await?;
+            let project_key = project
+                .or_else(|| client.config().default_project.clone())
+                .ok_or("Project key is required. Use --project or set default_project in config.")?;
+            commands::create::run(&client, project_key, summary, issue_type, description).await?;
         }
         Commands::Comment { key, message } => {
             commands::comment::run(&client, key, message).await?;

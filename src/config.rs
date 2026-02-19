@@ -8,11 +8,13 @@ pub struct Config {
     pub user: String,
     pub token: String,
     pub site: String,
+    pub default_project: Option<String>,
 }
 
 #[derive(Deserialize)]
 struct FileConfig {
     auth: AuthConfig,
+    general: Option<GeneralConfig>,
 }
 
 #[derive(Deserialize)]
@@ -20,6 +22,11 @@ struct AuthConfig {
     username: String,
     token: String,
     site: String,
+}
+
+#[derive(Deserialize)]
+struct GeneralConfig {
+    default_project: Option<String>,
 }
 
 impl Config {
@@ -59,6 +66,7 @@ impl Config {
             user: file_config.auth.username,
             token: file_config.auth.token,
             site: file_config.auth.site,
+            default_project: file_config.general.and_then(|g| g.default_project),
         })
     }
 
@@ -69,7 +77,8 @@ impl Config {
             .map_err(|_| "Missing JIRA_API_TOKEN environment variable")?;
         let site = env::var("JIRA_SITE")
             .map_err(|_| "Missing JIRA_SITE environment variable")?;
+        let default_project = env::var("JIRA_DEFAULT_PROJECT").ok();
 
-        Ok(Config { user, token, site })
+        Ok(Config { user, token, site, default_project })
     }
 }
