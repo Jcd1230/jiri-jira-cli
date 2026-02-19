@@ -23,17 +23,33 @@ struct AuthConfig {
 }
 
 impl Config {
-    /// Load config: try config file first, fall back to env vars.
+    /// Load config: try local jiri.toml, then global config file, then env vars.
     pub fn load() -> Result<Self, String> {
-        Self::from_file().or_else(|_| Self::from_env())
+        Self::from_local_file()
+            .or_else(|_| Self::from_global_file())
+            .or_else(|_| Self::from_env())
     }
 
-    fn config_path() -> Option<PathBuf> {
-        dirs::config_dir().map(|d| d.join("jiri").join("config.toml"))
+    fn from_local_file() -> Result<Self, String> {
+        let path = PathBuf::from("jiri.toml");
+        if !path.exists() {
+            return Err("Local config not found".to_string());
+        }
+        Self::parse_file(path)
     }
 
-    fn from_file() -> Result<Self, String> {
-        let path = Self::config_path().ok_or("Could not determine config directory")?;
+    fn from_global_file() -> Result<Self, String> {
+        let path = dirs::config_dir()
+            .map(|d| d.join("jiri").join("config.toml"))
+            .ok_or("Could not determine config directory")?;
+        
+        if !path.exists() {
+            return Err("Global config not found".to_string());
+        }
+        Self::parse_file(path)
+    }
+
+    fn parse_file(path: PathBuf) -> Result<Self, String> {
         let contents = fs::read_to_string(&path)
             .map_err(|e| format!("Could not read {}: {}", path.display(), e))?;
         let file_config: FileConfig = toml::from_str(&contents)
