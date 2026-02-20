@@ -84,6 +84,16 @@ jiri completions zsh >> ~/.zshrc
 jiri completions fish > ~/.config/fish/completions/jiri.fish
 ```
 
+### Releases
+Automated releases are handled via GitHub Actions. To trigger a new release:
+1. Update the version in `Cargo.toml`.
+2. Create and push a new Git tag:
+   ```bash
+   git tag v0.1.0
+   git push origin v0.1.0
+   ```
+3. The GitHub Action will automatically build binaries for Linux, macOS, and Windows and attach them to a new GitHub Release.
+
 ## Project Structure
 - **`src/main.rs`**: Entry point. Defines the `clap` CLI structure and dispatches commands.
 - **`src/config.rs`**: Loads credentials from config file or environment variables.
