@@ -10,6 +10,7 @@ use std::collections::HashMap;
 pub enum AtlassianApi {
     Jira,
     Confluence,
+    ConfluenceV1,
 }
 
 /// Client for interacting with Atlassian Cloud REST APIs (Jira and Confluence).
@@ -47,9 +48,18 @@ impl AtlassianClient {
         let prefix = match api {
             AtlassianApi::Jira => "/rest/api/3",
             AtlassianApi::Confluence => "/wiki/api/v2",
+            AtlassianApi::ConfluenceV1 => "/wiki/rest/api",
         };
         
         let url = format!("{}{}{}", self.config.site, prefix, path);
+        
+        if std::env::var("JIRI_VERBOSE").is_ok() {
+            eprintln!("DEBUG: {} {}", method, url);
+            if let Some(ref b) = body {
+                eprintln!("DEBUG: Body: {}", serde_json::to_string_pretty(b).unwrap_or_default());
+            }
+        }
+
         let mut headers = HeaderMap::new();
 
         let auth = format!("{}:{}", self.config.user, self.config.token);
@@ -68,6 +78,10 @@ impl AtlassianClient {
         }
 
         let response = request_builder.send().await.map_err(|e| e.to_string())?;
+        
+        if std::env::var("JIRI_VERBOSE").is_ok() {
+            eprintln!("DEBUG: Response: {}", response.status());
+        }
 
         if !response.status().is_success() {
             let status = response.status();
@@ -79,7 +93,11 @@ impl AtlassianClient {
             return Ok(Value::Null);
         }
 
-        response.json().await.map_err(|e| e.to_string())
+        let json: Value = response.json().await.map_err(|e| e.to_string())?;
+        if std::env::var("JIRI_VERBOSE").is_ok() {
+            eprintln!("DEBUG: JSON: {}", serde_json::to_string_pretty(&json).unwrap_or_default());
+        }
+        Ok(json)
     }
 
     /// List all projects visible to the user.
@@ -214,22 +232,23 @@ impl AtlassianClient {
 
     // --- Confluence Methods ---
 
-    /// Search for Confluence pages by title.
+    /// Search for Confluence pages by title using CQL (v1 API).
     pub async fn search_pages(&self, title: &str, space_id: Option<&str>) -> Result<Value, String> {
-        let mut path = format!("/pages?title={}", urlencoding::encode(title));
+        let mut cql = format!("type=page and title ~ \"{}\"", title);
         if let Some(space) = space_id {
-            path.push_str(&format!("&space-id={}", space));
+            cql.push_str(&format!(" and space = \"{}\"", space));
         }
-        self.request(AtlassianApi::Confluence, reqwest::Method::GET, &path, None).await
+        let path = format!("/search?cql={}", urlencoding::encode(&cql));
+        self.request(AtlassianApi::ConfluenceV1, reqwest::Method::GET, &path, None).await
     }
 
-    /// Get a Confluence page by ID, including ADF body.
+    /// Get a Confluence page by ID, including ADF body (v2 API).
     pub async fn get_page(&self, id: &str) -> Result<Value, String> {
         let path = format!("/pages/{}?body-format=atlas_doc_format", id);
         self.request(AtlassianApi::Confluence, reqwest::Method::GET, &path, None).await
     }
 
-    /// Update a Confluence page.
+    /// Update a Confluence page (v2 API).
     pub async fn update_page(
         &self,
         id: &str,

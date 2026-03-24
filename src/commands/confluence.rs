@@ -6,15 +6,16 @@ use serde_json::Value;
 /// Execute Confluence commands.
 pub async fn run_search(client: &AtlassianClient, formatter: &Formatter, title: String, space_id: Option<String>) -> Result<(), String> {
     let data = client.search_pages(&title, space_id.as_deref()).await?;
-    let pages = data["results"].as_array().ok_or("No pages found in response")?;
+    let results = data["results"].as_array().ok_or("No results found in response")?;
 
     let mut rows = vec![vec!["ID".to_string(), "TITLE".to_string(), "SPACE".to_string()]];
-    for p in pages {
-        rows.push(vec![
-            p["id"].as_str().unwrap_or_default().to_string(),
-            p["title"].as_str().unwrap_or_default().to_string(),
-            p["spaceId"].as_str().unwrap_or_default().to_string(),
-        ]);
+    for r in results {
+        let content = &r["content"];
+        let id = content["id"].as_str().unwrap_or_default().to_string();
+        let title = content["title"].as_str().unwrap_or_default().to_string();
+        let space = r["resultGlobalContainer"]["title"].as_str().unwrap_or_default().to_string();
+        
+        rows.push(vec![id, title, space]);
     }
 
     println!("{}", formatter.render(rows));

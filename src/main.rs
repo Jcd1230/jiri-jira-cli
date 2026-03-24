@@ -30,6 +30,10 @@ pub struct Cli {
     /// Omit header row
     #[arg(long, global = true)]
     no_header: bool,
+
+    /// Verbose output (debug logging)
+    #[arg(long, global = true)]
+    verbose: bool,
 }
 
 #[derive(Subcommand)]
@@ -143,6 +147,10 @@ enum ConfluenceCommands {
 /// Entry point for the jiri CLI.
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
+
+    if cli.verbose {
+        std::env::set_var("JIRI_VERBOSE", "1");
+    }
 
     // Completions don't need auth
     if let Commands::Completions { shell } = &cli.command {

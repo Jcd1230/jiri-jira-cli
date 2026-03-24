@@ -1,9 +1,9 @@
-# Jiri (Jira CLI)
+# Jiri (Jira & Confluence CLI)
 
-A minimal, fast, and modular Jira CLI client written in Rust.
+A minimal, fast, and modular Atlassian CLI client written in Rust.
 
 ## Overview
-`jiri` allows users to interact with Jira Cloud directly from the terminal. It supports listing projects, searching issues with JQL, viewing issue details, managing transitions, creating issues, adding comments, and generating shell completions. It was rewritten from an original TypeScript implementation to improve performance and portability.
+`jiri` allows users to interact with Jira Cloud and Confluence Cloud directly from the terminal. It supports listing projects, searching issues, managing issue transitions, and programmatically editing Confluence pages with targeted patches.
 
 ## Technology Stack
 - **Language**: Rust (Edition 2021)
@@ -12,6 +12,7 @@ A minimal, fast, and modular Jira CLI client written in Rust.
 - **Async Runtime**: [`tokio`](https://crates.io/crates/tokio)
 - **Serialization**: [`serde`](https://crates.io/crates/serde), `serde_json`
 - **Table Formatting**: [`comfy-table`](https://crates.io/crates/comfy-table)
+- **Markdown Parsing**: [`pulldown-cmark`](https://crates.io/crates/pulldown-cmark)
 
 ## Configuration
 
@@ -41,7 +42,7 @@ If no config file is found, jiri reads:
 cargo build --release
 ```
 
-### Commands
+### Jira Commands
 
 #### List Projects
 ```bash
@@ -53,7 +54,6 @@ jiri projects
 jiri search "assignee = currentUser()"
 jiri search "project = TJP" --fields "key,summary,status" --limit 20
 jiri search "project = TJP" --csv > issues.csv
-jiri search "project = TJP" --get-fields
 ```
 
 #### View an Issue
@@ -77,36 +77,52 @@ jiri create --project PROJ --summary "Fix bug" --type Bug --description "Details
 jiri comment PROJ-123 "This is my comment"
 ```
 
-#### Shell Completions
+### Confluence Commands (v2 API)
+
+#### Search Pages
+```bash
+jiri confluence search "Release Notes"
+jiri confluence search "Meeting" --space 12345
+```
+
+#### View a Page
+```bash
+jiri confluence view 12345678
+jiri confluence view 12345678 --raw  # show raw ADF JSON
+```
+
+#### Edit a Page (Programmatic Patcher)
+`jiri` implements a robust Fetch-Modify-PUT cycle for targeted edits. It automatically handles ADF tree manipulation and version conflict retries.
+
+```bash
+# Append a new section (Markdown supported)
+jiri confluence edit 12345678 --append "## New Section\nDone via CLI!"
+
+# Prepend a header
+jiri confluence edit 12345678 --prepend "# IMPORTANT\nUpdated on $(date)"
+
+# Search and replace text
+jiri confluence edit 12345678 --replace "OLD_TERM:NEW_TERM"
+
+# Rename page and mark as minor edit (silence notifications)
+jiri confluence edit 12345678 --title "New Title" --minor
+```
+
+### Shell Completions
 ```bash
 jiri completions bash >> ~/.bashrc
 jiri completions zsh >> ~/.zshrc
 jiri completions fish > ~/.config/fish/completions/jiri.fish
 ```
 
-### Releases
-Automated releases are handled via GitHub Actions. To trigger a new release:
-1. Update the version in `Cargo.toml`.
-2. Create and push a new Git tag:
-   ```bash
-   git tag v0.1.0
-   git push origin v0.1.0
-   ```
-3. The GitHub Action will automatically build binaries for Linux, macOS, and Windows and attach them to a new GitHub Release.
-
 ## Project Structure
-- **`src/main.rs`**: Entry point. Defines the `clap` CLI structure and dispatches commands.
-- **`src/config.rs`**: Loads credentials from config file or environment variables.
-- **`src/client.rs`**: `JiraClient` wrapping all Jira REST API interactions.
-- **`src/formatter.rs`**: Renders data as Table, CSV, or Plain text.
-- **`src/commands/`**: One module per subcommand:
-  - `projects.rs`, `search.rs`, `view.rs`, `transition.rs`, `create.rs`, `comment.rs`, `completions.rs`
+- **`src/main.rs`**: Entry point and CLI definition.
+- **`src/client.rs`**: `AtlassianClient` for Jira and Confluence REST APIs.
+- **`src/adf.rs`**: Atlassian Document Format (ADF) parsing and manipulation.
+- **`src/commands/`**: Subcommand implementations.
 
 ## Key Features
-- **Field Discovery**: Use `--get-fields` with search to discover available Jira field IDs.
-- **Smart Formatting**: Handles complex Jira field types (arrays, objects, ADF) to display human-readable values.
+- **Programmatic Patcher**: Reliable targeted edits to Confluence pages with auto-retries on version conflicts.
+- **Markdown Support**: Automatically converts Markdown to ADF for Confluence edits.
+- **Smart Formatting**: Human-readable tables and plain-text ADF rendering.
 - **TLS**: Uses `rustls` — no system OpenSSL dependency.
-- **Shell Completions**: Generate completions for bash, zsh, fish, elvish, or PowerShell.
-
-## Development Workflow
-This project uses [Jujutsu (jj)](https://github.com/martinvonz/jj) for version control. It is recommended to commit frequently using `jj commit` to track changes granularly.
