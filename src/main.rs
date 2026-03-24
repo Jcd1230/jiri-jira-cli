@@ -136,15 +136,24 @@ enum Commands {
 
 #[derive(Subcommand)]
 enum ConfluenceCommands {
-    /// Search for Confluence pages by title
+    /// Search for Confluence pages
     /// 
-    /// Uses partial title matching.
+    /// Examples:
+    ///   jiri confluence search "Release Notes"
+    ///   jiri confluence search "*dev*" --limit 50
+    ///   jiri confluence search --cql "space = TPL and lastModified > now('-1w')"
     Search {
-        /// Title fragment to search for
-        title: String,
+        /// Page title fragment or CQL query
+        query: Option<String>,
         /// Filter by space ID or Key
         #[arg(short, long)]
         space: Option<String>,
+        /// Maximum number of results to fetch
+        #[arg(long, default_value = "25")]
+        limit: i64,
+        /// Interpret query as a raw CQL string
+        #[arg(long)]
+        cql: bool,
     },
 
     /// View content of a Confluence page
@@ -250,8 +259,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         Commands::Confluence { subcommand } => {
             match subcommand {
-                ConfluenceCommands::Search { title, space } => {
-                    commands::confluence::run_search(&client, &formatter, title, space).await?;
+                ConfluenceCommands::Search {
+                    query,
+                    space,
+                    limit,
+                    cql,
+                } => {
+                    commands::confluence::run_search(&client, &formatter, query, space, limit, cql)
+                        .await?;
                 }
                 ConfluenceCommands::View { id, raw } => {
                     commands::confluence::run_view(&client, id, raw).await?;

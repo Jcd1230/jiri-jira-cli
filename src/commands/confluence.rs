@@ -4,8 +4,26 @@ use crate::formatter::Formatter;
 use serde_json::Value;
 
 /// Execute Confluence commands.
-pub async fn run_search(client: &AtlassianClient, formatter: &Formatter, title: String, space_id: Option<String>) -> Result<(), String> {
-    let data = client.search_pages(&title, space_id.as_deref()).await?;
+pub async fn run_search(
+    client: &AtlassianClient,
+    formatter: &Formatter,
+    query: Option<String>,
+    space_id: Option<String>,
+    limit: i64,
+    is_cql: bool,
+) -> Result<(), String> {
+    let cql = if is_cql {
+        query.ok_or("Query is required when --cql is used")?
+    } else {
+        let title_query = query.as_deref().unwrap_or("*");
+        let mut base = format!("type=page and title ~ \"{}\"", title_query);
+        if let Some(space) = space_id {
+            base.push_str(&format!(" and space = \"{}\"", space));
+        }
+        base
+    };
+
+    let data = client.search_pages(&cql, limit).await?;
     let results = data["results"].as_array().ok_or("No results found in response")?;
 
     let mut rows = vec![vec!["ID".to_string(), "TITLE".to_string(), "SPACE".to_string()]];

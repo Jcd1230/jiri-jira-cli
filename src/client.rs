@@ -232,13 +232,9 @@ impl AtlassianClient {
 
     // --- Confluence Methods ---
 
-    /// Search for Confluence pages by title using CQL (v1 API).
-    pub async fn search_pages(&self, title: &str, space_id: Option<&str>) -> Result<Value, String> {
-        let mut cql = format!("type=page and title ~ \"{}\"", title);
-        if let Some(space) = space_id {
-            cql.push_str(&format!(" and space = \"{}\"", space));
-        }
-        let path = format!("/search?cql={}", urlencoding::encode(&cql));
+    /// Search for Confluence pages using CQL (v1 API).
+    pub async fn search_pages(&self, cql: &str, limit: i64) -> Result<Value, String> {
+        let path = format!("/search?cql={}&limit={}", urlencoding::encode(cql), limit);
         self.request(AtlassianApi::ConfluenceV1, reqwest::Method::GET, &path, None).await
     }
 
