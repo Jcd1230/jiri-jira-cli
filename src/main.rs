@@ -5,16 +5,29 @@ mod commands;
 mod adf;
 mod fields;
 
+use clap::builder::styling::{AnsiColor, Effects, Styles};
 use clap::{Parser, Subcommand};
 use clap_complete::Shell;
 use client::AtlassianClient;
 use config::Config;
 use formatter::{Formatter, OutputFormat};
 
-/// Command-line interface for Jiri (Jira CLI).
+fn get_styles() -> Styles {
+    Styles::styled()
+        .header(AnsiColor::Yellow.on_default() | Effects::BOLD)
+        .usage(AnsiColor::Yellow.on_default() | Effects::BOLD)
+        .literal(AnsiColor::Blue.on_default() | Effects::BOLD)
+        .placeholder(AnsiColor::Cyan.on_default())
+}
+
+/// Command-line interface for Jiri (Jira & Confluence CLI).
+/// 
+/// A minimal, fast, and modular CLI client for Atlassian Cloud.
 #[derive(Parser)]
 #[command(name = "jiri")]
-#[command(about = "Minimal, fast, and modular Jira CLI client", long_about = None)]
+#[command(version)]
+#[command(about, long_about = None)]
+#[command(styles = get_styles())]
 pub struct Cli {
     #[command(subcommand)]
     command: Commands,
@@ -31,16 +44,23 @@ pub struct Cli {
     #[arg(long, global = true)]
     no_header: bool,
 
-    /// Verbose output (debug logging)
+    /// Verbose output (debug logging of API requests)
     #[arg(long, global = true)]
     verbose: bool,
 }
 
 #[derive(Subcommand)]
 enum Commands {
-    /// List projects visible to the authenticated user
+    /// List Jira projects visible to you
+    #[command(visible_alias = "p")]
     Projects,
-    /// Run a JQL search and list issues
+
+    /// Search Jira issues using JQL
+    /// 
+    /// Examples:
+    ///   jiri search "assignee = currentUser()"
+    ///   jiri search "project = TJP" --fields "key,summary,status" --limit 20
+    #[command(visible_alias = "s")]
     Search {
         /// The JQL query string
         jql: String,
@@ -50,50 +70,64 @@ enum Commands {
         /// Show available fields on the first returned issue
         #[arg(long)]
         get_fields: bool,
-        /// Maximum number of issues to fetch (default: 1000)
+        /// Maximum number of issues to fetch
         #[arg(long, default_value = "1000")]
         limit: i64,
     },
-    /// View a single issue's details
+
+    /// View details of a specific Jira issue
+    /// 
+    /// Example: jiri view PROJ-123
+    #[command(visible_alias = "v")]
     View {
         /// The issue key (e.g. PROJ-123)
         key: String,
     },
-    /// Transition an issue to a new status
+
+    /// Transition a Jira issue to a new status
+    /// 
+    /// If no status is provided, it lists available transitions.
+    #[command(visible_alias = "t")]
     Transition {
         /// The issue key (e.g. PROJ-123)
         key: String,
-        /// Target status name (omit to list available transitions)
+        /// Target status name or ID (omit to list available)
         status: Option<String>,
     },
-    /// Create a new issue
+
+    /// Create a new Jira issue
+    #[command(visible_alias = "c")]
     Create {
-        /// Project key (e.g. PROJ)
+        /// Project key (e.g. PROJ). Uses config default if omitted.
         #[arg(short, long)]
         project: Option<String>,
-        /// Issue summary
+        /// Short summary of the issue
         #[arg(short, long)]
         summary: String,
-        /// Issue type (default: Task)
+        /// Issue type name (default: Task)
         #[arg(short = 't', long, default_value = "Task")]
         issue_type: String,
-        /// Issue description
+        /// Detailed description
         #[arg(short, long)]
         description: Option<String>,
     },
-    /// Add a comment to an issue
+
+    /// Add a comment to a Jira issue
     Comment {
         /// The issue key (e.g. PROJ-123)
         key: String,
-        /// Comment message
+        /// Text of the comment
         message: String,
     },
-    /// Confluence commands
+
+    /// Confluence Cloud operations (Search, View, Edit)
+    #[command(visible_alias = "conf")]
     Confluence {
         #[command(subcommand)]
         subcommand: ConfluenceCommands,
     },
-    /// Generate shell completions
+
+    /// Generate shell completion scripts
     Completions {
         /// Shell to generate completions for
         shell: Shell,
@@ -102,42 +136,53 @@ enum Commands {
 
 #[derive(Subcommand)]
 enum ConfluenceCommands {
-    /// Search for Confluence pages
+    /// Search for Confluence pages by title
+    /// 
+    /// Uses partial title matching.
     Search {
-        /// Page title to search for
+        /// Title fragment to search for
         title: String,
-        /// Filter by space ID
+        /// Filter by space ID or Key
         #[arg(short, long)]
         space: Option<String>,
     },
-    /// View a Confluence page
+
+    /// View content of a Confluence page
+    /// 
+    /// Renders Atlassian Document Format (ADF) as plain text.
     View {
-        /// Page ID
+        /// The page ID
         id: String,
-        /// Output raw ADF JSON
+        /// Output raw ADF JSON instead of rendered text
         #[arg(long)]
         raw: bool,
     },
-    /// Edit a Confluence page
+
+    /// Programmatically edit a Confluence page
+    /// 
+    /// Performs a Fetch-Modify-PUT cycle to ensure targeted edits
+    /// are safe and handle version conflicts automatically.
+    /// 
+    /// Input content defaults to Markdown unless --adf is specified.
     Edit {
-        /// Page ID
+        /// The page ID
         id: String,
-        /// Append content to the end of the page
-        #[arg(long)]
+        /// Append content to the end of the document
+        #[arg(long, group = "action")]
         append: Option<String>,
-        /// Prepend content to the beginning of the page
-        #[arg(long)]
+        /// Prepend content to the beginning of the document
+        #[arg(long, group = "action")]
         prepend: Option<String>,
-        /// Find and replace text (format: "OLD:NEW")
-        #[arg(long)]
+        /// Recursive find and replace text (format: "OLD:NEW")
+        #[arg(long, group = "action")]
         replace: Option<String>,
         /// Update the page title
         #[arg(long)]
         title: Option<String>,
-        /// Use raw ADF instead of Markdown for input
+        /// Treat input as raw ADF JSON instead of Markdown
         #[arg(long)]
         adf: bool,
-        /// Mark the edit as a minor change to suppress notifications
+        /// Mark as minor edit to suppress notifications
         #[arg(long)]
         minor: bool,
     },
