@@ -6,8 +6,14 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
 
-/// Client for interacting with the Jira Cloud REST API.
-pub struct JiraClient {
+/// API types supported by the Atlassian client.
+pub enum AtlassianApi {
+    Jira,
+    Confluence,
+}
+
+/// Client for interacting with Atlassian Cloud REST APIs (Jira and Confluence).
+pub struct AtlassianClient {
     client: reqwest::Client,
     pub config: Config,
     field_cache: std::sync::Mutex<Option<FieldLookup>>,
@@ -22,8 +28,8 @@ pub struct FieldLookup {
     pub name_to_id: HashMap<String, String>,
 }
 
-impl JiraClient {
-    /// Create a new JiraClient with the provided configuration.
+impl AtlassianClient {
+    /// Create a new AtlassianClient with the provided configuration.
     pub fn new(config: Config) -> Self {
         Self {
             client: reqwest::Client::new(),
@@ -36,9 +42,14 @@ impl JiraClient {
         &self.config
     }
 
-    /// Perform a generic authenticated request to the Jira API.
-    async fn request(&self, method: reqwest::Method, path: &str, body: Option<Value>) -> Result<Value, String> {
-        let url = format!("{}{}", self.config.site, path);
+    /// Perform a generic authenticated request to the Atlassian API.
+    async fn request(&self, api: AtlassianApi, path: &str, body: Option<Value>) -> Result<Value, String> {
+        let prefix = match api {
+            AtlassianApi::Jira => "/rest/api/3",
+            AtlassianApi::Confluence => "/wiki/api/v2",
+        };
+        
+        let url = format!("{}{}{}", self.config.site, prefix, path);
         let mut headers = HeaderMap::new();
 
         let auth = format!("{}:{}", self.config.user, self.config.token);
@@ -51,7 +62,7 @@ impl JiraClient {
             headers.insert(CONTENT_TYPE, HeaderValue::from_static("application/json"));
         }
 
-        let mut request_builder = self.client.request(method, &url).headers(headers);
+        let mut request_builder = self.client.request(method_from_body(&body), &url).headers(headers);
         if let Some(b) = body {
             request_builder = request_builder.json(&b);
         }
@@ -61,7 +72,7 @@ impl JiraClient {
         if !response.status().is_success() {
             let status = response.status();
             let text = response.text().await.unwrap_or_else(|_| "Unknown error".to_string());
-            return Err(format!("Jira request failed ({}): {}", status, text));
+            return Err(format!("Atlassian request failed ({}): {}", status, text));
         }
 
         response.json().await.map_err(|e| e.to_string())
@@ -69,7 +80,7 @@ impl JiraClient {
 
     /// List all projects visible to the user.
     pub async fn projects(&self) -> Result<Value, String> {
-        self.request(reqwest::Method::GET, "/rest/api/3/project/search", None).await
+        self.request(AtlassianApi::Jira, "/project/search", None).await
     }
 
     /// Perform a JQL search.
@@ -84,7 +95,7 @@ impl JiraClient {
             body.as_object_mut().unwrap().insert("nextPageToken".to_string(), Value::String(token));
         }
 
-        self.request(reqwest::Method::POST, "/rest/api/3/search/jql", Some(body)).await
+        self.request(AtlassianApi::Jira, "/search/jql", Some(body)).await
     }
 
     /// Search for all issues matching JQL up to a limit, handling pagination automatically.
@@ -121,7 +132,7 @@ impl JiraClient {
             }
         }
 
-        let data = self.request(reqwest::Method::GET, "/rest/api/3/field", None).await?;
+        let data = self.request(AtlassianApi::Jira, "/field", None).await?;
         let mut id_to_name = HashMap::new();
         let mut name_to_id = HashMap::new();
 
@@ -144,32 +155,32 @@ impl JiraClient {
 
     /// Get a single issue by key.
     pub async fn get_issue(&self, key: &str) -> Result<Value, String> {
-        let path = format!("/rest/api/3/issue/{}", key);
-        self.request(reqwest::Method::GET, &path, None).await
+        let path = format!("/issue/{}", key);
+        self.request(AtlassianApi::Jira, &path, None).await
     }
 
     /// List available transitions for an issue.
     pub async fn get_transitions(&self, key: &str) -> Result<Value, String> {
-        let path = format!("/rest/api/3/issue/{}/transitions", key);
-        self.request(reqwest::Method::GET, &path, None).await
+        let path = format!("/issue/{}/transitions", key);
+        self.request(AtlassianApi::Jira, &path, None).await
     }
 
     /// Perform a transition on an issue.
     pub async fn do_transition(&self, key: &str, transition_id: &str) -> Result<Value, String> {
-        let path = format!("/rest/api/3/issue/{}/transitions", key);
+        let path = format!("/issue/{}/transitions", key);
         let body = serde_json::json!({
             "transition": { "id": transition_id }
         });
-        self.request(reqwest::Method::POST, &path, Some(body)).await
+        self.request(AtlassianApi::Jira, &path, Some(body)).await
     }
 
     /// Add a comment to an issue.
     pub async fn add_comment(&self, key: &str, body_text: &str) -> Result<Value, String> {
-        let path = format!("/rest/api/3/issue/{}/comment", key);
+        let path = format!("/issue/{}/comment", key);
         let body = serde_json::json!({
             "body": adf::from_plain_text(body_text)
         });
-        self.request(reqwest::Method::POST, &path, Some(body)).await
+        self.request(AtlassianApi::Jira, &path, Some(body)).await
     }
 
     /// Create a new issue in the specified project.
@@ -194,6 +205,14 @@ impl JiraClient {
         }
 
         let body = serde_json::json!({ "fields": fields });
-        self.request(reqwest::Method::POST, "/rest/api/3/issue", Some(body)).await
+        self.request(AtlassianApi::Jira, "/issue", Some(body)).await
+    }
+}
+
+fn method_from_body(body: &Option<Value>) -> reqwest::Method {
+    if body.is_some() {
+        reqwest::Method::POST
+    } else {
+        reqwest::Method::GET
     }
 }

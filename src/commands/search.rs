@@ -1,10 +1,10 @@
-use crate::client::JiraClient;
+use crate::client::AtlassianClient;
 use crate::fields;
 use crate::formatter::Formatter;
 
 /// Execute the search command.
 pub async fn run(
-    client: &JiraClient,
+    client: &AtlassianClient,
     formatter: &Formatter,
     jql: String,
     fields: Option<String>,

@@ -1,9 +1,9 @@
 use crate::adf;
-use crate::client::JiraClient;
+use crate::client::AtlassianClient;
 use textwrap::wrap;
 
 /// Execute the view command to show issue details.
-pub async fn run(client: &JiraClient, key: String) -> Result<(), String> {
+pub async fn run(client: &AtlassianClient, key: String) -> Result<(), String> {
     let issue = client.get_issue(&key).await?;
 
     let issue_key = issue["key"].as_str().unwrap_or("?");

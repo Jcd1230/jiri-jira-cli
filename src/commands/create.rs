@@ -1,8 +1,8 @@
-use crate::client::JiraClient;
+use crate::client::AtlassianClient;
 
 /// Execute the create command to create a new issue.
 pub async fn run(
-    client: &JiraClient,
+    client: &AtlassianClient,
     project: String,
     summary: String,
     issue_type: String,

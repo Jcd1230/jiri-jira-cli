@@ -7,7 +7,7 @@ mod fields;
 
 use clap::{Parser, Subcommand};
 use clap_complete::Shell;
-use client::JiraClient;
+use client::AtlassianClient;
 use config::Config;
 use formatter::{Formatter, OutputFormat};
 
@@ -103,7 +103,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     let config = Config::load()?;
-    let client = JiraClient::new(config);
+    let client = AtlassianClient::new(config);
 
     let format = if cli.csv {
         OutputFormat::CSV

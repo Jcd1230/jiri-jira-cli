@@ -1,7 +1,7 @@
-use crate::client::JiraClient;
+use crate::client::AtlassianClient;
 
 /// Execute the transition command.
-pub async fn run(client: &JiraClient, key: String, status: Option<String>) -> Result<(), String> {
+pub async fn run(client: &AtlassianClient, key: String, status: Option<String>) -> Result<(), String> {
     match status {
         None => list_transitions(client, &key).await,
         Some(target) => do_transition(client, &key, &target).await,
@@ -9,7 +9,7 @@ pub async fn run(client: &JiraClient, key: String, status: Option<String>) -> Re
 }
 
 /// List available transitions for an issue.
-async fn list_transitions(client: &JiraClient, key: &str) -> Result<(), String> {
+async fn list_transitions(client: &AtlassianClient, key: &str) -> Result<(), String> {
     let data = client.get_transitions(key).await?;
     let transitions = data["transitions"]
         .as_array()
@@ -25,7 +25,7 @@ async fn list_transitions(client: &JiraClient, key: &str) -> Result<(), String> 
 }
 
 /// Perform a transition on an issue.
-async fn do_transition(client: &JiraClient, key: &str, target: &str) -> Result<(), String> {
+async fn do_transition(client: &AtlassianClient, key: &str, target: &str) -> Result<(), String> {
     let data = client.get_transitions(key).await?;
     let transitions = data["transitions"]
         .as_array()
