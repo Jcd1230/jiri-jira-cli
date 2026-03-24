@@ -1,5 +1,5 @@
 use crate::adf;
-use crate::client::{AtlassianClient, AtlassianApi};
+use crate::client::AtlassianClient;
 use crate::formatter::Formatter;
 use serde_json::Value;
 
@@ -42,4 +42,73 @@ pub async fn run_view(client: &AtlassianClient, id: String, raw: bool) -> Result
     }
 
     Ok(())
+}
+
+pub async fn run_edit(
+    client: &AtlassianClient,
+    id: String,
+    append: Option<String>,
+    prepend: Option<String>,
+    replace: Option<String>,
+    new_title: Option<String>,
+    is_adf: bool,
+    minor: bool,
+) -> Result<(), String> {
+    let mut retries = 3;
+    
+    loop {
+        // 1. Fetch
+        let page = client.get_page(&id).await?;
+        let current_title = page["title"].as_str().ok_or("No title found")?.to_string();
+        let space_id = page["spaceId"].as_str().ok_or("No spaceId found")?.to_string();
+        let version = page["version"]["number"].as_i64().ok_or("No version found")?;
+        
+        let adf_body_str = page["body"]["atlas_doc_format"]["value"].as_str().ok_or("No ADF body found")?;
+        let mut adf_body: Value = serde_json::from_str(adf_body_str).map_err(|e| e.to_string())?;
+
+        // 2. Modify
+        if let Some(ref content) = append {
+            let nodes = if is_adf {
+                serde_json::from_str(content).map_err(|e| format!("Invalid ADF in --append: {}", e))?
+            } else {
+                adf::from_markdown(content)
+            };
+            adf::append_nodes(&mut adf_body, nodes);
+        }
+
+        if let Some(ref content) = prepend {
+            let nodes = if is_adf {
+                serde_json::from_str(content).map_err(|e| format!("Invalid ADF in --prepend: {}", e))?
+            } else {
+                adf::from_markdown(content)
+            };
+            adf::prepend_nodes(&mut adf_body, nodes);
+        }
+
+        if let Some(ref r) = replace {
+            let parts: Vec<&str> = r.splitn(2, ':').collect();
+            if parts.len() == 2 {
+                adf::replace_text(&mut adf_body, parts[0], parts[1]);
+            } else {
+                return Err("Replace format must be OLD:NEW".to_string());
+            }
+        }
+
+        let title_to_use = new_title.clone().unwrap_or(current_title);
+
+        // 3. Update
+        match client.update_page(&id, &title_to_use, &space_id, &adf_body, version + 1, minor).await {
+            Ok(_) => {
+                println!("Successfully updated page {}", id);
+                return Ok(());
+            }
+            Err(e) if e.contains("409") && retries > 0 => {
+                eprintln!("Version conflict, retrying ({} retries left)...", retries);
+                retries -= 1;
+                tokio::time::sleep(std::time::Duration::from_millis(500)).await;
+                continue;
+            }
+            Err(e) => return Err(e),
+        }
+    }
 }

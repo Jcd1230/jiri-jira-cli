@@ -203,9 +203,19 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 ConfluenceCommands::View { id, raw } => {
                     commands::confluence::run_view(&client, id, raw).await?;
                 }
-                ConfluenceCommands::Edit { .. } => {
-                    // To be implemented in Task 4
-                    return Err("Edit command not yet implemented".to_string().into());
+                ConfluenceCommands::Edit {
+                    id,
+                    append,
+                    prepend,
+                    replace,
+                    title,
+                    adf,
+                    minor,
+                } => {
+                    commands::confluence::run_edit(
+                        &client, id, append, prepend, replace, title, adf, minor,
+                    )
+                    .await?;
                 }
             }
         }
