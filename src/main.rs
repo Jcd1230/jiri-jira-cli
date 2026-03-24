@@ -156,6 +156,24 @@ enum ConfluenceCommands {
         cql: bool,
     },
 
+    /// Create a new Confluence page
+    Create {
+        /// Page title
+        title: String,
+        /// Space ID or Key
+        #[arg(short, long)]
+        space: String,
+        /// Parent Page ID (folder)
+        #[arg(short, long)]
+        parent: Option<String>,
+        /// Page content (Markdown by default)
+        #[arg(short, long)]
+        content: Option<String>,
+        /// Use raw ADF JSON for content
+        #[arg(long)]
+        adf: bool,
+    },
+
     /// View content of a Confluence page
     /// 
     /// Renders Atlassian Document Format (ADF) as plain text.
@@ -266,6 +284,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     cql,
                 } => {
                     commands::confluence::run_search(&client, &formatter, query, space, limit, cql)
+                        .await?;
+                }
+                ConfluenceCommands::Create {
+                    title,
+                    space,
+                    parent,
+                    content,
+                    adf,
+                } => {
+                    commands::confluence::run_create(&client, title, space, parent, content, adf)
                         .await?;
                 }
                 ConfluenceCommands::View { id, raw } => {

@@ -244,6 +244,52 @@ impl AtlassianClient {
         self.request(AtlassianApi::Confluence, reqwest::Method::GET, &path, None).await
     }
 
+    /// Resolve a Space Key to a Space ID (v2 API).
+    pub async fn get_space_id(&self, key: &str) -> Result<String, String> {
+        // If it's already numeric, return it
+        if key.chars().all(|c| c.is_ascii_digit()) {
+            return Ok(key.to_string());
+        }
+
+        let path = format!("/spaces?keys={}", key);
+        let data = self.request(AtlassianApi::Confluence, reqwest::Method::GET, &path, None).await?;
+        let spaces = data["results"].as_array().ok_or("No spaces found")?;
+        
+        for s in spaces {
+            if s["key"].as_str() == Some(key) {
+                return s["id"].as_str().map(|s| s.to_string()).ok_or("Space has no ID".to_string());
+            }
+        }
+        Err(format!("Could not find space with key '{}'", key))
+    }
+
+    /// Create a new Confluence page (v2 API).
+    pub async fn create_page(
+        &self,
+        space_id: &str,
+        title: &str,
+        parent_id: Option<&str>,
+        adf_body: &Value,
+    ) -> Result<Value, String> {
+        let stringified_adf = serde_json::to_string(adf_body).map_err(|e| e.to_string())?;
+
+        let mut body = serde_json::json!({
+            "spaceId": space_id,
+            "status": "current",
+            "title": title,
+            "body": {
+                "representation": "atlas_doc_format",
+                "value": stringified_adf
+            }
+        });
+
+        if let Some(pid) = parent_id {
+            body.as_object_mut().unwrap().insert("parentId".to_string(), serde_json::json!(pid));
+        }
+
+        self.request(AtlassianApi::Confluence, reqwest::Method::POST, "/pages", Some(body)).await
+    }
+
     /// Update a Confluence page (v2 API).
     pub async fn update_page(
         &self,

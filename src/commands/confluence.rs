@@ -40,6 +40,54 @@ pub async fn run_search(
     Ok(())
 }
 
+pub async fn run_create(
+    client: &AtlassianClient,
+    title: String,
+    space: String,
+    parent: Option<String>,
+    content: Option<String>,
+    is_adf: bool,
+) -> Result<(), String> {
+    // 1. Resolve Space ID
+    let space_id = client.get_space_id(&space).await?;
+
+    // 2. Prepare ADF Body
+    let nodes = if let Some(text) = content {
+        if is_adf {
+            serde_json::from_str(&text).map_err(|e| format!("Invalid ADF JSON: {}", e))?
+        } else {
+            adf::from_markdown(&text)
+        }
+    } else {
+        vec![serde_json::json!({
+            "type": "paragraph",
+            "content": [{"type": "text", "text": ""}]
+        })]
+    };
+
+    let adf_body = serde_json::json!({
+        "type": "doc",
+        "version": 1,
+        "content": nodes
+    });
+
+    // 3. Create Page
+    let result = client.create_page(&space_id, &title, parent.as_deref(), &adf_body).await?;
+    let id = result["id"].as_str().unwrap_or("?");
+    
+    println!("Successfully created page: {}", title);
+    println!("  ID: {}", id);
+    if let Some(links) = result["_links"].as_object() {
+        if let Some(base) = links.get("base") {
+            if let Some(webui) = links.get("webui") {
+                println!("  URL: {}{}", base.as_str().unwrap_or(""), webui.as_str().unwrap_or(""));
+            }
+        }
+    }
+
+    Ok(())
+}
+
 pub async fn run_view(client: &AtlassianClient, id: String, raw: bool) -> Result<(), String> {
     let page = client.get_page(&id).await?;
     
