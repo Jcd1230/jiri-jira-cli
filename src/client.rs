@@ -43,7 +43,7 @@ impl AtlassianClient {
     }
 
     /// Perform a generic authenticated request to the Atlassian API.
-    async fn request(&self, api: AtlassianApi, path: &str, body: Option<Value>) -> Result<Value, String> {
+    async fn request(&self, api: AtlassianApi, method: reqwest::Method, path: &str, body: Option<Value>) -> Result<Value, String> {
         let prefix = match api {
             AtlassianApi::Jira => "/rest/api/3",
             AtlassianApi::Confluence => "/wiki/api/v2",
@@ -62,7 +62,7 @@ impl AtlassianClient {
             headers.insert(CONTENT_TYPE, HeaderValue::from_static("application/json"));
         }
 
-        let mut request_builder = self.client.request(method_from_body(&body), &url).headers(headers);
+        let mut request_builder = self.client.request(method, &url).headers(headers);
         if let Some(b) = body {
             request_builder = request_builder.json(&b);
         }
@@ -75,12 +75,16 @@ impl AtlassianClient {
             return Err(format!("Atlassian request failed ({}): {}", status, text));
         }
 
+        if response.status() == reqwest::StatusCode::NO_CONTENT {
+            return Ok(Value::Null);
+        }
+
         response.json().await.map_err(|e| e.to_string())
     }
 
     /// List all projects visible to the user.
     pub async fn projects(&self) -> Result<Value, String> {
-        self.request(AtlassianApi::Jira, "/project/search", None).await
+        self.request(AtlassianApi::Jira, reqwest::Method::GET, "/project/search", None).await
     }
 
     /// Perform a JQL search.
@@ -95,7 +99,7 @@ impl AtlassianClient {
             body.as_object_mut().unwrap().insert("nextPageToken".to_string(), Value::String(token));
         }
 
-        self.request(AtlassianApi::Jira, "/search/jql", Some(body)).await
+        self.request(AtlassianApi::Jira, reqwest::Method::POST, "/search/jql", Some(body)).await
     }
 
     /// Search for all issues matching JQL up to a limit, handling pagination automatically.
@@ -132,7 +136,7 @@ impl AtlassianClient {
             }
         }
 
-        let data = self.request(AtlassianApi::Jira, "/field", None).await?;
+        let data = self.request(AtlassianApi::Jira, reqwest::Method::GET, "/field", None).await?;
         let mut id_to_name = HashMap::new();
         let mut name_to_id = HashMap::new();
 
@@ -156,13 +160,13 @@ impl AtlassianClient {
     /// Get a single issue by key.
     pub async fn get_issue(&self, key: &str) -> Result<Value, String> {
         let path = format!("/issue/{}", key);
-        self.request(AtlassianApi::Jira, &path, None).await
+        self.request(AtlassianApi::Jira, reqwest::Method::GET, &path, None).await
     }
 
     /// List available transitions for an issue.
     pub async fn get_transitions(&self, key: &str) -> Result<Value, String> {
         let path = format!("/issue/{}/transitions", key);
-        self.request(AtlassianApi::Jira, &path, None).await
+        self.request(AtlassianApi::Jira, reqwest::Method::GET, &path, None).await
     }
 
     /// Perform a transition on an issue.
@@ -171,7 +175,7 @@ impl AtlassianClient {
         let body = serde_json::json!({
             "transition": { "id": transition_id }
         });
-        self.request(AtlassianApi::Jira, &path, Some(body)).await
+        self.request(AtlassianApi::Jira, reqwest::Method::POST, &path, Some(body)).await
     }
 
     /// Add a comment to an issue.
@@ -180,7 +184,7 @@ impl AtlassianClient {
         let body = serde_json::json!({
             "body": adf::from_plain_text(body_text)
         });
-        self.request(AtlassianApi::Jira, &path, Some(body)).await
+        self.request(AtlassianApi::Jira, reqwest::Method::POST, &path, Some(body)).await
     }
 
     /// Create a new issue in the specified project.
@@ -205,14 +209,56 @@ impl AtlassianClient {
         }
 
         let body = serde_json::json!({ "fields": fields });
-        self.request(AtlassianApi::Jira, "/issue", Some(body)).await
+        self.request(AtlassianApi::Jira, reqwest::Method::POST, "/issue", Some(body)).await
     }
-}
 
-fn method_from_body(body: &Option<Value>) -> reqwest::Method {
-    if body.is_some() {
-        reqwest::Method::POST
-    } else {
-        reqwest::Method::GET
+    // --- Confluence Methods ---
+
+    /// Search for Confluence pages by title.
+    pub async fn search_pages(&self, title: &str, space_id: Option<&str>) -> Result<Value, String> {
+        let mut path = format!("/pages?title={}", urlencoding::encode(title));
+        if let Some(space) = space_id {
+            path.push_str(&format!("&space-id={}", space));
+        }
+        self.request(AtlassianApi::Confluence, reqwest::Method::GET, &path, None).await
+    }
+
+    /// Get a Confluence page by ID, including ADF body.
+    pub async fn get_page(&self, id: &str) -> Result<Value, String> {
+        let path = format!("/pages/{}?body-format=atlas_doc_format", id);
+        self.request(AtlassianApi::Confluence, reqwest::Method::GET, &path, None).await
+    }
+
+    /// Update a Confluence page.
+    pub async fn update_page(
+        &self,
+        id: &str,
+        title: &str,
+        space_id: &str,
+        adf_body: &Value,
+        version: i64,
+        minor_edit: bool,
+    ) -> Result<Value, String> {
+        let path = format!("/pages/{}", id);
+        
+        // Confluence v2 requirement: body.value must be a stringified JSON string
+        let stringified_adf = serde_json::to_string(adf_body).map_err(|e| e.to_string())?;
+
+        let body = serde_json::json!({
+            "id": id,
+            "status": "current",
+            "title": title,
+            "spaceId": space_id,
+            "body": {
+                "representation": "atlas_doc_format",
+                "value": stringified_adf
+            },
+            "version": {
+                "number": version,
+                "minorEdit": minor_edit
+            }
+        });
+
+        self.request(AtlassianApi::Confluence, reqwest::Method::PUT, &path, Some(body)).await
     }
 }

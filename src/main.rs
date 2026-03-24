@@ -84,10 +84,58 @@ enum Commands {
         /// Comment message
         message: String,
     },
+    /// Confluence commands
+    Confluence {
+        #[command(subcommand)]
+        subcommand: ConfluenceCommands,
+    },
     /// Generate shell completions
     Completions {
         /// Shell to generate completions for
         shell: Shell,
+    },
+}
+
+#[derive(Subcommand)]
+enum ConfluenceCommands {
+    /// Search for Confluence pages
+    Search {
+        /// Page title to search for
+        title: String,
+        /// Filter by space ID
+        #[arg(short, long)]
+        space: Option<String>,
+    },
+    /// View a Confluence page
+    View {
+        /// Page ID
+        id: String,
+        /// Output raw ADF JSON
+        #[arg(long)]
+        raw: bool,
+    },
+    /// Edit a Confluence page
+    Edit {
+        /// Page ID
+        id: String,
+        /// Append content to the end of the page
+        #[arg(long)]
+        append: Option<String>,
+        /// Prepend content to the beginning of the page
+        #[arg(long)]
+        prepend: Option<String>,
+        /// Find and replace text (format: "OLD:NEW")
+        #[arg(long)]
+        replace: Option<String>,
+        /// Update the page title
+        #[arg(long)]
+        title: Option<String>,
+        /// Use raw ADF instead of Markdown for input
+        #[arg(long)]
+        adf: bool,
+        /// Mark the edit as a minor change to suppress notifications
+        #[arg(long)]
+        minor: bool,
     },
 }
 
@@ -146,6 +194,20 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         Commands::Comment { key, message } => {
             commands::comment::run(&client, key, message).await?;
+        }
+        Commands::Confluence { subcommand } => {
+            match subcommand {
+                ConfluenceCommands::Search { title, space } => {
+                    commands::confluence::run_search(&client, &formatter, title, space).await?;
+                }
+                ConfluenceCommands::View { id, raw } => {
+                    commands::confluence::run_view(&client, id, raw).await?;
+                }
+                ConfluenceCommands::Edit { .. } => {
+                    // To be implemented in Task 4
+                    return Err("Edit command not yet implemented".to_string().into());
+                }
+            }
         }
         Commands::Completions { .. } => unreachable!(),
     }
