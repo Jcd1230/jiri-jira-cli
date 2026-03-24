@@ -114,6 +114,7 @@ pub async fn run_view(client: &AtlassianClient, id: String, raw: bool) -> Result
 pub async fn run_edit(
     client: &AtlassianClient,
     id: String,
+    full: Option<String>,
     append: Option<String>,
     prepend: Option<String>,
     replace: Option<String>,
@@ -134,6 +135,19 @@ pub async fn run_edit(
         let mut adf_body: Value = serde_json::from_str(adf_body_str).map_err(|e| e.to_string())?;
 
         // 2. Modify
+        if let Some(ref content) = full {
+            if is_adf {
+                adf_body = serde_json::from_str(content).map_err(|e| format!("Invalid ADF in --full: {}", e))?;
+            } else {
+                let nodes = adf::from_markdown(content);
+                adf_body = serde_json::json!({
+                    "type": "doc",
+                    "version": 1,
+                    "content": nodes
+                });
+            }
+        }
+
         if let Some(ref content) = append {
             let nodes = if is_adf {
                 serde_json::from_str(content).map_err(|e| format!("Invalid ADF in --append: {}", e))?

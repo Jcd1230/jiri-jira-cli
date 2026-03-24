@@ -194,6 +194,9 @@ enum ConfluenceCommands {
     Edit {
         /// The page ID
         id: String,
+        /// Replace the entire document content
+        #[arg(long, group = "action")]
+        full: Option<String>,
         /// Append content to the end of the document
         #[arg(long, group = "action")]
         append: Option<String>,
@@ -301,6 +304,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 }
                 ConfluenceCommands::Edit {
                     id,
+                    full,
                     append,
                     prepend,
                     replace,
@@ -309,7 +313,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     minor,
                 } => {
                     commands::confluence::run_edit(
-                        &client, id, append, prepend, replace, title, adf, minor,
+                        &client, id, full, append, prepend, replace, title, adf, minor,
                     )
                     .await?;
                 }
