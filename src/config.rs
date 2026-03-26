@@ -4,11 +4,29 @@ use std::fs;
 use std::path::PathBuf;
 
 #[derive(Debug, Clone)]
+pub enum ConfigSource {
+    LocalFile(PathBuf),
+    GlobalFile(PathBuf),
+    Env,
+}
+
+impl std::fmt::Display for ConfigSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            ConfigSource::LocalFile(p) => write!(f, "Local file ({})", p.display()),
+            ConfigSource::GlobalFile(p) => write!(f, "Global file ({})", p.display()),
+            ConfigSource::Env => write!(f, "Environment variables"),
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
 pub struct Config {
     pub user: String,
     pub token: String,
     pub site: String,
     pub default_project: Option<String>,
+    pub source: ConfigSource,
 }
 
 #[derive(Deserialize)]
@@ -42,21 +60,24 @@ impl Config {
         if !path.exists() {
             return Err("Local config not found".to_string());
         }
-        Self::parse_file(path)
+        Self::parse_file(path.clone(), ConfigSource::LocalFile(path))
+    }
+
+    pub fn global_config_path() -> Option<PathBuf> {
+        dirs::config_dir().map(|d| d.join("jiri").join("config.toml"))
     }
 
     fn from_global_file() -> Result<Self, String> {
-        let path = dirs::config_dir()
-            .map(|d| d.join("jiri").join("config.toml"))
+        let path = Self::global_config_path()
             .ok_or("Could not determine config directory")?;
         
         if !path.exists() {
             return Err("Global config not found".to_string());
         }
-        Self::parse_file(path)
+        Self::parse_file(path.clone(), ConfigSource::GlobalFile(path))
     }
 
-    fn parse_file(path: PathBuf) -> Result<Self, String> {
+    fn parse_file(path: PathBuf, source: ConfigSource) -> Result<Self, String> {
         let contents = fs::read_to_string(&path)
             .map_err(|e| format!("Could not read {}: {}", path.display(), e))?;
         let file_config: FileConfig = toml::from_str(&contents)
@@ -67,6 +88,7 @@ impl Config {
             token: file_config.auth.token,
             site: file_config.auth.site,
             default_project: file_config.general.and_then(|g| g.default_project),
+            source,
         })
     }
 
@@ -79,6 +101,6 @@ impl Config {
             .map_err(|_| "Missing JIRA_SITE environment variable")?;
         let default_project = env::var("JIRA_DEFAULT_PROJECT").ok();
 
-        Ok(Config { user, token, site, default_project })
+        Ok(Config { user, token, site, default_project, source: ConfigSource::Env })
     }
 }

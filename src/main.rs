@@ -120,6 +120,9 @@ enum Commands {
         message: String,
     },
 
+    /// Diagnostic tool to check configuration and connectivity
+    Doctor,
+
     /// Confluence Cloud operations (Search, View, Edit)
     #[command(visible_alias = "conf")]
     Confluence {
@@ -301,6 +304,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         Commands::Comment { key, message } => {
             commands::comment::run(&client, key, message).await?;
+        }
+        Commands::Doctor => {
+            commands::doctor::run(&client).await?;
         }
         Commands::Confluence { subcommand } => {
             match subcommand {
