@@ -25,6 +25,23 @@ pub fn to_plain_text(node: &Value) -> String {
     String::new()
 }
 
+/// Recursively extract all text content from a node for matching purposes (no formatting).
+pub fn get_node_text(node: &Value) -> String {
+    if node.is_null() {
+        return String::new();
+    }
+
+    if let Some(text) = node.get("text").and_then(|t| t.as_str()) {
+        return text.to_string();
+    }
+
+    if let Some(content) = node.get("content").and_then(|c| c.as_array()) {
+        return content.iter().map(|child| get_node_text(child)).collect::<Vec<_>>().join("");
+    }
+
+    String::new()
+}
+
 /// Create a simple ADF JSON structure (single paragraph) from a string.
 pub fn from_plain_text(text: &str) -> Value {
     json!({
@@ -165,6 +182,61 @@ pub fn replace_text(node: &mut Value, old: &str, new: &str) {
     }
 }
 
+/// Locate the index of an anchor node in the top-level content array.
+pub fn find_anchor_index(doc: &Value, selector: &str) -> Result<usize, String> {
+    let parts: Vec<&str> = selector.splitn(2, ':').collect();
+    if parts.len() != 2 {
+        return Err("Anchor selector must be in 'type:query' format".to_string());
+    }
+
+    let anchor_type = parts[0];
+    let query = parts[1].to_lowercase();
+
+    let content = doc.get("content").and_then(|c| c.as_array()).ok_or("Invalid ADF: missing top-level content array")?;
+
+    let mut matches = Vec::new();
+
+    for (index, node) in content.iter().enumerate() {
+        let node_type = node.get("type").and_then(|t| t.as_str()).unwrap_or("");
+        let mut is_match = false;
+
+        match anchor_type {
+            "heading" => {
+                if node_type == "heading" && get_node_text(node).to_lowercase().contains(&query) {
+                    is_match = true;
+                }
+            }
+            "panel" => {
+                if node_type == "panel" && get_node_text(node).to_lowercase().contains(&query) {
+                    is_match = true;
+                }
+            }
+            "list" => {
+                if (node_type == "bulletList" || node_type == "orderedList") && 
+                   node.get("content").and_then(|c| c.as_array()).and_then(|a| a.first()).map(|item| get_node_text(item).to_lowercase().contains(&query)).unwrap_or(false) {
+                    is_match = true;
+                }
+            }
+            "id" => {
+                if node.get("attrs").and_then(|a| a.get("localId")).and_then(|id| id.as_str()) == Some(parts[1]) {
+                    is_match = true;
+                }
+            }
+            _ => return Err(format!("Unsupported anchor type: {}", anchor_type)),
+        }
+
+        if is_match {
+            matches.push(index);
+        }
+    }
+
+    match matches.len() {
+        0 => Err(format!("Anchor not found: {}", selector)),
+        1 => Ok(matches[0]),
+        n => Err(format!("Ambiguous anchor: found {} matches for '{}'", n, selector)),
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -220,5 +292,28 @@ mod tests {
 
         replace_text(&mut doc, "world", "Atlassian");
         assert_eq!(doc["content"][0]["content"][0]["text"], "Hello Atlassian");
+    }
+
+    #[test]
+    fn test_find_anchor_index() {
+        let doc = json!({
+            "type": "doc",
+            "content": [
+                { "type": "heading", "attrs": { "level": 1 }, "content": [{ "type": "text", "text": "Introduction" }] },
+                { "type": "panel", "attrs": { "panelType": "info" }, "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Some info" }] }] },
+                { "type": "bulletList", "content": [
+                    { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Item one" }] }] }
+                ]},
+                { "type": "heading", "attrs": { "level": 2, "localId": "uuid-123" }, "content": [{ "type": "text", "text": "Deep Dive" }] }
+            ]
+        });
+
+        assert_eq!(find_anchor_index(&doc, "heading:intro").unwrap(), 0);
+        assert_eq!(find_anchor_index(&doc, "panel:info").unwrap(), 1);
+        assert_eq!(find_anchor_index(&doc, "list:one").unwrap(), 2);
+        assert_eq!(find_anchor_index(&doc, "id:uuid-123").unwrap(), 3);
+        
+        assert!(find_anchor_index(&doc, "heading:notfound").is_err());
+        assert!(find_anchor_index(&doc, "heading:").is_err()); // Ambiguous if query is empty and multiple headings exist
     }
 }

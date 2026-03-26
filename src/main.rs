@@ -194,24 +194,48 @@ enum ConfluenceCommands {
     Edit {
         /// The page ID
         id: String,
+
         /// Replace the entire document content
         #[arg(long, group = "action")]
         full: Option<String>,
+
         /// Append content to the end of the document
         #[arg(long, group = "action")]
         append: Option<String>,
+
         /// Prepend content to the beginning of the document
         #[arg(long, group = "action")]
         prepend: Option<String>,
-        /// Recursive find and replace text (format: "OLD:NEW")
+
+        /// Global recursive find and replace text (format: "OLD:NEW")
         #[arg(long, group = "action")]
         replace: Option<String>,
+
+        /// Identify a target node for relative edits (format: "type:query")
+        /// Types: heading, panel, list, id
+        #[arg(long)]
+        anchor: Option<String>,
+
+        /// Insert content before the anchor
+        #[arg(long, group = "action", requires = "anchor")]
+        before: Option<String>,
+
+        /// Insert content after the anchor
+        #[arg(long, group = "action", requires = "anchor")]
+        after: Option<String>,
+
+        /// Replace the anchor node with new content
+        #[arg(long, group = "action", requires = "anchor")]
+        replace_node: Option<String>,
+
         /// Update the page title
         #[arg(long)]
         title: Option<String>,
+
         /// Treat input as raw ADF JSON instead of Markdown
         #[arg(long)]
         adf: bool,
+
         /// Mark as minor edit to suppress notifications
         #[arg(long)]
         minor: bool,
@@ -308,12 +332,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     append,
                     prepend,
                     replace,
+                    anchor,
+                    before,
+                    after,
+                    replace_node,
                     title,
                     adf,
                     minor,
                 } => {
                     commands::confluence::run_edit(
-                        &client, id, full, append, prepend, replace, title, adf, minor,
+                        &client, id, full, append, prepend, replace, anchor, before, after, replace_node, title, adf, minor,
                     )
                     .await?;
                 }
