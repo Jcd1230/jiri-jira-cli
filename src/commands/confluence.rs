@@ -118,6 +118,10 @@ pub async fn run_edit(
     append: Option<String>,
     prepend: Option<String>,
     replace: Option<String>,
+    anchor: Option<String>,
+    before: Option<String>,
+    after: Option<String>,
+    replace_node: Option<String>,
     new_title: Option<String>,
     is_adf: bool,
     minor: bool,
@@ -175,6 +179,30 @@ pub async fn run_edit(
             }
         }
 
+        // --- Anchored Edits ---
+        if let Some(ref selector) = anchor {
+            let index = adf::find_anchor_index(&adf_body, selector)?;
+            let content = doc_content_mut(&mut adf_body)?;
+
+            if let Some(ref val) = before {
+                let nodes = if is_adf { serde_json::from_str(val).map_err(|e| e.to_string())? } else { adf::from_markdown(val) };
+                for (i, node) in nodes.into_iter().enumerate() {
+                    content.insert(index + i, node);
+                }
+            } else if let Some(ref val) = after {
+                let nodes = if is_adf { serde_json::from_str(val).map_err(|e| e.to_string())? } else { adf::from_markdown(val) };
+                for (i, node) in nodes.into_iter().enumerate() {
+                    content.insert(index + 1 + i, node);
+                }
+            } else if let Some(ref val) = replace_node {
+                let nodes = if is_adf { serde_json::from_str(val).map_err(|e| e.to_string())? } else { adf::from_markdown(val) };
+                content.remove(index);
+                for (i, node) in nodes.into_iter().enumerate() {
+                    content.insert(index + i, node);
+                }
+            }
+        }
+
         let title_to_use = new_title.clone().unwrap_or(current_title);
 
         // 3. Update
@@ -192,4 +220,10 @@ pub async fn run_edit(
             Err(e) => return Err(e),
         }
     }
+}
+
+fn doc_content_mut(doc: &mut Value) -> Result<&mut Vec<Value>, String> {
+    doc.get_mut("content")
+        .and_then(|c| c.as_array_mut())
+        .ok_or_else(|| "Invalid ADF: missing content array".to_string())
 }
