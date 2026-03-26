@@ -43,6 +43,11 @@ impl AtlassianClient {
         &self.config
     }
 
+    /// Get current user information (Jira).
+    pub async fn myself(&self) -> Result<Value, String> {
+        self.request(AtlassianApi::Jira, reqwest::Method::GET, "/myself", None).await
+    }
+
     /// Perform a generic authenticated request to the Atlassian API.
     async fn request(&self, api: AtlassianApi, method: reqwest::Method, path: &str, body: Option<Value>) -> Result<Value, String> {
         let prefix = match api {
