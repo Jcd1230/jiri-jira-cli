@@ -1,4 +1,4 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use std::env;
 use std::fs;
 use std::path::PathBuf;
@@ -29,34 +29,82 @@ pub struct Config {
     pub source: ConfigSource,
 }
 
-#[derive(Deserialize)]
-struct FileConfig {
-    auth: AuthConfig,
-    general: Option<GeneralConfig>,
+#[derive(Serialize, Deserialize, Default, Debug)]
+pub struct FileConfig {
+    pub auth: AuthConfig,
+    pub general: Option<GeneralConfig>,
 }
 
-#[derive(Deserialize)]
-struct AuthConfig {
-    username: String,
-    token: String,
-    site: String,
+#[derive(Serialize, Deserialize, Default, Debug)]
+pub struct AuthConfig {
+    pub username: Option<String>,
+    pub token: Option<String>,
+    pub site: Option<String>,
 }
 
-#[derive(Deserialize)]
-struct GeneralConfig {
-    default_project: Option<String>,
+#[derive(Serialize, Deserialize, Default, Debug)]
+pub struct GeneralConfig {
+    pub default_project: Option<String>,
+}
+
+impl FileConfig {
+    pub fn load_path(path: &PathBuf) -> Result<Self, String> {
+        if !path.exists() {
+            return Ok(FileConfig::default());
+        }
+        let contents = fs::read_to_string(path)
+            .map_err(|e| format!("Could not read {}: {}", path.display(), e))?;
+        toml::from_str(&contents)
+            .map_err(|e| format!("Invalid config at {}: {}", path.display(), e))
+    }
+
+    pub fn save_path(&self, path: &PathBuf) -> Result<(), String> {
+        if let Some(parent) = path.parent() {
+            fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+        }
+        let contents = toml::to_string_pretty(self).map_err(|e| e.to_string())?;
+        fs::write(path, contents).map_err(|e| e.to_string())
+    }
 }
 
 impl Config {
-    /// Load config: try local jiri.toml, then global config file, then env vars.
+    /// Load config with layering: Global < Local < Env.
     pub fn load() -> Result<Self, String> {
-        Self::from_local_file()
-            .or_else(|_| Self::from_global_file())
+        // 1. Try to build from Global or Env first to get a base
+        let mut config = Self::from_global_file()
             .or_else(|_| Self::from_env())
+            .or_else(|_| Self::from_local_file())
+            .map_err(|e| format!("Could not find a complete configuration source: {}", e))?;
+
+        // 2. Layer Local overrides if they exist
+        let local_path = Self::local_config_path();
+        if local_path.exists() {
+            if let Ok(local_file) = FileConfig::load_path(&local_path) {
+                if let Some(u) = local_file.auth.username { config.user = u; }
+                if let Some(t) = local_file.auth.token { config.token = t; }
+                if let Some(s) = local_file.auth.site { config.site = s; }
+                if let Some(g) = local_file.general {
+                    if let Some(p) = g.default_project { config.default_project = Some(p); }
+                }
+                config.source = ConfigSource::LocalFile(local_path);
+            }
+        }
+        
+        // 3. Layer Env overrides
+        if let Ok(u) = env::var("JIRA_API_USERNAME") { config.user = u; config.source = ConfigSource::Env; }
+        if let Ok(t) = env::var("JIRA_API_TOKEN") { config.token = t; config.source = ConfigSource::Env; }
+        if let Ok(s) = env::var("JIRA_SITE") { config.site = s; config.source = ConfigSource::Env; }
+        if let Ok(p) = env::var("JIRA_DEFAULT_PROJECT") { config.default_project = Some(p); config.source = ConfigSource::Env; }
+
+        Ok(config)
+    }
+
+    pub fn local_config_path() -> PathBuf {
+        PathBuf::from("jiri.toml")
     }
 
     fn from_local_file() -> Result<Self, String> {
-        let path = PathBuf::from("jiri.toml");
+        let path = Self::local_config_path();
         if !path.exists() {
             return Err("Local config not found".to_string());
         }
@@ -78,15 +126,16 @@ impl Config {
     }
 
     fn parse_file(path: PathBuf, source: ConfigSource) -> Result<Self, String> {
-        let contents = fs::read_to_string(&path)
-            .map_err(|e| format!("Could not read {}: {}", path.display(), e))?;
-        let file_config: FileConfig = toml::from_str(&contents)
-            .map_err(|e| format!("Invalid config at {}: {}", path.display(), e))?;
+        let file_config = FileConfig::load_path(&path)?;
+
+        let user = file_config.auth.username.ok_or_else(|| format!("Missing auth.username in {}", path.display()))?;
+        let token = file_config.auth.token.ok_or_else(|| format!("Missing auth.token in {}", path.display()))?;
+        let site = file_config.auth.site.ok_or_else(|| format!("Missing auth.site in {}", path.display()))?;
 
         Ok(Config {
-            user: file_config.auth.username,
-            token: file_config.auth.token,
-            site: file_config.auth.site,
+            user,
+            token,
+            site,
             default_project: file_config.general.and_then(|g| g.default_project),
             source,
         })
@@ -103,4 +152,11 @@ impl Config {
 
         Ok(Config { user, token, site, default_project, source: ConfigSource::Env })
     }
+}
+
+pub fn mask_token(token: &str) -> String {
+    if token.len() <= 8 {
+        return "****".to_string();
+    }
+    format!("{}...{}", &token[..4], &token[token.len() - 4..])
 }

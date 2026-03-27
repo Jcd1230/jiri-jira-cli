@@ -1,5 +1,5 @@
 use crate::client::AtlassianClient;
-use crate::config::Config;
+use crate::config::{Config, mask_token};
 use std::env;
 use std::path::PathBuf;
 use clap::builder::styling::{AnsiColor, Reset};
@@ -86,11 +86,4 @@ fn check_config_file(label: &str, path: PathBuf) {
     } else {
         println!("  {:20} : {}NOT FOUND{}", label, red, reset);
     }
-}
-
-fn mask_token(token: &str) -> String {
-    if token.len() <= 8 {
-        return "****".to_string();
-    }
-    format!("{}...{}", &token[..4], &token[token.len() - 4..])
 }

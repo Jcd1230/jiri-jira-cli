@@ -120,6 +120,12 @@ enum Commands {
         message: String,
     },
 
+    /// Manage configuration settings
+    Config {
+        #[command(subcommand)]
+        subcommand: ConfigCommands,
+    },
+
     /// Diagnostic tool to check configuration and connectivity
     Doctor,
 
@@ -134,6 +140,32 @@ enum Commands {
     Completions {
         /// Shell to generate completions for
         shell: Shell,
+    },
+}
+
+#[derive(Subcommand)]
+enum ConfigCommands {
+    /// Show the current configuration
+    Show {
+        /// Show global configuration file
+        #[arg(short, long)]
+        global: bool,
+        /// Show local (project) configuration file
+        #[arg(short, long)]
+        local: bool,
+    },
+    /// Set a configuration value
+    Set {
+        /// The key to set (e.g., auth.username, general.default_project)
+        key: String,
+        /// The value to set
+        value: String,
+        /// Set in global configuration file
+        #[arg(short, long)]
+        global: bool,
+        /// Set in local (project) configuration file
+        #[arg(short, long)]
+        local: bool,
     },
 }
 
@@ -304,6 +336,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         Commands::Comment { key, message } => {
             commands::comment::run(&client, key, message).await?;
+        }
+        Commands::Config { subcommand } => {
+            match subcommand {
+                ConfigCommands::Show { global, local } => {
+                    commands::config::run_show(global, local).await?;
+                }
+                ConfigCommands::Set { key, value, global, local } => {
+                    commands::config::run_set(key, value, global, local).await?;
+                }
+            }
         }
         Commands::Doctor => {
             commands::doctor::run(&client).await?;
