@@ -1,0 +1,14 @@
+# Rust build artifacts
+/target/
+
+# Version control
+.git/
+.jj/
+
+# OS/IDEs
+.DS_Store
+.vscode/
+.idea/
+
+# Large docs
+/docs/superpowers/
