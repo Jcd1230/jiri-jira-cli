@@ -68,34 +68,43 @@ impl FileConfig {
 }
 
 impl Config {
-    /// Load config with layering: Global < Local < Env.
+    /// Load config with layering: Env < Global < Local.
     pub fn load() -> Result<Self, String> {
-        // 1. Try to build from Global or Env first to get a base
-        let mut config = Self::from_global_file()
-            .or_else(|_| Self::from_env())
+        // 1. Try to build a base from any source that provides a complete configuration.
+        // We try them in order of priority (lowest to highest) as a fallback mechanism,
+        // but the layering below will ensure the correct final priority.
+        let mut config = Self::from_env()
+            .or_else(|_| Self::from_global_file())
             .or_else(|_| Self::from_local_file())
             .map_err(|e| format!("Could not find a complete configuration source: {}", e))?;
 
-        // 2. Layer Local overrides if they exist
+        // 2. Layer Global overrides if they exist
+        if let Some(global_path) = Self::global_config_path() {
+            if global_path.exists() {
+                if let Ok(global_file) = FileConfig::load_path(&global_path) {
+                    if let Some(u) = global_file.auth.username { config.user = u; config.source = ConfigSource::GlobalFile(global_path.clone()); }
+                    if let Some(t) = global_file.auth.token { config.token = t; config.source = ConfigSource::GlobalFile(global_path.clone()); }
+                    if let Some(s) = global_file.auth.site { config.site = s; config.source = ConfigSource::GlobalFile(global_path.clone()); }
+                    if let Some(g) = global_file.general {
+                        if let Some(p) = g.default_project { config.default_project = Some(p); config.source = ConfigSource::GlobalFile(global_path.clone()); }
+                    }
+                }
+            }
+        }
+
+        // 3. Layer Local overrides if they exist
         let local_path = Self::local_config_path();
         if local_path.exists() {
             if let Ok(local_file) = FileConfig::load_path(&local_path) {
-                if let Some(u) = local_file.auth.username { config.user = u; }
-                if let Some(t) = local_file.auth.token { config.token = t; }
-                if let Some(s) = local_file.auth.site { config.site = s; }
+                if let Some(u) = local_file.auth.username { config.user = u; config.source = ConfigSource::LocalFile(local_path.clone()); }
+                if let Some(t) = local_file.auth.token { config.token = t; config.source = ConfigSource::LocalFile(local_path.clone()); }
+                if let Some(s) = local_file.auth.site { config.site = s; config.source = ConfigSource::LocalFile(local_path.clone()); }
                 if let Some(g) = local_file.general {
-                    if let Some(p) = g.default_project { config.default_project = Some(p); }
+                    if let Some(p) = g.default_project { config.default_project = Some(p); config.source = ConfigSource::LocalFile(local_path.clone()); }
                 }
-                config.source = ConfigSource::LocalFile(local_path);
             }
         }
         
-        // 3. Layer Env overrides
-        if let Ok(u) = env::var("JIRA_API_USERNAME") { config.user = u; config.source = ConfigSource::Env; }
-        if let Ok(t) = env::var("JIRA_API_TOKEN") { config.token = t; config.source = ConfigSource::Env; }
-        if let Ok(s) = env::var("JIRA_SITE") { config.site = s; config.source = ConfigSource::Env; }
-        if let Ok(p) = env::var("JIRA_DEFAULT_PROJECT") { config.default_project = Some(p); config.source = ConfigSource::Env; }
-
         Ok(config)
     }
 

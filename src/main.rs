@@ -73,6 +73,9 @@ enum Commands {
         /// Maximum number of issues to fetch
         #[arg(long, default_value = "1000")]
         limit: i64,
+        /// Search across all projects (ignore default_project)
+        #[arg(short = 'a', long)]
+        all_projects: bool,
     },
 
     /// View details of a specific Jira issue
@@ -314,8 +317,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             fields,
             get_fields,
             limit,
+            all_projects,
         } => {
-            commands::search::run(&client, &formatter, jql, fields, get_fields, limit).await?;
+            commands::search::run(&client, &formatter, jql, fields, get_fields, limit, all_projects).await?;
         }
         Commands::View { key } => {
             commands::view::run(&client, key).await?;

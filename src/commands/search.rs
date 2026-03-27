@@ -6,11 +6,23 @@ use crate::formatter::Formatter;
 pub async fn run(
     client: &AtlassianClient,
     formatter: &Formatter,
-    jql: String,
+    mut jql: String,
     fields: Option<String>,
     get_fields: bool,
     limit: i64,
+    all_projects: bool,
 ) -> Result<(), String> {
+    // If not searching all projects and a default project exists, prepend it.
+    if !all_projects {
+        if let Some(default_project) = &client.config().default_project {
+            let jql_lower = jql.to_lowercase();
+            // Simple check if project context is already provided.
+            if !jql_lower.contains("project") {
+                jql = format!("project = \"{}\" AND ({})", default_project, jql);
+            }
+        }
+    }
+    
     let lookup = client.field_lookup().await?;
     
     let requested_fields = fields

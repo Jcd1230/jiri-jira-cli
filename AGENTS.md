@@ -16,6 +16,11 @@ A minimal, fast, and modular Atlassian CLI client written in Rust.
 
 ## Configuration
 
+### Priority (highest to lowest)
+1. **Local config file** (`jiri.toml`)
+2. **Global config file** (`~/.config/jiri/config.toml`)
+3. **Environment variables**
+
 ### Config File (recommended)
 Create `~/.config/jiri/config.toml`:
 ```toml
@@ -52,6 +57,8 @@ jiri projects
 #### Search Issues
 ```bash
 jiri search "assignee = currentUser()"
+jiri search "status = 'In Progress'"                  # filters by default project if set
+jiri search "status = 'In Progress'" --all-projects   # search across all projects
 jiri search "project = TJP" --fields "key,summary,status" --limit 20
 jiri search "project = TJP" --csv > issues.csv
 ```
@@ -120,6 +127,12 @@ jiri completions fish > ~/.config/fish/completions/jiri.fish
 - **`src/client.rs`**: `AtlassianClient` for Jira and Confluence REST APIs.
 - **`src/adf.rs`**: Atlassian Document Format (ADF) parsing and manipulation.
 - **`src/commands/`**: Subcommand implementations.
+
+## Release Process
+- **Commit often**: Use `jj commit` (or `jj describe`) frequently to track progress.
+- **Version Bumps**: Do NOT create separate "chore: bump version" commits. Always include the `Cargo.toml` version increment in the final commit of the feature or bugfix.
+- **Cleanup**: Ensure the `master` bookmark is updated before tagging a release.
+- **Release**: Use `gh release create vX.Y.Z --target master --generate-notes`.
 
 ## Key Features
 - **Programmatic Patcher**: Reliable targeted edits to Confluence pages with auto-retries on version conflicts.
