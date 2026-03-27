@@ -40,10 +40,10 @@ impl Formatter {
         }
 
         let mut iter = rows.into_iter();
-        if !self.no_header {
-            if let Some(header) = iter.next() {
-                table.set_header(header);
-            }
+        if self.no_header {
+            iter.next(); // Discard header
+        } else if let Some(header) = iter.next() {
+            table.set_header(header);
         }
 
         for row in iter {
@@ -54,22 +54,26 @@ impl Formatter {
     }
 
     fn render_csv(&self, rows: Vec<Vec<String>>) -> String {
-        rows.iter()
-            .map(|row| {
-                row.iter()
-                    .map(|cell| {
-                        // Simple CSV quoting logic
-                        if cell.contains(',') || cell.contains('"') || cell.contains('\n') {
-                            format!("\"{}\"", cell.replace('"', "\"\""))
-                        } else {
-                            cell.clone()
-                        }
-                    })
-                    .collect::<Vec<_>>()
-                    .join(",")
-            })
-            .collect::<Vec<_>>()
-            .join("\n")
+        let mut iter = rows.into_iter();
+        if self.no_header {
+            iter.next();
+        }
+
+        iter.map(|row| {
+            row.iter()
+                .map(|cell| {
+                    // Simple CSV quoting logic
+                    if cell.contains(',') || cell.contains('"') || cell.contains('\n') {
+                        format!("\"{}\"", cell.replace('"', "\"\""))
+                    } else {
+                        cell.clone()
+                    }
+                })
+                .collect::<Vec<_>>()
+                .join(",")
+        })
+        .collect::<Vec<_>>()
+        .join("\n")
     }
 
     fn render_plain(&self, rows: Vec<Vec<String>>) -> String {
@@ -78,16 +82,28 @@ impl Formatter {
             return String::new();
         }
 
-        let num_cols = rows[0].len();
+        let mut iter = rows.into_iter();
+        let rows_to_render = if self.no_header {
+            iter.next();
+            iter.collect::<Vec<_>>()
+        } else {
+            iter.collect::<Vec<_>>()
+        };
+
+        if rows_to_render.is_empty() {
+            return String::new();
+        }
+
+        let num_cols = rows_to_render[0].len();
         let mut col_widths = vec![0; num_cols];
 
-        for row in &rows {
+        for row in &rows_to_render {
             for (i, cell) in row.iter().enumerate() {
                 col_widths[i] = col_widths[i].max(cell.len());
             }
         }
 
-        rows.iter()
+        rows_to_render.iter()
             .map(|row| {
                 row.iter()
                     .enumerate()
