@@ -36,7 +36,7 @@ pub fn normalize_value(val: &Value) -> String {
                 return v.to_string();
             }
         }
-        
+
         // Handle nested options or parent/child relationships
         if let Some(child) = obj.get("child") {
             return normalize_value(child);
@@ -52,7 +52,7 @@ pub fn normalize_value(val: &Value) -> String {
 /// Helper to get a field value from an issue JSON and normalize it.
 pub fn get_field_value(issue: &Value, key: &str) -> String {
     let key_lower = key.to_lowercase();
-    
+
     // Top-level fields like "key" or "id" are not under "fields"
     if key_lower == "key" || key_lower == "issuekey" {
         return issue["key"]

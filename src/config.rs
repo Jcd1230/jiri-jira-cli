@@ -82,11 +82,23 @@ impl Config {
         if let Some(global_path) = Self::global_config_path() {
             if global_path.exists() {
                 if let Ok(global_file) = FileConfig::load_path(&global_path) {
-                    if let Some(u) = global_file.auth.username { config.user = u; config.source = ConfigSource::GlobalFile(global_path.clone()); }
-                    if let Some(t) = global_file.auth.token { config.token = t; config.source = ConfigSource::GlobalFile(global_path.clone()); }
-                    if let Some(s) = global_file.auth.site { config.site = s; config.source = ConfigSource::GlobalFile(global_path.clone()); }
+                    if let Some(u) = global_file.auth.username {
+                        config.user = u;
+                        config.source = ConfigSource::GlobalFile(global_path.clone());
+                    }
+                    if let Some(t) = global_file.auth.token {
+                        config.token = t;
+                        config.source = ConfigSource::GlobalFile(global_path.clone());
+                    }
+                    if let Some(s) = global_file.auth.site {
+                        config.site = s;
+                        config.source = ConfigSource::GlobalFile(global_path.clone());
+                    }
                     if let Some(g) = global_file.general {
-                        if let Some(p) = g.default_project { config.default_project = Some(p); config.source = ConfigSource::GlobalFile(global_path.clone()); }
+                        if let Some(p) = g.default_project {
+                            config.default_project = Some(p);
+                            config.source = ConfigSource::GlobalFile(global_path.clone());
+                        }
                     }
                 }
             }
@@ -96,15 +108,27 @@ impl Config {
         let local_path = Self::local_config_path();
         if local_path.exists() {
             if let Ok(local_file) = FileConfig::load_path(&local_path) {
-                if let Some(u) = local_file.auth.username { config.user = u; config.source = ConfigSource::LocalFile(local_path.clone()); }
-                if let Some(t) = local_file.auth.token { config.token = t; config.source = ConfigSource::LocalFile(local_path.clone()); }
-                if let Some(s) = local_file.auth.site { config.site = s; config.source = ConfigSource::LocalFile(local_path.clone()); }
+                if let Some(u) = local_file.auth.username {
+                    config.user = u;
+                    config.source = ConfigSource::LocalFile(local_path.clone());
+                }
+                if let Some(t) = local_file.auth.token {
+                    config.token = t;
+                    config.source = ConfigSource::LocalFile(local_path.clone());
+                }
+                if let Some(s) = local_file.auth.site {
+                    config.site = s;
+                    config.source = ConfigSource::LocalFile(local_path.clone());
+                }
                 if let Some(g) = local_file.general {
-                    if let Some(p) = g.default_project { config.default_project = Some(p); config.source = ConfigSource::LocalFile(local_path.clone()); }
+                    if let Some(p) = g.default_project {
+                        config.default_project = Some(p);
+                        config.source = ConfigSource::LocalFile(local_path.clone());
+                    }
                 }
             }
         }
-        
+
         Ok(config)
     }
 
@@ -125,9 +149,8 @@ impl Config {
     }
 
     fn from_global_file() -> Result<Self, String> {
-        let path = Self::global_config_path()
-            .ok_or("Could not determine config directory")?;
-        
+        let path = Self::global_config_path().ok_or("Could not determine config directory")?;
+
         if !path.exists() {
             return Err("Global config not found".to_string());
         }
@@ -137,9 +160,18 @@ impl Config {
     fn parse_file(path: PathBuf, source: ConfigSource) -> Result<Self, String> {
         let file_config = FileConfig::load_path(&path)?;
 
-        let user = file_config.auth.username.ok_or_else(|| format!("Missing auth.username in {}", path.display()))?;
-        let token = file_config.auth.token.ok_or_else(|| format!("Missing auth.token in {}", path.display()))?;
-        let site = file_config.auth.site.ok_or_else(|| format!("Missing auth.site in {}", path.display()))?;
+        let user = file_config
+            .auth
+            .username
+            .ok_or_else(|| format!("Missing auth.username in {}", path.display()))?;
+        let token = file_config
+            .auth
+            .token
+            .ok_or_else(|| format!("Missing auth.token in {}", path.display()))?;
+        let site = file_config
+            .auth
+            .site
+            .ok_or_else(|| format!("Missing auth.site in {}", path.display()))?;
 
         Ok(Config {
             user,
@@ -155,11 +187,16 @@ impl Config {
             .map_err(|_| "Missing JIRA_API_USERNAME environment variable")?;
         let token = env::var("JIRA_API_TOKEN")
             .map_err(|_| "Missing JIRA_API_TOKEN environment variable")?;
-        let site = env::var("JIRA_SITE")
-            .map_err(|_| "Missing JIRA_SITE environment variable")?;
+        let site = env::var("JIRA_SITE").map_err(|_| "Missing JIRA_SITE environment variable")?;
         let default_project = env::var("JIRA_DEFAULT_PROJECT").ok();
 
-        Ok(Config { user, token, site, default_project, source: ConfigSource::Env })
+        Ok(Config {
+            user,
+            token,
+            site,
+            default_project,
+            source: ConfigSource::Env,
+        })
     }
 }
 

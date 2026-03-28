@@ -1,4 +1,5 @@
 use crate::client::AtlassianClient;
+use owo_colors::OwoColorize;
 
 /// Execute the create command to create a new issue.
 pub async fn run(
@@ -15,9 +16,9 @@ pub async fn run(
     let key = result["key"].as_str().unwrap_or("?");
     let url = result["self"].as_str().unwrap_or("");
 
-    println!("Created issue: {}", key);
+    println!("{} {}", "Created issue:".green().bold(), key.cyan().bold());
     if !url.is_empty() {
-        println!("  {}", url);
+        println!("  {}", url.dimmed());
     }
 
     Ok(())

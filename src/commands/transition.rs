@@ -1,7 +1,12 @@
 use crate::client::AtlassianClient;
+use owo_colors::OwoColorize;
 
 /// Execute the transition command.
-pub async fn run(client: &AtlassianClient, key: String, status: Option<String>) -> Result<(), String> {
+pub async fn run(
+    client: &AtlassianClient,
+    key: String,
+    status: Option<String>,
+) -> Result<(), String> {
     match status {
         None => list_transitions(client, &key).await,
         Some(target) => do_transition(client, &key, &target).await,
@@ -15,11 +20,15 @@ async fn list_transitions(client: &AtlassianClient, key: &str) -> Result<(), Str
         .as_array()
         .ok_or("No transitions found")?;
 
-    println!("Available transitions for {}:", key);
+    println!(
+        "{} {}",
+        "Available transitions for".cyan().bold(),
+        key.cyan().bold()
+    );
     for t in transitions {
         let id = t["id"].as_str().unwrap_or("?");
         let name = t["name"].as_str().unwrap_or("?");
-        println!("  [{}] {}", id, name);
+        println!("  [{}] {}", id.dimmed(), style_transition_name(name));
     }
     Ok(())
 }
@@ -54,6 +63,21 @@ async fn do_transition(client: &AtlassianClient, key: &str, target: &str) -> Res
     let name = transition["name"].as_str().unwrap_or("?");
 
     client.do_transition(key, id).await?;
-    println!("Transitioned {} → {}", key, name);
+    println!(
+        "{} {} → {}",
+        "Transitioned".green().bold(),
+        key.cyan().bold(),
+        style_transition_name(name)
+    );
     Ok(())
+}
+
+fn style_transition_name(name: &str) -> String {
+    match name.to_lowercase().as_str() {
+        "done" | "closed" | "resolved" => name.green().bold().to_string(),
+        "in progress" => name.yellow().bold().to_string(),
+        "open" | "to do" => name.cyan().bold().to_string(),
+        "blocked" | "on hold" => name.red().bold().to_string(),
+        _ => name.to_string(),
+    }
 }

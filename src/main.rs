@@ -1,9 +1,9 @@
-mod client;
-mod config;
-mod formatter;
-mod commands;
 mod adf;
+mod client;
+mod commands;
+mod config;
 mod fields;
+mod formatter;
 
 use clap::builder::styling::{AnsiColor, Effects, Styles};
 use clap::{Parser, Subcommand};
@@ -21,7 +21,7 @@ fn get_styles() -> Styles {
 }
 
 /// Command-line interface for Jiri (Jira & Confluence CLI).
-/// 
+///
 /// A minimal, fast, and modular CLI client for Atlassian Cloud.
 #[derive(Parser)]
 #[command(name = "jiri")]
@@ -56,7 +56,7 @@ enum Commands {
     Projects,
 
     /// Search Jira issues using JQL
-    /// 
+    ///
     /// Examples:
     ///   jiri search "assignee = currentUser()"
     ///   jiri search "project = TJP" --fields "key,summary,status" --limit 20
@@ -79,7 +79,7 @@ enum Commands {
     },
 
     /// View details of a specific Jira issue
-    /// 
+    ///
     /// Example: jiri view PROJ-123
     #[command(visible_alias = "v")]
     View {
@@ -88,7 +88,7 @@ enum Commands {
     },
 
     /// Transition a Jira issue to a new status
-    /// 
+    ///
     /// If no status is provided, it lists available transitions.
     #[command(visible_alias = "t")]
     Transition {
@@ -175,7 +175,7 @@ enum ConfigCommands {
 #[derive(Subcommand)]
 enum ConfluenceCommands {
     /// Search for Confluence pages
-    /// 
+    ///
     /// Examples:
     ///   jiri confluence search "Release Notes"
     ///   jiri confluence search "*dev*" --limit 50
@@ -213,7 +213,7 @@ enum ConfluenceCommands {
     },
 
     /// View content of a Confluence page
-    /// 
+    ///
     /// Renders Atlassian Document Format (ADF) as plain text.
     View {
         /// The page ID
@@ -224,10 +224,10 @@ enum ConfluenceCommands {
     },
 
     /// Programmatically edit a Confluence page
-    /// 
+    ///
     /// Performs a Fetch-Modify-PUT cycle to ensure targeted edits
     /// are safe and handle version conflicts automatically.
-    /// 
+    ///
     /// Input content defaults to Markdown unless --adf is specified.
     Edit {
         /// The page ID
@@ -319,7 +319,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             limit,
             all_projects,
         } => {
-            commands::search::run(&client, &formatter, jql, fields, get_fields, limit, all_projects).await?;
+            commands::search::run(
+                &client,
+                &formatter,
+                jql,
+                fields,
+                get_fields,
+                limit,
+                all_projects,
+            )
+            .await?;
         }
         Commands::View { key } => {
             commands::view::run(&client, key).await?;
@@ -335,50 +344,69 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         } => {
             let project_key = project
                 .or_else(|| client.config().default_project.clone())
-                .ok_or("Project key is required. Use --project or set default_project in config.")?;
+                .ok_or(
+                    "Project key is required. Use --project or set default_project in config.",
+                )?;
             commands::create::run(&client, project_key, summary, issue_type, description).await?;
         }
         Commands::Comment { key, message } => {
             commands::comment::run(&client, key, message).await?;
         }
-        Commands::Config { subcommand } => {
-            match subcommand {
-                ConfigCommands::Show { global, local } => {
-                    commands::config::run_show(global, local).await?;
-                }
-                ConfigCommands::Set { key, value, global, local } => {
-                    commands::config::run_set(key, value, global, local).await?;
-                }
+        Commands::Config { subcommand } => match subcommand {
+            ConfigCommands::Show { global, local } => {
+                commands::config::run_show(global, local).await?;
             }
-        }
+            ConfigCommands::Set {
+                key,
+                value,
+                global,
+                local,
+            } => {
+                commands::config::run_set(key, value, global, local).await?;
+            }
+        },
         Commands::Doctor => {
             commands::doctor::run(&client).await?;
         }
-        Commands::Confluence { subcommand } => {
-            match subcommand {
-                ConfluenceCommands::Search {
-                    query,
-                    space,
-                    limit,
-                    cql,
-                } => {
-                    commands::confluence::run_search(&client, &formatter, query, space, limit, cql)
-                        .await?;
-                }
-                ConfluenceCommands::Create {
-                    title,
-                    space,
-                    parent,
-                    content,
-                    adf,
-                } => {
-                    commands::confluence::run_create(&client, title, space, parent, content, adf)
-                        .await?;
-                }
-                ConfluenceCommands::View { id, raw } => {
-                    commands::confluence::run_view(&client, id, raw).await?;
-                }
-                ConfluenceCommands::Edit {
+        Commands::Confluence { subcommand } => match subcommand {
+            ConfluenceCommands::Search {
+                query,
+                space,
+                limit,
+                cql,
+            } => {
+                commands::confluence::run_search(&client, &formatter, query, space, limit, cql)
+                    .await?;
+            }
+            ConfluenceCommands::Create {
+                title,
+                space,
+                parent,
+                content,
+                adf,
+            } => {
+                commands::confluence::run_create(&client, title, space, parent, content, adf)
+                    .await?;
+            }
+            ConfluenceCommands::View { id, raw } => {
+                commands::confluence::run_view(&client, id, raw).await?;
+            }
+            ConfluenceCommands::Edit {
+                id,
+                full,
+                append,
+                prepend,
+                replace,
+                anchor,
+                before,
+                after,
+                replace_node,
+                title,
+                adf,
+                minor,
+            } => {
+                commands::confluence::run_edit(
+                    &client,
                     id,
                     full,
                     append,
@@ -391,14 +419,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     title,
                     adf,
                     minor,
-                } => {
-                    commands::confluence::run_edit(
-                        &client, id, full, append, prepend, replace, anchor, before, after, replace_node, title, adf, minor,
-                    )
-                    .await?;
-                }
+                )
+                .await?;
             }
-        }
+        },
         Commands::Completions { .. } => unreachable!(),
     }
 

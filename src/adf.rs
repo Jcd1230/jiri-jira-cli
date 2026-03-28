@@ -1,5 +1,5 @@
-use serde_json::{json, Value};
 use pulldown_cmark::{Event, Parser, Tag, TagEnd};
+use serde_json::{json, Value};
 
 /// Extract plain text from Atlassian Document Format (ADF) JSON.
 pub fn to_plain_text(node: &Value) -> String {
@@ -12,7 +12,10 @@ pub fn to_plain_text(node: &Value) -> String {
     }
 
     if let Some(content) = node.get("content").and_then(|c| c.as_array()) {
-        let parts: Vec<String> = content.iter().map(|child| to_plain_text(child)).collect::<Vec<_>>();
+        let parts: Vec<String> = content
+            .iter()
+            .map(|child| to_plain_text(child))
+            .collect::<Vec<_>>();
         let node_type = node.get("type").and_then(|t| t.as_str()).unwrap_or("");
         return match node_type {
             "paragraph" | "heading" => format!("{}\n", parts.join("")),
@@ -36,7 +39,11 @@ pub fn get_node_text(node: &Value) -> String {
     }
 
     if let Some(content) = node.get("content").and_then(|c| c.as_array()) {
-        return content.iter().map(|child| get_node_text(child)).collect::<Vec<_>>().join("");
+        return content
+            .iter()
+            .map(|child| get_node_text(child))
+            .collect::<Vec<_>>()
+            .join("");
     }
 
     String::new()
@@ -68,63 +75,66 @@ pub fn from_markdown(markdown: &str) -> Vec<Value> {
 
     for event in parser {
         match event {
-            Event::Start(tag) => {
-                match tag {
-                    Tag::Paragraph => {
-                        current_block = Some(json!({ "type": "paragraph" }));
-                    }
-                    Tag::Heading { level, .. } => {
-                        current_block = Some(json!({ "type": "heading", "attrs": { "level": level as u8 } }));
-                    }
-                    Tag::List(ordered) => {
-                        let list_type = if ordered.is_some() { "orderedList" } else { "bulletList" };
-                        list_stack.push((json!({ "type": list_type }), Vec::new()));
-                    }
-                    Tag::Item => {
-                        current_block = Some(json!({ "type": "listItem" }));
-                    }
-                    Tag::Strong => marks.push(json!({ "type": "strong" })),
-                    Tag::Emphasis => marks.push(json!({ "type": "em" })),
-                    Tag::Link { dest_url, .. } => marks.push(json!({ "type": "link", "attrs": { "href": dest_url.to_string() } })),
-                    _ => {}
+            Event::Start(tag) => match tag {
+                Tag::Paragraph => {
+                    current_block = Some(json!({ "type": "paragraph" }));
                 }
-            }
-            Event::End(tag_end) => {
-                match tag_end {
-                    TagEnd::Paragraph | TagEnd::Heading(_) => {
-                        if let Some(mut block) = current_block.take() {
-                            block["content"] = json!(current_block_content);
-                            current_block_content = Vec::new();
-                            if list_stack.is_empty() {
-                                doc_nodes.push(block);
-                            } else {
-                                list_stack.last_mut().unwrap().1.push(block);
-                            }
-                        }
-                    }
-                    TagEnd::List(_) => {
-                        if let Some((mut list, content)) = list_stack.pop() {
-                            list["content"] = json!(content);
-                            if list_stack.is_empty() {
-                                doc_nodes.push(list);
-                            } else {
-                                list_stack.last_mut().unwrap().1.push(list);
-                            }
-                        }
-                    }
-                    TagEnd::Item => {
-                        if let Some(mut item) = current_block.take() {
-                            item["content"] = json!(current_block_content);
-                            current_block_content = Vec::new();
-                            list_stack.last_mut().unwrap().1.push(item);
-                        }
-                    }
-                    TagEnd::Strong | TagEnd::Emphasis | TagEnd::Link => {
-                        marks.pop();
-                    }
-                    _ => {}
+                Tag::Heading { level, .. } => {
+                    current_block =
+                        Some(json!({ "type": "heading", "attrs": { "level": level as u8 } }));
                 }
-            }
+                Tag::List(ordered) => {
+                    let list_type = if ordered.is_some() {
+                        "orderedList"
+                    } else {
+                        "bulletList"
+                    };
+                    list_stack.push((json!({ "type": list_type }), Vec::new()));
+                }
+                Tag::Item => {
+                    current_block = Some(json!({ "type": "listItem" }));
+                }
+                Tag::Strong => marks.push(json!({ "type": "strong" })),
+                Tag::Emphasis => marks.push(json!({ "type": "em" })),
+                Tag::Link { dest_url, .. } => {
+                    marks.push(json!({ "type": "link", "attrs": { "href": dest_url.to_string() } }))
+                }
+                _ => {}
+            },
+            Event::End(tag_end) => match tag_end {
+                TagEnd::Paragraph | TagEnd::Heading(_) => {
+                    if let Some(mut block) = current_block.take() {
+                        block["content"] = json!(current_block_content);
+                        current_block_content = Vec::new();
+                        if list_stack.is_empty() {
+                            doc_nodes.push(block);
+                        } else {
+                            list_stack.last_mut().unwrap().1.push(block);
+                        }
+                    }
+                }
+                TagEnd::List(_) => {
+                    if let Some((mut list, content)) = list_stack.pop() {
+                        list["content"] = json!(content);
+                        if list_stack.is_empty() {
+                            doc_nodes.push(list);
+                        } else {
+                            list_stack.last_mut().unwrap().1.push(list);
+                        }
+                    }
+                }
+                TagEnd::Item => {
+                    if let Some(mut item) = current_block.take() {
+                        item["content"] = json!(current_block_content);
+                        current_block_content = Vec::new();
+                        list_stack.last_mut().unwrap().1.push(item);
+                    }
+                }
+                TagEnd::Strong | TagEnd::Emphasis | TagEnd::Link => {
+                    marks.pop();
+                }
+                _ => {}
+            },
             Event::Text(text) => {
                 let mut node = json!({
                     "type": "text",
@@ -192,7 +202,10 @@ pub fn find_anchor_index(doc: &Value, selector: &str) -> Result<usize, String> {
     let anchor_type = parts[0];
     let query = parts[1].to_lowercase();
 
-    let content = doc.get("content").and_then(|c| c.as_array()).ok_or("Invalid ADF: missing top-level content array")?;
+    let content = doc
+        .get("content")
+        .and_then(|c| c.as_array())
+        .ok_or("Invalid ADF: missing top-level content array")?;
 
     let mut matches = Vec::new();
 
@@ -212,13 +225,24 @@ pub fn find_anchor_index(doc: &Value, selector: &str) -> Result<usize, String> {
                 }
             }
             "list" => {
-                if (node_type == "bulletList" || node_type == "orderedList") && 
-                   node.get("content").and_then(|c| c.as_array()).and_then(|a| a.first()).map(|item| get_node_text(item).to_lowercase().contains(&query)).unwrap_or(false) {
+                if (node_type == "bulletList" || node_type == "orderedList")
+                    && node
+                        .get("content")
+                        .and_then(|c| c.as_array())
+                        .and_then(|a| a.first())
+                        .map(|item| get_node_text(item).to_lowercase().contains(&query))
+                        .unwrap_or(false)
+                {
                     is_match = true;
                 }
             }
             "id" => {
-                if node.get("attrs").and_then(|a| a.get("localId")).and_then(|id| id.as_str()) == Some(parts[1]) {
+                if node
+                    .get("attrs")
+                    .and_then(|a| a.get("localId"))
+                    .and_then(|id| id.as_str())
+                    == Some(parts[1])
+                {
                     is_match = true;
                 }
             }
@@ -233,7 +257,10 @@ pub fn find_anchor_index(doc: &Value, selector: &str) -> Result<usize, String> {
     match matches.len() {
         0 => Err(format!("Anchor not found: {}", selector)),
         1 => Ok(matches[0]),
-        n => Err(format!("Ambiguous anchor: found {} matches for '{}'", n, selector)),
+        n => Err(format!(
+            "Ambiguous anchor: found {} matches for '{}'",
+            n, selector
+        )),
     }
 }
 
@@ -246,12 +273,12 @@ mod tests {
     fn test_from_markdown_simple() {
         let md = "# Title\n\nThis is a paragraph with **bold** and [link](https://google.com).";
         let nodes = from_markdown(md);
-        
+
         assert_eq!(nodes.len(), 2);
         assert_eq!(nodes[0]["type"], "heading");
         assert_eq!(nodes[0]["attrs"]["level"], 1);
         assert_eq!(nodes[1]["type"], "paragraph");
-        
+
         let p_content = nodes[1]["content"].as_array().unwrap();
         assert_eq!(p_content[0]["text"], "This is a paragraph with ");
         assert_eq!(p_content[1]["marks"][0]["type"], "strong");
@@ -267,8 +294,9 @@ mod tests {
             "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Middle"}]}]
         });
 
-        let new_nodes = vec![json!({"type": "paragraph", "content": [{"type": "text", "text": "New"}]})];
-        
+        let new_nodes =
+            vec![json!({"type": "paragraph", "content": [{"type": "text", "text": "New"}]})];
+
         append_nodes(&mut doc, new_nodes.clone());
         assert_eq!(doc["content"].as_array().unwrap().len(), 2);
         assert_eq!(doc["content"][1]["content"][0]["text"], "New");
@@ -312,7 +340,7 @@ mod tests {
         assert_eq!(find_anchor_index(&doc, "panel:info").unwrap(), 1);
         assert_eq!(find_anchor_index(&doc, "list:one").unwrap(), 2);
         assert_eq!(find_anchor_index(&doc, "id:uuid-123").unwrap(), 3);
-        
+
         assert!(find_anchor_index(&doc, "heading:notfound").is_err());
         assert!(find_anchor_index(&doc, "heading:").is_err()); // Ambiguous if query is empty and multiple headings exist
     }

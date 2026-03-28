@@ -34,7 +34,7 @@ impl Formatter {
     fn render_table(&self, rows: Vec<Vec<String>>) -> String {
         let mut table = Table::new();
         table.load_preset(comfy_table::presets::UTF8_FULL);
-        
+
         if rows.is_empty() {
             return String::new();
         }
@@ -103,7 +103,8 @@ impl Formatter {
             }
         }
 
-        rows_to_render.iter()
+        rows_to_render
+            .iter()
             .map(|row| {
                 row.iter()
                     .enumerate()
