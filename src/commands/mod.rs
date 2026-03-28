@@ -4,6 +4,7 @@ pub mod config;
 pub mod confluence;
 pub mod create;
 pub mod doctor;
+pub mod open;
 pub mod projects;
 pub mod search;
 pub mod transition;

@@ -55,6 +55,13 @@ enum Commands {
     #[command(visible_alias = "p")]
     Projects,
 
+    /// Open a Jira issue in the browser
+    #[command(visible_alias = "browse")]
+    Open {
+        /// The issue key (e.g. PROJ-123)
+        key: String,
+    },
+
     /// Search Jira issues using JQL
     ///
     /// Examples:
@@ -311,6 +318,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     match cli.command {
         Commands::Projects => {
             commands::projects::run(&client, &formatter).await?;
+        }
+        Commands::Open { key } => {
+            commands::open::run(&client, key).await?;
         }
         Commands::Search {
             jql,

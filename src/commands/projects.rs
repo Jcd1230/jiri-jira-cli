@@ -3,10 +3,7 @@ use crate::formatter::Formatter;
 
 /// Execute the projects command to list projects.
 pub async fn run(client: &AtlassianClient, formatter: &Formatter) -> Result<(), String> {
-    let data = client.projects().await?;
-    let projects = data["values"]
-        .as_array()
-        .ok_or("No projects found in response")?;
+    let projects = client.projects_all().await?;
 
     let mut rows = vec![vec!["KEY".to_string(), "NAME".to_string()]];
     for p in projects {

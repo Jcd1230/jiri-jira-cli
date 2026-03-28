@@ -124,15 +124,34 @@ impl AtlassianClient {
         Ok(json)
     }
 
-    /// List all projects visible to the user.
-    pub async fn projects(&self) -> Result<Value, String> {
-        self.request(
-            AtlassianApi::Jira,
-            reqwest::Method::GET,
-            "/project/search",
-            None,
-        )
-        .await
+    /// List all projects visible to the user, fetching every page.
+    pub async fn projects_all(&self) -> Result<Vec<Value>, String> {
+        let page_size = 100;
+        let mut start_at = 0;
+        let mut projects = Vec::new();
+
+        loop {
+            let path = format!(
+                "/project/search?startAt={}&maxResults={}",
+                start_at, page_size
+            );
+            let data = self
+                .request(AtlassianApi::Jira, reqwest::Method::GET, &path, None)
+                .await?;
+
+            let page_projects = data["values"].as_array().cloned().unwrap_or_default();
+            let returned = page_projects.len() as i64;
+            projects.extend(page_projects);
+
+            let total = data["total"].as_i64().unwrap_or(projects.len() as i64);
+            start_at += returned;
+
+            if returned == 0 || start_at >= total {
+                break;
+            }
+        }
+
+        Ok(projects)
     }
 
     /// Perform a JQL search.
