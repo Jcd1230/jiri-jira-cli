@@ -62,6 +62,34 @@ enum Commands {
         key: String,
     },
 
+    /// Edit fields on an existing Jira issue
+    #[command(visible_alias = "e")]
+    Edit {
+        /// The issue key (e.g. PROJ-123)
+        key: String,
+        /// Update the issue summary
+        #[arg(long)]
+        summary: Option<String>,
+        /// Update the issue description
+        #[arg(long)]
+        description: Option<String>,
+        /// Comma-separated labels to set on the issue
+        #[arg(long)]
+        labels: Option<String>,
+        /// Update the assignee using a Jira user search query
+        #[arg(long)]
+        assignee: Option<String>,
+    },
+
+    /// Assign a Jira issue to a user
+    #[command(visible_alias = "a")]
+    Assign {
+        /// The issue key (e.g. PROJ-123)
+        key: String,
+        /// User search query, display name, email, or accountId
+        user: String,
+    },
+
     /// Search Jira issues using JQL
     ///
     /// Examples:
@@ -321,6 +349,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         Commands::Open { key } => {
             commands::open::run(&client, key).await?;
+        }
+        Commands::Edit {
+            key,
+            summary,
+            description,
+            labels,
+            assignee,
+        } => {
+            commands::edit::run(&client, key, summary, description, labels, assignee).await?;
+        }
+        Commands::Assign { key, user } => {
+            commands::assign::run(&client, key, user).await?;
         }
         Commands::Search {
             jql,

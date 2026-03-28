@@ -1,7 +1,9 @@
 pub mod comment;
 pub mod completions;
+pub mod assign;
 pub mod config;
 pub mod confluence;
+pub mod edit;
 pub mod create;
 pub mod doctor;
 pub mod open;

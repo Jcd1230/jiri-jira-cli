@@ -320,6 +320,25 @@ impl AtlassianClient {
         .await
     }
 
+    /// Search Jira users by query string.
+    pub async fn search_users(&self, query: &str) -> Result<Value, String> {
+        let path = format!("/user/search?query={}", urlencoding::encode(query));
+        self.request(AtlassianApi::Jira, reqwest::Method::GET, &path, None)
+            .await
+    }
+
+    /// Update fields on an existing issue.
+    pub async fn update_issue(
+        &self,
+        key: &str,
+        fields: serde_json::Value,
+    ) -> Result<Value, String> {
+        let path = format!("/issue/{}", key);
+        let body = serde_json::json!({ "fields": fields });
+        self.request(AtlassianApi::Jira, reqwest::Method::PUT, &path, Some(body))
+            .await
+    }
+
     // --- Confluence Methods ---
 
     /// Search for Confluence pages using CQL (v1 API).
