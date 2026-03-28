@@ -14,12 +14,14 @@ pub async fn run(
         .await?;
 
     let key = result["key"].as_str().unwrap_or("?");
-    let url = result["self"].as_str().unwrap_or("");
+    let url = format!(
+        "{}/browse/{}",
+        client.config().site.trim_end_matches('/'),
+        key
+    );
 
     println!("{} {}", "Created issue:".green().bold(), key.cyan().bold());
-    if !url.is_empty() {
-        println!("  {}", url.dimmed());
-    }
+    println!("  {}", url.dimmed());
 
     Ok(())
 }
