@@ -6,6 +6,8 @@ pub enum OutputFormat {
     Table,
     /// Comma-separated values.
     CSV,
+    /// Pretty-printed JSON.
+    Json,
     /// Space-padded columns without borders.
     Plain,
 }
@@ -27,6 +29,7 @@ impl Formatter {
         match self.format {
             OutputFormat::Table => self.render_table(rows),
             OutputFormat::CSV => self.render_csv(rows),
+            OutputFormat::Json => self.render_json(rows),
             OutputFormat::Plain => self.render_plain(rows),
         }
     }
@@ -74,6 +77,10 @@ impl Formatter {
         })
         .collect::<Vec<_>>()
         .join("\n")
+    }
+
+    fn render_json(&self, rows: Vec<Vec<String>>) -> String {
+        serde_json::to_string_pretty(&rows).unwrap_or_default()
     }
 
     fn render_plain(&self, rows: Vec<Vec<String>>) -> String {

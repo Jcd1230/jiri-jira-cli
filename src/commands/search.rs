@@ -1,7 +1,8 @@
 use crate::client::AtlassianClient;
 use crate::fields;
-use crate::formatter::Formatter;
+use crate::formatter::{Formatter, OutputFormat};
 use owo_colors::OwoColorize;
+use serde_json::Value;
 
 /// Execute the search command.
 pub async fn run(
@@ -78,6 +79,14 @@ pub async fn run(
         .search_all(&final_jql, resolved.query_fields, limit)
         .await
         .map_err(|err| search_error_with_context(&original_jql, &final_jql, err))?;
+
+    if matches!(formatter.format, OutputFormat::Json) {
+        println!(
+            "{}",
+            serde_json::to_string_pretty(&Value::Array(issues.clone())).unwrap_or_default()
+        );
+        return Ok(());
+    }
 
     let mut rows = vec![resolved.headers];
     for issue in &issues {

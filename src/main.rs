@@ -36,6 +36,10 @@ pub struct Cli {
     #[arg(long, global = true)]
     csv: bool,
 
+    /// Output JSON
+    #[arg(long, global = true)]
+    json: bool,
+
     /// No borders, padded columns
     #[arg(long, global = true)]
     plain: bool,
@@ -335,6 +339,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let format = if cli.csv {
         OutputFormat::CSV
+    } else if cli.json {
+        OutputFormat::Json
     } else if cli.plain {
         OutputFormat::Plain
     } else {
