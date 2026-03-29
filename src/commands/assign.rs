@@ -11,10 +11,6 @@ pub async fn run(client: &AtlassianClient, key: String, user: String) -> Result<
         )
         .await?;
 
-    println!(
-        "{} {}",
-        "Assigned issue:".green().bold(),
-        key.cyan().bold()
-    );
+    println!("{} {}", "Assigned issue:".green().bold(), key.cyan().bold());
     Ok(())
 }

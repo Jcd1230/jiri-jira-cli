@@ -159,7 +159,7 @@ struct ResolvedFields {
     keys: Vec<String>,
 }
 
-fn resolve_fields(requested: &Vec<String>, lookup: &crate::client::FieldLookup) -> ResolvedFields {
+fn resolve_fields(requested: &[String], lookup: &crate::client::FieldLookup) -> ResolvedFields {
     let mut query_fields = Vec::new();
     let mut headers = Vec::new();
     let mut keys = Vec::new();

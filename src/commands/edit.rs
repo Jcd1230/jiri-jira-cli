@@ -18,7 +18,10 @@ pub async fn run(
     }
 
     if let Some(description) = description {
-        fields.insert("description".to_string(), crate::adf::from_plain_text(&description));
+        fields.insert(
+            "description".to_string(),
+            crate::adf::from_plain_text(&description),
+        );
     }
 
     if let Some(labels) = labels {

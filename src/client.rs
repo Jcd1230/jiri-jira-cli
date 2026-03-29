@@ -16,7 +16,7 @@ pub enum AtlassianApi {
 /// Client for interacting with Atlassian Cloud REST APIs (Jira and Confluence).
 pub struct AtlassianClient {
     client: reqwest::Client,
-    pub config: Config,
+    config: Config,
     field_cache: std::sync::Mutex<Option<FieldLookup>>,
 }
 
@@ -207,12 +207,13 @@ impl AtlassianClient {
                 .await?;
 
             let page_issues = page["issues"].as_array().cloned().unwrap_or_default();
-            issues.extend(page_issues.clone());
+            let page_is_empty = page_issues.is_empty();
+            issues.extend(page_issues);
 
             next_page_token = page["nextPageToken"].as_str().map(|s| s.to_string());
             more_available = next_page_token.is_some();
 
-            if next_page_token.is_none() || page_issues.is_empty() {
+            if next_page_token.is_none() || page_is_empty {
                 break;
             }
         }
