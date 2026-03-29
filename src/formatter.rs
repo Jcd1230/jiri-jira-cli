@@ -58,25 +58,30 @@ impl Formatter {
 
     fn render_csv(&self, rows: Vec<Vec<String>>) -> String {
         let mut iter = rows.into_iter();
-        if self.no_header {
-            iter.next();
-        }
+        let first_row = iter.next();
+        let rows_to_render = if self.no_header {
+            iter.collect::<Vec<_>>()
+        } else {
+            first_row.into_iter().chain(iter).collect::<Vec<_>>()
+        };
 
-        iter.map(|row| {
-            row.iter()
-                .map(|cell| {
-                    // Simple CSV quoting logic
-                    if cell.contains(',') || cell.contains('"') || cell.contains('\n') {
-                        format!("\"{}\"", cell.replace('"', "\"\""))
-                    } else {
-                        cell.clone()
-                    }
-                })
-                .collect::<Vec<_>>()
-                .join(",")
-        })
-        .collect::<Vec<_>>()
-        .join("\n")
+        rows_to_render
+            .into_iter()
+            .map(|row| {
+                row.iter()
+                    .map(|cell| {
+                        // Simple CSV quoting logic
+                        if cell.contains(',') || cell.contains('"') || cell.contains('\n') {
+                            format!("\"{}\"", cell.replace('"', "\"\""))
+                        } else {
+                            cell.clone()
+                        }
+                    })
+                    .collect::<Vec<_>>()
+                    .join(",")
+            })
+            .collect::<Vec<_>>()
+            .join("\n")
     }
 
     fn render_json(&self, rows: Vec<Vec<String>>) -> String {

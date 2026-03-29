@@ -53,12 +53,10 @@ pub async fn run(
             .map_err(|err| search_error_with_context(&original_jql, &final_jql, err))?;
         let issues = data["issues"].as_array().ok_or("No issues found")?;
         if let Some(issue) = issues.first() {
-            let mut field_names: Vec<String> = issue["fields"]
+            let fields_obj = issue["fields"]
                 .as_object()
-                .unwrap()
-                .keys()
-                .cloned()
-                .collect();
+                .ok_or("Search result did not include a fields object")?;
+            let mut field_names: Vec<String> = fields_obj.keys().cloned().collect();
             field_names.sort();
 
             let mut rows = vec![vec!["FIELD".to_string()]];
