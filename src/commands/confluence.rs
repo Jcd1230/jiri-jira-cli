@@ -287,7 +287,39 @@ pub async fn run_edit(
     }
 }
 
-fn doc_content_mut(doc: &mut Value) -> Result<&mut Vec<Value>, String> {
+pub async fn run_attach(
+    client: &AtlassianClient,
+    id: String,
+    file_path: String,
+    comment: Option<String>,
+) -> Result<(), String> {
+    println!("Attaching {} to page {}...", file_path, id);
+    let result = client.attach_to_page(&id, &file_path, comment).await?;
+
+    let results = result["results"]
+        .as_array()
+        .ok_or("No results found in response")?;
+
+    if let Some(attachment) = results.first() {
+        println!(
+            "{} {}",
+            "Successfully attached:".green().bold(),
+            attachment["title"].as_str().unwrap_or("unknown").bold()
+        );
+        println!(
+            "  {} {}",
+            "ID:".cyan().bold(),
+            attachment["id"].as_str().unwrap_or("?").cyan().bold()
+        );
+    } else {
+        println!("{}", "Successfully attached file.".green().bold());
+    }
+
+    Ok(())
+}
+
+    fn doc_content_mut(doc: &mut Value) -> Result<&mut Vec<Value>, String> {
+
     doc.get_mut("content")
         .and_then(|c| c.as_array_mut())
         .ok_or_else(|| "Invalid ADF: missing content array".to_string())

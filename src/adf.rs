@@ -64,6 +64,72 @@ pub fn from_plain_text(text: &str) -> Value {
     })
 }
 
+/// Create an ADF JSON structure with text and an embedded external media object.
+pub fn from_plain_text_with_external_media(text: &str, url: &str) -> Value {
+    json!({
+        "type": "doc",
+        "version": 1,
+        "content": [
+            {
+                "type": "paragraph",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": text
+                    }
+                ]
+            },
+            {
+                "type": "mediaSingle",
+                "attrs": {
+                    "layout": "center"
+                },
+                "content": [
+                    {
+                        "type": "media",
+                        "attrs": {
+                            "type": "external",
+                            "url": url
+                        }
+                    }
+                ]
+            }
+        ]
+    })
+}
+
+/// Create an ADF JSON structure with text and an embedded attachment using a Media Services ID.
+pub fn from_plain_text_with_attachment(text: &str, media_id: &str) -> Value {
+    json!({
+        "type": "doc",
+        "version": 1,
+        "content": [
+            {
+                "type": "paragraph",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": text
+                    }
+                ]
+            },
+            {
+                "type": "mediaGroup",
+                "content": [
+                    {
+                        "type": "media",
+                        "attrs": {
+                            "id": media_id,
+                            "type": "file",
+                            "collection": ""
+                        }
+                    }
+                ]
+            }
+        ]
+    })
+}
+
 /// Convert Markdown to ADF nodes.
 pub fn from_markdown(markdown: &str) -> Vec<Value> {
     let parser = Parser::new(markdown);

@@ -162,6 +162,17 @@ enum Commands {
         message: String,
     },
 
+    /// Add an attachment to a Jira issue
+    Attach {
+        /// The issue key (e.g. PROJ-123)
+        key: String,
+        /// Path to the file to attach
+        file: String,
+        /// Optional comment to add along with the attachment
+        #[arg(short, long)]
+        message: Option<String>,
+    },
+
     /// Manage configuration settings
     Config {
         #[command(subcommand)]
@@ -260,6 +271,17 @@ enum ConfluenceCommands {
         /// Output raw ADF JSON instead of rendered text
         #[arg(long)]
         raw: bool,
+    },
+
+    /// Add an attachment to a Confluence page
+    Attach {
+        /// The page ID
+        id: String,
+        /// Path to the file to attach
+        file: String,
+        /// Optional comment for the attachment
+        #[arg(short, long)]
+        message: Option<String>,
     },
 
     /// Programmatically edit a Confluence page
@@ -408,6 +430,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         Commands::Comment { key, message } => {
             commands::comment::run(&client, key, message).await?;
         }
+        Commands::Attach { key, file, message } => {
+            commands::attach::run(&client, key, file, message).await?;
+        }
         Commands::Config { subcommand } => match subcommand {
             ConfigCommands::Show { global, local } => {
                 commands::config::run_show(global, local).await?;
@@ -446,6 +471,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
             ConfluenceCommands::View { id, raw } => {
                 commands::confluence::run_view(&client, id, raw).await?;
+            }
+            ConfluenceCommands::Attach { id, file, message } => {
+                commands::confluence::run_attach(&client, id, file, message).await?;
             }
             ConfluenceCommands::Edit {
                 id,

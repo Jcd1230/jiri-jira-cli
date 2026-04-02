@@ -4,6 +4,7 @@ use base64::{engine::general_purpose, Engine as _};
 use reqwest::header::{HeaderMap, HeaderValue, ACCEPT, AUTHORIZATION, CONTENT_TYPE};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use std::path::Path;
 use std::collections::HashMap;
 
 /// API types supported by the Atlassian client.
@@ -121,6 +122,89 @@ impl AtlassianClient {
                 serde_json::to_string_pretty(&json).unwrap_or_default()
             );
         }
+        Ok(json)
+    }
+
+    /// Perform a multipart upload request to the Atlassian API.
+    async fn request_multipart(
+        &self,
+        api: AtlassianApi,
+        path: &str,
+        file_path: &str,
+        comment: Option<String>,
+    ) -> Result<Value, String> {
+        let prefix = match api {
+            AtlassianApi::Jira => "/rest/api/3",
+            AtlassianApi::Confluence => "/wiki/api/v2",
+            AtlassianApi::ConfluenceV1 => "/wiki/rest/api",
+        };
+
+        let url = format!("{}{}{}", self.config.site, prefix, path);
+
+        if std::env::var("JIRI_VERBOSE").is_ok() {
+            eprintln!("DEBUG: POST (multipart) {}", url);
+            eprintln!("DEBUG: File: {}", file_path);
+        }
+
+        let file_name = Path::new(file_path)
+            .file_name()
+            .and_then(|n| n.to_str())
+            .ok_or_else(|| format!("Invalid file path: {}", file_path))?
+            .to_string();
+
+        let file_content = tokio::fs::read(file_path)
+            .await
+            .map_err(|e| format!("Failed to read file {}: {}", file_path, e))?;
+
+        let mime = mime_guess::from_path(file_path)
+            .first_raw()
+            .unwrap_or("application/octet-stream");
+
+        let part = reqwest::multipart::Part::bytes(file_content)
+            .file_name(file_name)
+            .mime_str(mime)
+            .map_err(|e| e.to_string())?;
+
+        let mut form = reqwest::multipart::Form::new().part("file", part);
+
+        // Add comment only for Confluence v2 attachments
+        if let (AtlassianApi::Confluence, Some(c)) = (&api, comment) {
+            form = form.text("comment", c);
+        }
+
+        let mut headers = HeaderMap::new();
+        let auth = format!("{}:{}", self.config.user, self.config.token);
+        let encoded_auth = general_purpose::STANDARD.encode(auth);
+
+        headers.insert(
+            AUTHORIZATION,
+            HeaderValue::from_str(&format!("Basic {}", encoded_auth)).unwrap(),
+        );
+        headers.insert(ACCEPT, HeaderValue::from_static("application/json"));
+        headers.insert("X-Atlassian-Token", HeaderValue::from_static("no-check"));
+
+        let response = self.client
+            .post(&url)
+            .headers(headers)
+            .multipart(form)
+            .send()
+            .await
+            .map_err(|e| e.to_string())?;
+
+        if std::env::var("JIRI_VERBOSE").is_ok() {
+            eprintln!("DEBUG: Response: {}", response.status());
+        }
+
+        if !response.status().is_success() {
+            let status = response.status();
+            let text = response
+                .text()
+                .await
+                .unwrap_or_else(|_| "Unknown error".to_string());
+            return Err(format!("Atlassian request failed ({}): {}", status, text));
+        }
+
+        let json: Value = response.json().await.map_err(|e| e.to_string())?;
         Ok(json)
     }
 
@@ -287,6 +371,85 @@ impl AtlassianClient {
             "body": adf::from_plain_text(body_text)
         });
         self.request(AtlassianApi::Jira, reqwest::Method::POST, &path, Some(body))
+            .await
+    }
+
+    /// Add a comment to an issue with an embedded external media object (e.g. an attachment).
+    pub async fn add_comment_with_external_media(
+        &self,
+        key: &str,
+        body_text: &str,
+        url: &str,
+    ) -> Result<Value, String> {
+        let path = format!("/issue/{}/comment", key);
+        let body = serde_json::json!({
+            "body": adf::from_plain_text_with_external_media(body_text, url)
+        });
+        self.request(AtlassianApi::Jira, reqwest::Method::POST, &path, Some(body))
+            .await
+    }
+
+    /// Add a comment to an issue with an embedded attachment using its Media ID.
+    pub async fn add_comment_with_attachment(
+        &self,
+        key: &str,
+        body_text: &str,
+        media_id: &str,
+    ) -> Result<Value, String> {
+        let path = format!("/issue/{}/comment", key);
+        let body = serde_json::json!({
+            "body": adf::from_plain_text_with_attachment(body_text, media_id)
+        });
+        self.request(AtlassianApi::Jira, reqwest::Method::POST, &path, Some(body))
+            .await
+    }
+
+    /// Retrieve the Media Services UUID for a given numeric attachment ID.
+    /// This follows the redirect of the attachment content URL.
+    pub async fn get_attachment_media_id(&self, attachment_id: &str) -> Result<String, String> {
+        let url = format!("{}/rest/api/3/attachment/content/{}", self.config.site, attachment_id);
+
+        let mut headers = HeaderMap::new();
+        let auth = format!("{}:{}", self.config.user, self.config.token);
+        let encoded_auth = general_purpose::STANDARD.encode(auth);
+        headers.insert(
+            AUTHORIZATION,
+            HeaderValue::from_str(&format!("Basic {}", encoded_auth)).unwrap(),
+        );
+
+        // We use a separate client that doesn't automatically follow redirects so we can see the Location header.
+        let no_redirect_client = reqwest::Client::builder()
+            .redirect(reqwest::redirect::Policy::none())
+            .build()
+            .map_err(|e| e.to_string())?;
+
+        let response = no_redirect_client
+            .get(&url)
+            .headers(headers)
+            .send()
+            .await
+            .map_err(|e| e.to_string())?;
+
+        let location = response
+            .headers()
+            .get(reqwest::header::LOCATION)
+            .and_then(|l| l.to_str().ok())
+            .ok_or_else(|| "No redirect location found for attachment content".to_string())?;
+
+        // The URL typically looks like https://.../file/<UUID>/binary?...
+        let parts: Vec<&str> = location.split("/file/").collect();
+        if parts.len() < 2 {
+            return Err(format!("Could not find Media UUID in redirect URL: {}", location));
+        }
+        let uuid_part = parts[1].split('/').next().ok_or("Malformed Media UUID path")?;
+        
+        Ok(uuid_part.to_string())
+    }
+
+    /// Add an attachment to a Jira issue.
+    pub async fn attach_to_issue(&self, key: &str, file_path: &str) -> Result<Value, String> {
+        let path = format!("/issue/{}/attachments", key);
+        self.request_multipart(AtlassianApi::Jira, &path, file_path, None)
             .await
     }
 
@@ -457,5 +620,17 @@ impl AtlassianClient {
             Some(body),
         )
         .await
+    }
+
+    /// Add an attachment to a Confluence page (v2 API) with optional comment.
+    pub async fn attach_to_page(
+        &self,
+        id: &str,
+        file_path: &str,
+        comment: Option<String>,
+    ) -> Result<Value, String> {
+        let path = format!("/pages/{}/attachments", id);
+        self.request_multipart(AtlassianApi::Confluence, &path, file_path, comment)
+            .await
     }
 }
