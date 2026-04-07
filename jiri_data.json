@@ -1,0 +1,3490 @@
+{
+  "issues": [
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10439",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10439",
+      "key": "KAN-127",
+      "fields": {
+        "summary": "Prototyping Epic 10 (DONE state)",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+          "id": "10005",
+          "description": "Epics track collections of related bugs, stories, and tasks.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+          "name": "Epic",
+          "subtask": false,
+          "avatarId": 10307,
+          "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+          "hierarchyLevel": 1
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [],
+        "mockStartDate": "2026-04-11",
+        "mockDueDate": "2026-04-23"
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10428",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10428",
+      "key": "KAN-121",
+      "fields": {
+        "summary": "Prototyping Epic 9 (TODO state)",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+          "id": "10005",
+          "description": "Epics track collections of related bugs, stories, and tasks.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+          "name": "Epic",
+          "subtask": false,
+          "avatarId": 10307,
+          "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+          "hierarchyLevel": 1
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [],
+        "mockStartDate": "2026-04-07",
+        "mockDueDate": "2026-04-21"
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10421",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10421",
+      "key": "KAN-117",
+      "fields": {
+        "summary": "Prototyping Epic 8 (MIXED state)",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+          "id": "10005",
+          "description": "Epics track collections of related bugs, stories, and tasks.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+          "name": "Epic",
+          "subtask": false,
+          "avatarId": 10307,
+          "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+          "hierarchyLevel": 1
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [],
+        "mockStartDate": "2026-04-01",
+        "mockDueDate": "2026-04-24"
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10410",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10410",
+      "key": "KAN-111",
+      "fields": {
+        "summary": "Prototyping Epic 7 (DONE state)",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+          "id": "10005",
+          "description": "Epics track collections of related bugs, stories, and tasks.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+          "name": "Epic",
+          "subtask": false,
+          "avatarId": 10307,
+          "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+          "hierarchyLevel": 1
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [],
+        "mockStartDate": "2026-03-27",
+        "mockDueDate": "2026-04-09"
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10399",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10399",
+      "key": "KAN-105",
+      "fields": {
+        "summary": "Prototyping Epic 6 (DONE state)",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+          "id": "10005",
+          "description": "Epics track collections of related bugs, stories, and tasks.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+          "name": "Epic",
+          "subtask": false,
+          "avatarId": 10307,
+          "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+          "hierarchyLevel": 1
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [],
+        "mockStartDate": "2026-04-11",
+        "mockDueDate": "2026-04-30"
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10392",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10392",
+      "key": "KAN-101",
+      "fields": {
+        "summary": "Prototyping Epic 5 (TODO state)",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+          "id": "10005",
+          "description": "Epics track collections of related bugs, stories, and tasks.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+          "name": "Epic",
+          "subtask": false,
+          "avatarId": 10307,
+          "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+          "hierarchyLevel": 1
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [],
+        "mockStartDate": "2026-04-01",
+        "mockDueDate": "2026-04-13"
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10381",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10381",
+      "key": "KAN-95",
+      "fields": {
+        "summary": "Prototyping Epic 4 (MIXED state)",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+          "id": "10005",
+          "description": "Epics track collections of related bugs, stories, and tasks.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+          "name": "Epic",
+          "subtask": false,
+          "avatarId": 10307,
+          "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+          "hierarchyLevel": 1
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [],
+        "mockStartDate": "2026-03-28",
+        "mockDueDate": "2026-04-17"
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10372",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10372",
+      "key": "KAN-90",
+      "fields": {
+        "summary": "Prototyping Epic 3 (TODO state)",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+          "id": "10005",
+          "description": "Epics track collections of related bugs, stories, and tasks.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+          "name": "Epic",
+          "subtask": false,
+          "avatarId": 10307,
+          "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+          "hierarchyLevel": 1
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [],
+        "mockStartDate": "2026-04-02",
+        "mockDueDate": "2026-04-25"
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10361",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10361",
+      "key": "KAN-84",
+      "fields": {
+        "summary": "Prototyping Epic 2 (MIXED state)",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+          "id": "10005",
+          "description": "Epics track collections of related bugs, stories, and tasks.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+          "name": "Epic",
+          "subtask": false,
+          "avatarId": 10307,
+          "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+          "hierarchyLevel": 1
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [],
+        "mockStartDate": "2026-04-01",
+        "mockDueDate": "2026-04-26"
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10354",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10354",
+      "key": "KAN-80",
+      "fields": {
+        "summary": "Prototyping Epic 1 (MIXED state)",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+          "id": "10005",
+          "description": "Epics track collections of related bugs, stories, and tasks.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+          "name": "Epic",
+          "subtask": false,
+          "avatarId": 10307,
+          "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+          "hierarchyLevel": 1
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [],
+        "mockStartDate": "2026-04-06",
+        "mockDueDate": "2026-04-20"
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10445",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10445",
+      "key": "KAN-130",
+      "fields": {
+        "summary": "Develop sub-component 3 for KAN-127",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10439",
+          "key": "KAN-127",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10439",
+          "fields": {
+            "summary": "Prototyping Epic 10 (DONE state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-1"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10443",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10443",
+      "key": "KAN-129",
+      "fields": {
+        "summary": "Develop sub-component 2 for KAN-127",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10439",
+          "key": "KAN-127",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10439",
+          "fields": {
+            "summary": "Prototyping Epic 10 (DONE state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-1"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10441",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10441",
+      "key": "KAN-128",
+      "fields": {
+        "summary": "Develop sub-component 1 for KAN-127",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10439",
+          "key": "KAN-127",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10439",
+          "fields": {
+            "summary": "Prototyping Epic 10 (DONE state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-3"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10438",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10438",
+      "key": "KAN-126",
+      "fields": {
+        "summary": "Develop sub-component 5 for KAN-121",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10428",
+          "key": "KAN-121",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10428",
+          "fields": {
+            "summary": "Prototyping Epic 9 (TODO state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [
+          "story-points-2"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10436",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10436",
+      "key": "KAN-125",
+      "fields": {
+        "summary": "Develop sub-component 4 for KAN-121",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10428",
+          "key": "KAN-121",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10428",
+          "fields": {
+            "summary": "Prototyping Epic 9 (TODO state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [
+          "story-points-1"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10434",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10434",
+      "key": "KAN-124",
+      "fields": {
+        "summary": "Develop sub-component 3 for KAN-121",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10428",
+          "key": "KAN-121",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10428",
+          "fields": {
+            "summary": "Prototyping Epic 9 (TODO state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [
+          "story-points-3"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10432",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10432",
+      "key": "KAN-123",
+      "fields": {
+        "summary": "Develop sub-component 2 for KAN-121",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10428",
+          "key": "KAN-121",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10428",
+          "fields": {
+            "summary": "Prototyping Epic 9 (TODO state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [
+          "story-points-3"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10430",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10430",
+      "key": "KAN-122",
+      "fields": {
+        "summary": "Develop sub-component 1 for KAN-121",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10428",
+          "key": "KAN-121",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10428",
+          "fields": {
+            "summary": "Prototyping Epic 9 (TODO state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [
+          "story-points-1"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10427",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10427",
+      "key": "KAN-120",
+      "fields": {
+        "summary": "Develop sub-component 3 for KAN-117",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10421",
+          "key": "KAN-117",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10421",
+          "fields": {
+            "summary": "Prototyping Epic 8 (MIXED state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-2"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10425",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10425",
+      "key": "KAN-119",
+      "fields": {
+        "summary": "Develop sub-component 2 for KAN-117",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10421",
+          "key": "KAN-117",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10421",
+          "fields": {
+            "summary": "Prototyping Epic 8 (MIXED state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10005",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "In Progress",
+          "id": "10005",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/4",
+            "id": 4,
+            "key": "indeterminate",
+            "colorName": "yellow",
+            "name": "In Progress"
+          }
+        },
+        "labels": [
+          "story-points-1"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10423",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10423",
+      "key": "KAN-118",
+      "fields": {
+        "summary": "Develop sub-component 1 for KAN-117",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10421",
+          "key": "KAN-117",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10421",
+          "fields": {
+            "summary": "Prototyping Epic 8 (MIXED state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-5"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10420",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10420",
+      "key": "KAN-116",
+      "fields": {
+        "summary": "Develop sub-component 5 for KAN-111",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10410",
+          "key": "KAN-111",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10410",
+          "fields": {
+            "summary": "Prototyping Epic 7 (DONE state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-2"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10418",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10418",
+      "key": "KAN-115",
+      "fields": {
+        "summary": "Develop sub-component 4 for KAN-111",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10410",
+          "key": "KAN-111",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10410",
+          "fields": {
+            "summary": "Prototyping Epic 7 (DONE state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-3"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10416",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10416",
+      "key": "KAN-114",
+      "fields": {
+        "summary": "Develop sub-component 3 for KAN-111",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10410",
+          "key": "KAN-111",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10410",
+          "fields": {
+            "summary": "Prototyping Epic 7 (DONE state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-2"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10414",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10414",
+      "key": "KAN-113",
+      "fields": {
+        "summary": "Develop sub-component 2 for KAN-111",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10410",
+          "key": "KAN-111",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10410",
+          "fields": {
+            "summary": "Prototyping Epic 7 (DONE state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-5"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10412",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10412",
+      "key": "KAN-112",
+      "fields": {
+        "summary": "Develop sub-component 1 for KAN-111",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10410",
+          "key": "KAN-111",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10410",
+          "fields": {
+            "summary": "Prototyping Epic 7 (DONE state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-2"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10409",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10409",
+      "key": "KAN-110",
+      "fields": {
+        "summary": "Develop sub-component 5 for KAN-105",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10399",
+          "key": "KAN-105",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10399",
+          "fields": {
+            "summary": "Prototyping Epic 6 (DONE state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-1"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10407",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10407",
+      "key": "KAN-109",
+      "fields": {
+        "summary": "Develop sub-component 4 for KAN-105",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10399",
+          "key": "KAN-105",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10399",
+          "fields": {
+            "summary": "Prototyping Epic 6 (DONE state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-3"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10405",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10405",
+      "key": "KAN-108",
+      "fields": {
+        "summary": "Develop sub-component 3 for KAN-105",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10399",
+          "key": "KAN-105",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10399",
+          "fields": {
+            "summary": "Prototyping Epic 6 (DONE state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-1"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10403",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10403",
+      "key": "KAN-107",
+      "fields": {
+        "summary": "Develop sub-component 2 for KAN-105",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10399",
+          "key": "KAN-105",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10399",
+          "fields": {
+            "summary": "Prototyping Epic 6 (DONE state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-1"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10401",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10401",
+      "key": "KAN-106",
+      "fields": {
+        "summary": "Develop sub-component 1 for KAN-105",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10399",
+          "key": "KAN-105",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10399",
+          "fields": {
+            "summary": "Prototyping Epic 6 (DONE state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-5"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10398",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10398",
+      "key": "KAN-104",
+      "fields": {
+        "summary": "Develop sub-component 3 for KAN-101",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10392",
+          "key": "KAN-101",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10392",
+          "fields": {
+            "summary": "Prototyping Epic 5 (TODO state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [
+          "story-points-3"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10396",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10396",
+      "key": "KAN-103",
+      "fields": {
+        "summary": "Develop sub-component 2 for KAN-101",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10392",
+          "key": "KAN-101",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10392",
+          "fields": {
+            "summary": "Prototyping Epic 5 (TODO state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [
+          "story-points-3"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10394",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10394",
+      "key": "KAN-102",
+      "fields": {
+        "summary": "Develop sub-component 1 for KAN-101",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10392",
+          "key": "KAN-101",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10392",
+          "fields": {
+            "summary": "Prototyping Epic 5 (TODO state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [
+          "story-points-5"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10391",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10391",
+      "key": "KAN-100",
+      "fields": {
+        "summary": "Develop sub-component 5 for KAN-95",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10381",
+          "key": "KAN-95",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10381",
+          "fields": {
+            "summary": "Prototyping Epic 4 (MIXED state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10005",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "In Progress",
+          "id": "10005",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/4",
+            "id": 4,
+            "key": "indeterminate",
+            "colorName": "yellow",
+            "name": "In Progress"
+          }
+        },
+        "labels": [
+          "story-points-2"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10389",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10389",
+      "key": "KAN-99",
+      "fields": {
+        "summary": "Develop sub-component 4 for KAN-95",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10381",
+          "key": "KAN-95",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10381",
+          "fields": {
+            "summary": "Prototyping Epic 4 (MIXED state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10005",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "In Progress",
+          "id": "10005",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/4",
+            "id": 4,
+            "key": "indeterminate",
+            "colorName": "yellow",
+            "name": "In Progress"
+          }
+        },
+        "labels": [
+          "story-points-5"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10387",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10387",
+      "key": "KAN-98",
+      "fields": {
+        "summary": "Develop sub-component 3 for KAN-95",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10381",
+          "key": "KAN-95",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10381",
+          "fields": {
+            "summary": "Prototyping Epic 4 (MIXED state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-3"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10385",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10385",
+      "key": "KAN-97",
+      "fields": {
+        "summary": "Develop sub-component 2 for KAN-95",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10381",
+          "key": "KAN-95",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10381",
+          "fields": {
+            "summary": "Prototyping Epic 4 (MIXED state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10005",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "In Progress",
+          "id": "10005",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/4",
+            "id": 4,
+            "key": "indeterminate",
+            "colorName": "yellow",
+            "name": "In Progress"
+          }
+        },
+        "labels": [
+          "story-points-3"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10383",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10383",
+      "key": "KAN-96",
+      "fields": {
+        "summary": "Develop sub-component 1 for KAN-95",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10381",
+          "key": "KAN-95",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10381",
+          "fields": {
+            "summary": "Prototyping Epic 4 (MIXED state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-1"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10380",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10380",
+      "key": "KAN-94",
+      "fields": {
+        "summary": "Develop sub-component 4 for KAN-90",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10372",
+          "key": "KAN-90",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10372",
+          "fields": {
+            "summary": "Prototyping Epic 3 (TODO state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [
+          "story-points-3"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10378",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10378",
+      "key": "KAN-93",
+      "fields": {
+        "summary": "Develop sub-component 3 for KAN-90",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10372",
+          "key": "KAN-90",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10372",
+          "fields": {
+            "summary": "Prototyping Epic 3 (TODO state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [
+          "story-points-3"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10376",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10376",
+      "key": "KAN-92",
+      "fields": {
+        "summary": "Develop sub-component 2 for KAN-90",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10372",
+          "key": "KAN-90",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10372",
+          "fields": {
+            "summary": "Prototyping Epic 3 (TODO state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [
+          "story-points-1"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10374",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10374",
+      "key": "KAN-91",
+      "fields": {
+        "summary": "Develop sub-component 1 for KAN-90",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10372",
+          "key": "KAN-90",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10372",
+          "fields": {
+            "summary": "Prototyping Epic 3 (TODO state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [
+          "story-points-1"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10371",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10371",
+      "key": "KAN-89",
+      "fields": {
+        "summary": "Develop sub-component 5 for KAN-84",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10361",
+          "key": "KAN-84",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10361",
+          "fields": {
+            "summary": "Prototyping Epic 2 (MIXED state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-5"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10369",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10369",
+      "key": "KAN-88",
+      "fields": {
+        "summary": "Develop sub-component 4 for KAN-84",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10361",
+          "key": "KAN-84",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10361",
+          "fields": {
+            "summary": "Prototyping Epic 2 (MIXED state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [
+          "story-points-2"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10367",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10367",
+      "key": "KAN-87",
+      "fields": {
+        "summary": "Develop sub-component 3 for KAN-84",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10361",
+          "key": "KAN-84",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10361",
+          "fields": {
+            "summary": "Prototyping Epic 2 (MIXED state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-2"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10365",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10365",
+      "key": "KAN-86",
+      "fields": {
+        "summary": "Develop sub-component 2 for KAN-84",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10361",
+          "key": "KAN-84",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10361",
+          "fields": {
+            "summary": "Prototyping Epic 2 (MIXED state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [
+          "story-points-5"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10363",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10363",
+      "key": "KAN-85",
+      "fields": {
+        "summary": "Develop sub-component 1 for KAN-84",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10361",
+          "key": "KAN-84",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10361",
+          "fields": {
+            "summary": "Prototyping Epic 2 (MIXED state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "To Do",
+          "id": "10004",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "labels": [
+          "story-points-5"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10360",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10360",
+      "key": "KAN-83",
+      "fields": {
+        "summary": "Develop sub-component 3 for KAN-80",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10354",
+          "key": "KAN-80",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10354",
+          "fields": {
+            "summary": "Prototyping Epic 1 (MIXED state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-1"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10358",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10358",
+      "key": "KAN-82",
+      "fields": {
+        "summary": "Develop sub-component 2 for KAN-80",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10354",
+          "key": "KAN-80",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10354",
+          "fields": {
+            "summary": "Prototyping Epic 1 (MIXED state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10007",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "Done",
+          "id": "10007",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "labels": [
+          "story-points-1"
+        ]
+      }
+    },
+    {
+      "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+      "id": "10356",
+      "self": "https://dogariu.atlassian.net/rest/api/3/issue/10356",
+      "key": "KAN-81",
+      "fields": {
+        "summary": "Develop sub-component 1 for KAN-80",
+        "issuetype": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10007",
+          "id": "10007",
+          "description": "Tasks track small, distinct pieces of work.",
+          "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+          "name": "Task",
+          "subtask": false,
+          "avatarId": 10318,
+          "entityId": "bf5ae083-6c6a-4661-947d-e05021b71ef1",
+          "hierarchyLevel": 0
+        },
+        "parent": {
+          "id": "10354",
+          "key": "KAN-80",
+          "self": "https://dogariu.atlassian.net/rest/api/3/issue/10354",
+          "fields": {
+            "summary": "Prototyping Epic 1 (MIXED state)",
+            "status": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/status/10004",
+              "description": "",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+              "name": "To Do",
+              "id": "10004",
+              "statusCategory": {
+                "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/priority/3",
+              "iconUrl": "https://dogariu.atlassian.net/images/icons/priorities/medium_new.svg",
+              "name": "Medium",
+              "id": "3"
+            },
+            "issuetype": {
+              "self": "https://dogariu.atlassian.net/rest/api/3/issuetype/10005",
+              "id": "10005",
+              "description": "Epics track collections of related bugs, stories, and tasks.",
+              "iconUrl": "https://dogariu.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10307,
+              "entityId": "67191d76-9643-42db-8329-2c68f754d637",
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "status": {
+          "self": "https://dogariu.atlassian.net/rest/api/3/status/10005",
+          "description": "",
+          "iconUrl": "https://dogariu.atlassian.net/images/icons/statuses/generic.png",
+          "name": "In Progress",
+          "id": "10005",
+          "statusCategory": {
+            "self": "https://dogariu.atlassian.net/rest/api/3/statuscategory/4",
+            "id": 4,
+            "key": "indeterminate",
+            "colorName": "yellow",
+            "name": "In Progress"
+          }
+        },
+        "labels": [
+          "story-points-3"
+        ]
+      }
+    }
+  ]
+}
