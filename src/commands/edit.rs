@@ -10,46 +10,28 @@ pub async fn run(
     description: Option<String>,
     labels: Option<String>,
     assignee: Option<String>,
+    fields: Vec<String>,
+    fields_json: Vec<String>,
 ) -> Result<(), String> {
-    let mut fields = serde_json::Map::new();
+    let payload = crate::fields::build_update_payload(
+        client,
+        summary,
+        description,
+        labels,
+        assignee,
+        &fields,
+        &fields_json,
+    )
+    .await?;
 
-    if let Some(summary) = summary {
-        fields.insert("summary".to_string(), Value::String(summary));
-    }
-
-    if let Some(description) = description {
-        fields.insert(
-            "description".to_string(),
-            crate::adf::from_plain_text(&description),
-        );
-    }
-
-    if let Some(labels) = labels {
-        let labels = labels
-            .split(',')
-            .map(|s| s.trim())
-            .filter(|s| !s.is_empty())
-            .map(|s| Value::String(s.to_string()))
-            .collect::<Vec<_>>();
-        fields.insert("labels".to_string(), Value::Array(labels));
-    }
-
-    if let Some(assignee_query) = assignee {
-        let account_id = resolve_account_id(client, &assignee_query).await?;
-        fields.insert(
-            "assignee".to_string(),
-            serde_json::json!({ "accountId": account_id }),
-        );
-    }
-
-    if fields.is_empty() {
+    if payload.is_empty() {
         return Err(
-            "No fields provided. Use --summary, --description, --labels, or --assignee."
+            "No fields provided. Use --summary, --description, --labels, --assignee, --field, or --field-json."
                 .to_string(),
         );
     }
 
-    client.update_issue(&key, Value::Object(fields)).await?;
+    client.update_issue(&key, Value::Object(payload)).await?;
     println!("{} {}", "Updated issue:".green().bold(), key.cyan().bold());
     Ok(())
 }

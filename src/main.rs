@@ -83,6 +83,47 @@ enum Commands {
         /// Update the assignee using a Jira user search query
         #[arg(long)]
         assignee: Option<String>,
+        /// Set a field in FieldName=Value or FieldID=Value format (can be specified multiple times)
+        #[arg(short, long = "field", value_name = "FIELD=VALUE")]
+        fields: Vec<String>,
+        /// Set a field with raw JSON in FieldName=JSON format (can be specified multiple times)
+        #[arg(long = "field-json", value_name = "FIELD=JSON")]
+        fields_json: Vec<String>,
+    },
+
+    /// Edit fields on multiple Jira issues matching a JQL query or specific keys
+    #[command(name = "bulk-edit", visible_alias = "be")]
+    BulkEdit {
+        /// JQL query matching target issues
+        #[arg(long)]
+        jql: Option<String>,
+        /// Comma-separated list of issue keys to edit (e.g. PROJ-1,PROJ-2)
+        #[arg(long)]
+        issues: Option<String>,
+        /// Update the issue summary
+        #[arg(long)]
+        summary: Option<String>,
+        /// Update the issue description
+        #[arg(long)]
+        description: Option<String>,
+        /// Comma-separated labels to set on the issue
+        #[arg(long)]
+        labels: Option<String>,
+        /// Update the assignee using a Jira user search query
+        #[arg(long)]
+        assignee: Option<String>,
+        /// Set a field in FieldName=Value or FieldID=Value format (can be specified multiple times)
+        #[arg(short, long = "field", value_name = "FIELD=VALUE")]
+        fields: Vec<String>,
+        /// Set a field with raw JSON in FieldName=JSON format (can be specified multiple times)
+        #[arg(long = "field-json", value_name = "FIELD=JSON")]
+        fields_json: Vec<String>,
+        /// Automatically confirm the updates (no prompt)
+        #[arg(short, long)]
+        yes: bool,
+        /// Maximum number of consecutive failures before aborting (default: 3)
+        #[arg(long)]
+        max_failures: Option<usize>,
     },
 
     /// Assign a Jira issue to a user
@@ -384,8 +425,47 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             description,
             labels,
             assignee,
+            fields,
+            fields_json,
         } => {
-            commands::edit::run(&client, key, summary, description, labels, assignee).await?;
+            commands::edit::run(
+                &client,
+                key,
+                summary,
+                description,
+                labels,
+                assignee,
+                fields,
+                fields_json,
+            )
+            .await?;
+        }
+        Commands::BulkEdit {
+            jql,
+            issues,
+            summary,
+            description,
+            labels,
+            assignee,
+            fields,
+            fields_json,
+            yes,
+            max_failures,
+        } => {
+            commands::bulk_edit::run(
+                &client,
+                jql,
+                issues,
+                summary,
+                description,
+                labels,
+                assignee,
+                fields,
+                fields_json,
+                yes,
+                max_failures,
+            )
+            .await?;
         }
         Commands::Assign { key, user } => {
             commands::assign::run(&client, key, user).await?;

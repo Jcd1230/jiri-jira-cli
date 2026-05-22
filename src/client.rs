@@ -21,6 +21,16 @@ pub struct AtlassianClient {
     field_cache: std::sync::Mutex<Option<FieldLookup>>,
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct FieldSchema {
+    #[serde(rename = "type")]
+    pub field_type: Option<String>,
+    pub items: Option<String>,
+    pub custom: Option<String>,
+    #[serde(rename = "customId")]
+    pub custom_id: Option<i64>,
+}
+
 /// Metadata lookup table for Jira fields.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FieldLookup {
@@ -28,6 +38,10 @@ pub struct FieldLookup {
     pub id_to_name: HashMap<String, String>,
     /// Map of lowercase human-readable name to Jira internal field ID.
     pub name_to_id: HashMap<String, String>,
+    /// Map of Jira internal field ID to its schema.
+    pub id_to_schema: HashMap<String, FieldSchema>,
+    /// Map of lowercase human-readable name to list of Jira internal field IDs (for detecting duplicates).
+    pub name_to_ids: HashMap<String, Vec<String>>,
 }
 
 impl AtlassianClient {
@@ -319,6 +333,8 @@ impl AtlassianClient {
             .await?;
         let mut id_to_name = HashMap::new();
         let mut name_to_id = HashMap::new();
+        let mut id_to_schema = HashMap::new();
+        let mut name_to_ids = HashMap::new();
 
         if let Some(fields) = data.as_array() {
             for f in fields {
@@ -326,7 +342,19 @@ impl AtlassianClient {
                 let name = f["name"].as_str().unwrap_or_default().to_string();
                 if !id.is_empty() && !name.is_empty() {
                     id_to_name.insert(id.clone(), name.clone());
-                    name_to_id.insert(name.to_lowercase(), id);
+                    
+                    let name_lower = name.to_lowercase();
+                    name_to_ids
+                        .entry(name_lower.clone())
+                        .or_insert_with(Vec::new)
+                        .push(id.clone());
+                    name_to_id.insert(name_lower, id.clone());
+
+                    if let Some(schema_val) = f.get("schema") {
+                        if let Ok(schema) = serde_json::from_value::<FieldSchema>(schema_val.clone()) {
+                            id_to_schema.insert(id, schema);
+                        }
+                    }
                 }
             }
         }
@@ -334,6 +362,8 @@ impl AtlassianClient {
         let lookup = FieldLookup {
             id_to_name,
             name_to_id,
+            id_to_schema,
+            name_to_ids,
         };
         let mut cache = self.field_cache.lock().unwrap();
         *cache = Some(lookup.clone());

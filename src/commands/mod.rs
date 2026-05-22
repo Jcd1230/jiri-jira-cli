@@ -1,5 +1,6 @@
 pub mod assign;
 pub mod attach;
+pub mod bulk_edit;
 pub mod comment;
 pub mod completions;
 pub mod config;
