@@ -1,4 +1,4 @@
-use crate::client::AtlassianClient;
+use jiri_core::client::AtlassianClient;
 use owo_colors::OwoColorize;
 use std::process::Command;
 

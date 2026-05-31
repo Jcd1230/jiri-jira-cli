@@ -1,9 +1,9 @@
-use crate::client::AtlassianClient;
+use jiri_core::client::AtlassianClient;
 use owo_colors::OwoColorize;
 
 /// Execute the assign command to set issue assignee.
 pub async fn run(client: &AtlassianClient, key: String, user: String) -> Result<(), String> {
-    let account_id = super::edit::resolve_account_id(client, &user).await?;
+    let account_id = client.resolve_account_id(&user).await?;
     client
         .update_issue(
             &key,

@@ -1,4 +1,4 @@
-use crate::config::{mask_token, Config, FileConfig};
+use jiri_core::config::{mask_token, Config, FileConfig};
 use owo_colors::OwoColorize;
 use std::path::PathBuf;
 

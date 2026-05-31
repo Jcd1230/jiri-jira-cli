@@ -1,5 +1,5 @@
-use crate::client::AtlassianClient;
-use crate::config::{mask_token, Config};
+use jiri_core::client::AtlassianClient;
+use jiri_core::config::{mask_token, Config};
 use owo_colors::OwoColorize;
 use std::env;
 use std::path::PathBuf;

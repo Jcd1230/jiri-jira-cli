@@ -1,6 +1,6 @@
-use crate::adf;
-use crate::client::AtlassianClient;
-use crate::formatter::Formatter;
+use jiri_core::adf;
+use jiri_core::client::AtlassianClient;
+use jiri_core::formatter::Formatter;
 use owo_colors::OwoColorize;
 use serde_json::Value;
 

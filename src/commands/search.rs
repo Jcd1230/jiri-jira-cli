@@ -1,6 +1,6 @@
-use crate::client::AtlassianClient;
-use crate::fields;
-use crate::formatter::{Formatter, OutputFormat};
+use jiri_core::client::AtlassianClient;
+use jiri_core::fields;
+use jiri_core::formatter::{Formatter, OutputFormat};
 use owo_colors::OwoColorize;
 use serde_json::Value;
 
@@ -157,7 +157,7 @@ struct ResolvedFields {
     keys: Vec<String>,
 }
 
-fn resolve_fields(requested: &[String], lookup: &crate::client::FieldLookup) -> ResolvedFields {
+fn resolve_fields(requested: &[String], lookup: &jiri_core::client::FieldLookup) -> ResolvedFields {
     let mut query_fields = Vec::new();
     let mut headers = Vec::new();
     let mut keys = Vec::new();

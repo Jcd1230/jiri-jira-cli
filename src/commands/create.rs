@@ -1,4 +1,4 @@
-use crate::client::AtlassianClient;
+use jiri_core::client::AtlassianClient;
 use owo_colors::OwoColorize;
 
 /// Execute the create command to create a new issue.

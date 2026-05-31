@@ -1,4 +1,4 @@
-use crate::client::AtlassianClient;
+use jiri_core::client::AtlassianClient;
 use owo_colors::OwoColorize;
 use serde_json::Value;
 use std::io::{self, Write};
@@ -49,7 +49,7 @@ pub async fn run(
         return Ok(());
     }
 
-    let payload = crate::fields::build_update_payload(
+    let payload = jiri_core::fields::build_update_payload(
         client,
         summary,
         description,

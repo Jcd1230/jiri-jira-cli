@@ -1,5 +1,5 @@
-use crate::client::AtlassianClient;
-use crate::formatter::Formatter;
+use jiri_core::client::AtlassianClient;
+use jiri_core::formatter::Formatter;
 
 /// Execute the projects command to list projects.
 pub async fn run(client: &AtlassianClient, formatter: &Formatter) -> Result<(), String> {

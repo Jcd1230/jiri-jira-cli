@@ -1,5 +1,5 @@
-use crate::adf;
-use crate::client::AtlassianClient;
+use jiri_core::adf;
+use jiri_core::client::AtlassianClient;
 use owo_colors::OwoColorize;
 use textwrap::wrap;
 

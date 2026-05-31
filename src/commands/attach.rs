@@ -1,4 +1,4 @@
-use crate::client::AtlassianClient;
+use jiri_core::client::AtlassianClient;
 use owo_colors::OwoColorize;
 use std::time::Duration;
 use tokio::time::sleep;
@@ -8,19 +8,19 @@ pub async fn run(
     key: String,
     file_path: String,
     message: Option<String>,
-) -> Result<(), Box<dyn std::error::Error>> {
+) -> Result<(), String> {
     println!("Attaching {} to issue {}...", file_path, key);
     let result = client.attach_to_issue(&key, &file_path).await?;
 
     let attachments = result
         .as_array()
-        .ok_or("Failed to parse attachment response")?;
+        .ok_or_else(|| "Failed to parse attachment response".to_string())?;
     let attachment = attachments
         .first()
-        .ok_or("No attachment returned in response")?;
+        .ok_or_else(|| "No attachment returned in response".to_string())?;
     let filename = attachment["filename"].as_str().unwrap_or("unknown");
-    let attachment_id = attachment["id"].as_str().ok_or("Attachment has no numeric ID")?;
-    let attachment_url = attachment["content"].as_str().ok_or("Attachment has no content URL")?;
+    let attachment_id = attachment["id"].as_str().ok_or_else(|| "Attachment has no numeric ID".to_string())?;
+    let attachment_url = attachment["content"].as_str().ok_or_else(|| "Attachment has no content URL".to_string())?;
 
     println!(
         "{} {}",

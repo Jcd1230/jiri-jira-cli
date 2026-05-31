@@ -1,16 +1,11 @@
-mod adf;
-mod client;
 mod commands;
-mod config;
-mod fields;
-mod formatter;
 
 use clap::builder::styling::{AnsiColor, Effects, Styles};
 use clap::{Parser, Subcommand};
 use clap_complete::Shell;
-use client::AtlassianClient;
-use config::Config;
-use formatter::{Formatter, OutputFormat};
+use jiri_core::client::AtlassianClient;
+use jiri_core::config::Config;
+use jiri_core::formatter::{Formatter, OutputFormat};
 
 fn get_styles() -> Styles {
     Styles::styled()
@@ -36,9 +31,17 @@ pub struct Cli {
     #[arg(long, global = true)]
     csv: bool,
 
-    /// Output JSON
+    /// Output JSON (array of objects)
     #[arg(long, global = true)]
     json: bool,
+
+    /// Output JSON Lines (one object per line, for streaming/piping)
+    #[arg(long, global = true)]
+    jsonl: bool,
+
+    /// Output a GitHub-flavored Markdown table
+    #[arg(long, global = true)]
+    markdown: bool,
 
     /// No borders, padded columns
     #[arg(long, global = true)]
@@ -223,6 +226,9 @@ enum Commands {
     /// Diagnostic tool to check configuration and connectivity
     Doctor,
 
+    /// Interactive setup wizard — configure credentials and validate connectivity
+    Init,
+
     /// Confluence Cloud operations (Search, View, Edit)
     #[command(visible_alias = "conf")]
     Confluence {
@@ -384,16 +390,48 @@ enum ConfluenceCommands {
 
 #[tokio::main]
 /// Entry point for the jiri CLI.
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() {
     let cli = Cli::parse();
 
+    if let Err(e) = run(cli).await {
+        eprintln!("error: {}", e);
+        std::process::exit(exit_code_for_error(&e));
+    }
+}
+
+/// Map error messages to meaningful exit codes for scripting.
+fn exit_code_for_error(err: &str) -> i32 {
+    let lower = err.to_lowercase();
+    if lower.contains("could not find a complete configuration")
+        || lower.contains("missing auth")
+        || lower.contains("missing jira_")
+    {
+        2 // Configuration error
+    } else if lower.contains("401") || lower.contains("403") || lower.contains("authentication") {
+        3 // Auth/permission error
+    } else if lower.contains("404") || lower.contains("not found") {
+        4 // Resource not found
+    } else if lower.contains("connection") || lower.contains("dns") || lower.contains("timeout") {
+        5 // Network error
+    } else {
+        1 // General error
+    }
+}
+
+async fn run(cli: Cli) -> Result<(), String> {
     if cli.verbose {
-        std::env::set_var("JIRI_VERBOSE", "1");
+        unsafe { std::env::set_var("JIRI_VERBOSE", "1") };
     }
 
     // Completions don't need auth
     if let Commands::Completions { shell } = &cli.command {
         commands::completions::run(*shell);
+        return Ok(());
+    }
+
+    // Init doesn't need existing auth
+    if let Commands::Init = &cli.command {
+        commands::init::run().await?;
         return Ok(());
     }
 
@@ -404,6 +442,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         OutputFormat::CSV
     } else if cli.json {
         OutputFormat::Json
+    } else if cli.jsonl {
+        OutputFormat::Jsonl
+    } else if cli.markdown {
+        OutputFormat::Markdown
     } else if cli.plain {
         OutputFormat::Plain
     } else {
@@ -529,6 +571,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         Commands::Doctor => {
             commands::doctor::run(&client).await?;
         }
+        Commands::Init => unreachable!(),
         Commands::Confluence { subcommand } => match subcommand {
             ConfluenceCommands::Search {
                 query,

@@ -8,6 +8,7 @@ pub mod confluence;
 pub mod create;
 pub mod doctor;
 pub mod edit;
+pub mod init;
 pub mod open;
 pub mod projects;
 pub mod search;

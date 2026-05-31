@@ -1,83 +1,157 @@
 ---
 name: jiri
-description: A CLI tool for interacting with Jira Cloud to manage issues, projects, and comments.
+description: A CLI tool for interacting with Jira Cloud and Confluence Cloud to manage issues, projects, pages, and automated workflows.
 ---
 
-# Jiri (Jira CLI)
+# Jiri (Jira & Confluence CLI)
 
-`jiri` is a command-line interface for Jira Cloud. It allows you to list projects, search for issues using JQL, view issue details, transition issues between states, create new issues, and add comments.
+`jiri` is a command-line interface for Atlassian Cloud. It allows you to manage Jira issues (search, view, create, edit, transition, assign, comment, attach) and Confluence pages (search, view, create, edit with programmatic patching).
 
 ## Setup
 
-The tool expects a configuration file at `~/.config/jiri/config.toml` or `jiri.toml` in the current directory, or environment variables.
+Run the interactive setup wizard:
+```bash
+jiri init
+```
 
-### Configuration (`jiri.toml`)
+Or configure manually via `~/.config/jiri/config.toml`, `jiri.toml` (local), or environment variables.
+
+### Configuration (`config.toml`)
 ```toml
 [auth]
 username = "your-email@example.com"
 token = "your-api-token"
 site = "https://your-org.atlassian.net"
+
+[general]
+default_project = "PROJ"
 ```
 
 ### Environment Variables
 - `JIRA_API_USERNAME`
 - `JIRA_API_TOKEN`
 - `JIRA_SITE`
+- `JIRA_DEFAULT_PROJECT` (optional)
 
-## Usage
-
-### Listing Projects
-List all projects visible to the user.
-```bash
-jiri projects
-```
+## Jira Commands
 
 ### Searching Issues
-Search for issues using Jira Query Language (JQL).
 ```bash
 # Basic search (default fields: key, summary)
 jiri search "assignee = currentUser() AND status = 'In Progress'"
 
-# Custom fields
-jiri search "project = PROJ" --fields "key,summary,status,priority,assignee"
+# Custom fields and output limit
+jiri search "project = PROJ" --fields "key,summary,status,priority,assignee" --limit 50
 
-# Comma-separated output (useful for parsing)
+# Machine-readable output
+jiri search "project = PROJ" --jsonl | jq '.KEY'
 jiri search "project = PROJ" --csv --no-header
 
-# Discover available fields for a query (prints field IDs and names)
+# Discover available fields
 jiri search "project = PROJ" --get-fields
+
+# Search all projects (ignores default_project filter)
+jiri search "status = Done" --all-projects
 ```
 
 ### Viewing an Issue
-View details of a specific issue, including description and recent comments.
 ```bash
 jiri view PROJ-123
 ```
 
 ### Transitioning an Issue
-Move an issue to a different status (e.g., "To Do" -> "In Progress").
-
 ```bash
 # List available transitions
 jiri transition PROJ-123
 
-# Perform a transition (fuzzy match)
+# Perform a transition
 jiri transition PROJ-123 "Done"
 ```
 
 ### Creating an Issue
-Create a new issue.
 ```bash
-jiri create --project PROJ --summary "Fix the login bug" --type Bug --description "Login fails with 500 error."
+jiri create --project PROJ --summary "Fix the login bug" --type Bug --description "Details"
 ```
 
-### Adding a Comment
-Add a comment to an issue.
+### Editing an Issue
 ```bash
-jiri comment PROJ-123 "I have fixed this in the latest commit."
+jiri edit PROJ-123 --summary "Updated title" --labels "bug,urgent"
+jiri edit PROJ-123 --assignee "jane@example.com"
+jiri edit PROJ-123 --field "Story Points=5" --field-json "customfield_10010={\"value\":\"High\"}"
 ```
+
+### Bulk Editing
+```bash
+jiri bulk-edit --jql "project = PROJ AND status = Done" --labels "archived" --yes
+jiri bulk-edit --issues "PROJ-1,PROJ-2" --assignee "jane@example.com"
+```
+
+### Assigning, Commenting, Attaching
+```bash
+jiri assign PROJ-123 "jane@example.com"
+jiri comment PROJ-123 "Fixed in latest commit."
+jiri attach PROJ-123 ./screenshot.png --message "See attached"
+```
+
+### Opening in Browser
+```bash
+jiri open PROJ-123
+```
+
+## Confluence Commands
+
+### Searching Pages
+```bash
+jiri confluence search "Release Notes"
+jiri confluence search "Meeting" --space TEAM
+jiri confluence search --cql "space = TEAM and lastModified > now('-1w')"
+```
+
+### Viewing a Page
+```bash
+jiri confluence view 12345678          # rendered plain text
+jiri confluence view 12345678 --raw    # raw ADF JSON
+```
+
+### Creating a Page
+```bash
+jiri confluence create "Page Title" --space TEAM --content "# Hello\nMarkdown body"
+```
+
+### Editing a Page (Programmatic Patcher)
+```bash
+jiri confluence edit 12345678 --append "## New Section\nContent here"
+jiri confluence edit 12345678 --prepend "# WARNING\nThis page is deprecated"
+jiri confluence edit 12345678 --replace "OLD_TERM:NEW_TERM"
+jiri confluence edit 12345678 --anchor "heading:Changelog" --after "## v1.2\n- Fixed bug"
+jiri confluence edit 12345678 --title "New Title" --minor
+```
+
+## Output Formats
+
+All tabular commands support these global flags:
+- `--csv` — comma-separated values
+- `--json` — JSON array of objects (keys from header row)
+- `--jsonl` — one JSON object per line (ideal for `jq` and streaming)
+- `--markdown` — GitHub-flavored Markdown table
+- `--plain` — space-padded columns, no borders
+- `--no-header` — omit header row
+
+## Exit Codes
+| Code | Meaning |
+|------|---------|
+| 0 | Success |
+| 1 | General error |
+| 2 | Configuration error |
+| 3 | Auth/permission error |
+| 4 | Resource not found |
+| 5 | Network error |
 
 ## Tips for Agents
-- Use `jiri search "..." --get-fields` first if you need to know which fields are available or what their IDs are before constructing a complex JQL query or requesting specific fields.
-- Use `--csv` format when you need to process many issues programmatically, as it is easier to parse than the default table output.
-- When transitioning issues, first run `jiri transition <KEY>` to see the exact names of available transitions (e.g., "In Progress" vs "In Review").
+- Use `jiri search "..." --get-fields` first to discover field IDs before requesting custom fields.
+- Use `--jsonl` for programmatic processing — easier to parse than tables or CSV.
+- Use `--csv --no-header` when you need simple line-by-line output.
+- When transitioning issues, first run `jiri transition <KEY>` without a status to see available options.
+- For Confluence edits, prefer `--anchor "heading:Section Name" --after "content"` for precise placement.
+- Use `jiri doctor` to diagnose connectivity or auth problems.
+- Exit codes are machine-friendly: check for 2 (config), 3 (auth), 4 (not found), 5 (network) in scripts.

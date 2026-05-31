@@ -157,7 +157,7 @@ pub async fn format_field_value(
             }
         }
         "user" => {
-            let account_id = crate::commands::edit::resolve_account_id(client, value_str).await?;
+            let account_id = client.resolve_account_id(value_str).await?;
             Ok(serde_json::json!({ "accountId": account_id }))
         }
         "priority" | "resolution" | "project" => {
@@ -180,7 +180,7 @@ pub async fn format_field_value(
                         arr.push(Value::String(part.to_string()));
                     }
                     "user" => {
-                        let account_id = crate::commands::edit::resolve_account_id(client, part).await?;
+                        let account_id = client.resolve_account_id(part).await?;
                         arr.push(serde_json::json!({ "accountId": account_id }));
                     }
                     "component" | "version" | "option" => {
@@ -244,7 +244,7 @@ pub async fn build_update_payload(
     }
 
     if let Some(a) = assignee {
-        let account_id = crate::commands::edit::resolve_account_id(client, &a).await?;
+        let account_id = client.resolve_account_id(&a).await?;
         fields.insert(
             "assignee".to_string(),
             serde_json::json!({ "accountId": account_id }),

@@ -35,11 +35,28 @@ If no config file is found, jiri reads:
 - `JIRA_SITE`: Base Jira site URL (e.g., `https://your-org.atlassian.net`).
 - `JIRA_DEFAULT_PROJECT`: Default project key (optional).
 
+## Quick Start
+```bash
+jiri init              # interactive setup wizard
+jiri doctor            # verify configuration and connectivity
+```
+
 ## Usage
 
 ### Build
 ```bash
 cargo build --release
+```
+
+### Output Formats
+All tabular commands support these global flags:
+```bash
+jiri search "..." --csv          # comma-separated values
+jiri search "..." --json         # JSON array of objects (header-keyed)
+jiri search "..." --jsonl        # one JSON object per line (for streaming/jq)
+jiri search "..." --markdown     # GitHub-flavored Markdown table
+jiri search "..." --plain        # space-padded columns, no borders
+jiri search "..." --no-header    # omit header row
 ```
 
 ### Jira Commands
@@ -108,6 +125,41 @@ jiri confluence edit 12345678 --replace "OLD_TERM:NEW_TERM"
 jiri confluence edit 12345678 --title "New Title" --minor
 ```
 
+### Other Commands
+
+#### Edit an Issue
+```bash
+jiri edit PROJ-123 --summary "New title" --labels "bug,urgent"
+jiri edit PROJ-123 --field "Story Points=5" --field-json "customfield_10010={\"value\":\"High\"}"
+```
+
+#### Bulk Edit Issues
+```bash
+jiri bulk-edit --jql "project = PROJ AND status = Done" --labels "archived"
+jiri bulk-edit --issues "PROJ-1,PROJ-2,PROJ-3" --assignee "jane@co.com" --yes
+```
+
+#### Assign an Issue
+```bash
+jiri assign PROJ-123 "jane@example.com"
+```
+
+#### Attach a File
+```bash
+jiri attach PROJ-123 ./screenshot.png --message "See attached screenshot"
+```
+
+#### Open in Browser
+```bash
+jiri open PROJ-123
+```
+
+#### Manage Configuration
+```bash
+jiri config show              # show effective config and source
+jiri config set project PROJ  # set default project
+```
+
 ### Shell Completions
 ```bash
 jiri completions bash >> ~/.bashrc
@@ -116,10 +168,24 @@ jiri completions fish > ~/.config/fish/completions/jiri.fish
 ```
 
 ## Project Structure
-- **`src/main.rs`**: Entry point and CLI definition.
-- **`src/client.rs`**: `AtlassianClient` for Jira and Confluence REST APIs.
-- **`src/adf.rs`**: Atlassian Document Format (ADF) parsing and manipulation.
+- **`jiri-core/`**: Reusable library crate (can be used without the CLI).
+  - **`src/adf.rs`**: Atlassian Document Format (ADF) parsing and manipulation.
+  - **`src/client.rs`**: `AtlassianClient` for Jira and Confluence REST APIs.
+  - **`src/config.rs`**: Configuration loading and layering.
+  - **`src/fields.rs`**: Jira field resolution and value formatting.
+  - **`src/formatter.rs`**: Multi-format output renderer (table, CSV, JSON, JSONL, Markdown, plain).
+- **`src/main.rs`**: CLI entry point and argument definitions.
 - **`src/commands/`**: Subcommand implementations.
+
+## Exit Codes
+| Code | Meaning |
+|------|---------|
+| 0 | Success |
+| 1 | General error |
+| 2 | Configuration error (missing config) |
+| 3 | Authentication/permission error (401/403) |
+| 4 | Resource not found (404) |
+| 5 | Network/connectivity error |
 
 ## Key Features
 - **Programmatic Patcher**: Reliable targeted edits to Confluence pages with auto-retries on version conflicts.

@@ -115,6 +115,48 @@ jiri confluence edit 12345678 --replace "OLD_TERM:NEW_TERM"
 jiri confluence edit 12345678 --title "New Title" --minor
 ```
 
+### Other Commands
+
+#### Setup Wizard
+```bash
+jiri init   # interactive onboarding: credentials, validation, completions
+```
+
+#### Edit an Issue
+```bash
+jiri edit PROJ-123 --summary "New title" --labels "bug,urgent"
+jiri edit PROJ-123 --field "Story Points=5"
+```
+
+#### Bulk Edit Issues
+```bash
+jiri bulk-edit --jql "project = PROJ AND status = Done" --labels "archived"
+jiri bulk-edit --issues "PROJ-1,PROJ-2" --assignee "jane@co.com" --yes
+```
+
+#### Assign / Attach / Open
+```bash
+jiri assign PROJ-123 "jane@example.com"
+jiri attach PROJ-123 ./screenshot.png --message "See attached"
+jiri open PROJ-123
+```
+
+#### Configuration & Diagnostics
+```bash
+jiri config show
+jiri config set project PROJ
+jiri doctor
+```
+
+### Output Formats
+All tabular commands support global flags:
+- `--csv` — comma-separated values
+- `--json` — JSON array of objects (header-keyed)
+- `--jsonl` — newline-delimited JSON (one object per line)
+- `--markdown` — GitHub-flavored Markdown table
+- `--plain` — space-padded columns, no borders
+- `--no-header` — omit header row
+
 ### Shell Completions
 ```bash
 jiri completions bash >> ~/.bashrc
@@ -123,10 +165,24 @@ jiri completions fish > ~/.config/fish/completions/jiri.fish
 ```
 
 ## Project Structure
-- **`src/main.rs`**: Entry point and CLI definition.
-- **`src/client.rs`**: `AtlassianClient` for Jira and Confluence REST APIs.
-- **`src/adf.rs`**: Atlassian Document Format (ADF) parsing and manipulation.
+- **`jiri-core/`**: Reusable library crate (public API for external integrations).
+  - **`src/adf.rs`**: Atlassian Document Format (ADF) parsing and manipulation.
+  - **`src/client.rs`**: `AtlassianClient` for Jira and Confluence REST APIs.
+  - **`src/config.rs`**: Configuration loading and layering.
+  - **`src/fields.rs`**: Jira field resolution and value formatting.
+  - **`src/formatter.rs`**: Multi-format output renderer.
+- **`src/main.rs`**: CLI entry point and argument definitions.
 - **`src/commands/`**: Subcommand implementations.
+
+## Exit Codes
+| Code | Meaning |
+|------|---------|
+| 0 | Success |
+| 1 | General error |
+| 2 | Configuration error |
+| 3 | Auth/permission error (401/403) |
+| 4 | Resource not found (404) |
+| 5 | Network/connectivity error |
 
 ## Release Process
 - **Commit often**: Use `jj commit` (or `jj describe`) frequently to track progress.
